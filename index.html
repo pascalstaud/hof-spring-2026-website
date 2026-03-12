@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOF — Curated, Not Made</title>
+<title>HOF — Write Your Own Story</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -12,171 +12,174 @@
 
 <!-- NAVIGATION -->
 <nav class="nav" id="nav">
-  <a href="index.html" class="nav-logo">HOF</a>
-  <div class="nav-links">
-    <a href="collection.html">The Collection</a>
-    <a href="about.html">The Maison</a>
-    <a href="#contact">Contact</a>
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
   </div>
-  <button class="nav-menu" id="navToggle" aria-label="Menu">
-    <span></span><span></span>
-  </button>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-monogram">H</span>
+  </a>
+  <div class="nav-right">
+    <a href="#" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
 </nav>
 
-<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="collection.html">The Collection</a>
-  <a href="about.html">The Maison</a>
-  <a href="#contact">Contact</a>
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="#">Press</a>
+  <a href="contact.html">Contact</a>
 </div>
 
-<!-- PAGE 01 — HOMEPAGE -->
-
-<!-- HERO SECTION -->
+<!-- HERO -->
 <header class="hero">
   <div class="hero-bg">
     <img src="images/prelude/exterior-hero.png" alt="HOF G — Prelude" class="hero-img">
     <div class="hero-overlay"></div>
   </div>
   <div class="hero-content">
-    <p class="hero-label">SPRING SUMMER 2026</p>
+    <p class="hero-label">Spring Summer 2026</p>
     <h1 class="hero-title">Before the bloom</h1>
     <p class="hero-sub">Prelude. Four compositions curated around the moment before bloom.</p>
     <a href="collection.html" class="btn btn-light">Explore the Collection</a>
   </div>
 </header>
 
-<!-- COLLECTION OVERVIEW -->
-<section class="section section-collection-grid">
+<!-- ALL CARS -->
+<section class="all-cars-section fade-in">
   <div class="container">
-    <div class="section-header">
-      <p class="label">Spring Summer 2026</p>
-      <h2 class="heading-lg">The Collection</h2>
+    <div class="all-cars-header">
+      <h2>All Cars</h2>
     </div>
-    <div class="collection-label">Spring Summer 2026 — Prelude</div>
-    <div class="car-grid">
-      <a href="prelude.html" class="car-tile">
-        <div class="car-tile-img">
+    <div class="all-cars-grid">
+      <a href="prelude.html" class="car-card">
+        <div class="car-card-img">
           <img src="images/prelude/exterior-hero.png" alt="Prelude">
         </div>
-        <div class="car-tile-info">
-          <span class="car-tile-label">Collector Model · SS26</span>
-          <h3 class="car-tile-name">Prelude</h3>
-        </div>
+        <p class="car-card-brand">HOF</p>
+        <p class="car-card-name">Prelude &middot; Collector Model</p>
       </a>
-      <a href="vernal.html" class="car-tile">
-        <div class="car-tile-img">
+      <a href="vernal.html" class="car-card">
+        <div class="car-card-img">
           <img src="images/vernal/mood-board.png" alt="Vernal">
         </div>
-        <div class="car-tile-info">
-          <span class="car-tile-label">Seasonal Model · SS26</span>
-          <h3 class="car-tile-name">Vernal</h3>
-        </div>
+        <p class="car-card-brand">HOF</p>
+        <p class="car-card-name">Vernal &middot; Seasonal</p>
       </a>
-      <a href="cadence.html" class="car-tile">
-        <div class="car-tile-img">
+      <a href="cadence.html" class="car-card">
+        <div class="car-card-img">
           <img src="images/cadence/exterior-hero.png" alt="Cadence">
         </div>
-        <div class="car-tile-info">
-          <span class="car-tile-label">Seasonal Model · SS26</span>
-          <h3 class="car-tile-name">Cadence</h3>
-        </div>
+        <p class="car-card-brand">HOF</p>
+        <p class="car-card-name">Cadence &middot; Seasonal</p>
       </a>
-      <a href="genese.html" class="car-tile">
-        <div class="car-tile-img">
+      <a href="genese.html" class="car-card">
+        <div class="car-card-img">
           <img src="images/genese/exterior-hero.png" alt="Genese">
         </div>
-        <div class="car-tile-info">
-          <span class="car-tile-label">Seasonal Model · SS26</span>
-          <h3 class="car-tile-name">Genese</h3>
-        </div>
+        <p class="car-card-brand">HOF</p>
+        <p class="car-card-name">Genese &middot; Seasonal</p>
       </a>
     </div>
-    <div class="filter-bar">
-      <span class="filter-active">All Collections</span>
-      <span>Collector Models</span>
-      <span>Seasonal Models</span>
-      <span>Archive</span>
+    <div class="car-card-nav">
+      <div class="car-card-nav-btns">
+        <button class="btn btn-dark" style="padding:8px 20px; font-size:10px; margin:0">Explore All Cars</button>
+        <button class="btn btn-outline-dark" style="padding:8px 20px; font-size:10px; margin:0">Explore Prelude</button>
+      </div>
+      <div class="car-card-arrows">
+        <button aria-label="Previous">&larr;</button>
+        <button aria-label="Next">&rarr;</button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- EDITORIAL SECTION -->
-<section class="section section-editorial">
-  <div class="container-narrow">
-    <h2 class="heading-editorial">Prelude.</h2>
-    <p class="text-editorial">Material speaks. Proportion speaks. The deliberate absence of everything unnecessary speaks loudest. This is the language of couture — applied to the automobile.</p>
-    <p class="text-editorial">Four compositions, each curated around a single moment: the state before bloom. Tension without drama. Promise without noise.</p>
-    <a href="collection.html" class="link-underline">The Collection</a>
-  </div>
-</section>
-
-<!-- FEATURED COMPOSITION -->
-<section class="section section-featured">
-  <div class="featured-grid">
-    <div class="featured-img">
+<!-- EDITORIAL: THE UNUSUAL COMPOSITION -->
+<section class="editorial-block fade-in">
+  <div class="container">
+    <div class="editorial-img tall">
       <img src="images/prelude/interior-front.png" alt="Prelude Interior">
     </div>
-    <div class="featured-text">
-      <p class="label">Collector Model · SS26</p>
-      <h2 class="heading-lg">Prelude</h2>
-      <p class="text-body">The season's defining composition. Parisian couture sensibility meets botanical precision. A tonal range between champagne and indigo, brought to life through satin finishes, botanical textile inserts, and hand-placed embroidery. A presence that arrives without announcement.</p>
-      <a href="prelude.html" class="link-arrow">Explore Prelude</a>
+    <div class="editorial-text">
+      <h2 class="heading-editorial">THE<br>UNUSUAL<br>COMPOSITION.<br><span style="font-style:italic">THE HOF<br>CLASS.</span></h2>
+      <p class="text-body">Material speaks. Proportion speaks. The deliberate absence of everything unnecessary speaks loudest. This is the language of couture — applied to the automobile.</p>
+      <a href="collection.html" class="link-arrow">The Collection</a>
     </div>
   </div>
 </section>
 
-<!-- CAR COUTURE SECTION -->
-<section class="section section-dark">
-  <div class="container-narrow center">
-    <p class="label label-light">The Principle</p>
-    <h2 class="heading-display light">Car Couture.</h2>
-    <p class="text-body light">Seasonal rhythm. Cultural intention. The hand over the machine. The singular over the serial. Haute couture's principles — applied to the automobile.</p>
-    <p class="text-body light">Each HOF is composed from a cultural reference, through material conviction, into a form that exists once. When the season ends, it's gone.</p>
-    <p class="text-accent">A HOF is not configured. It is recognised.</p>
-    <a href="about.html" class="btn btn-outline-light">The Maison</a>
+<!-- EDITORIAL: SIR CLASS / PRELUDE FEATURE -->
+<section class="editorial-block reverse fade-in">
+  <div class="container">
+    <div class="editorial-text">
+      <span class="label">Collector Model &middot; SS26</span>
+      <h2 class="heading-editorial">PRELUDE.</h2>
+      <p class="text-body">The season's defining composition. Parisian couture sensibility meets botanical precision. A tonal range between champagne and indigo, brought to life through satin finishes, botanical textile inserts, and hand-placed embroidery.</p>
+      <a href="prelude.html" class="link-arrow">Explore Prelude</a>
+    </div>
+    <div class="editorial-img tall">
+      <img src="images/prelude/exterior-side.png" alt="Prelude Side">
+    </div>
+  </div>
+</section>
+
+<!-- CAR COUTURE -->
+<section class="section-dark fade-in">
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
+      <div>
+        <img src="images/prelude/detail-texture.png" alt="Craft Detail" style="width:100%;">
+      </div>
+      <div>
+        <p class="label label-light">The Principle</p>
+        <h2 class="heading-editorial light">CAR<br>COUTURE.</h2>
+        <p class="text-body light">Seasonal rhythm. Cultural intention. The hand over the machine. Haute couture's principles — applied to the automobile.</p>
+        <a href="about.html" class="link-arrow light">The Maison</a>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- MASTER TAILORING -->
-<section class="section section-craft">
-  <div class="craft-grid">
-    <div class="craft-img">
-      <img src="images/prelude/detail-craft.png" alt="Craft Detail">
-    </div>
-    <div class="craft-text">
-      <div class="craft-header">
+<section class="editorial-block fade-in">
+  <div class="container">
+    <div class="editorial-text">
+      <div>
         <span class="label">Our Craft</span>
-        <h2 class="heading-display">MASTER<br>TAILORING.</h2>
-        <span class="label" style="text-align:right">And Soul.</span>
+        <h2 class="heading-editorial">MASTER<br>TAILORING.</h2>
+        <span class="label" style="margin-top:-24px">And Soul.</span>
       </div>
-      <p class="text-body">Every HOF interior is completed by hand in our atelier in Sindelfingen. The discipline is tailoring — the structural kind. How a surface ages. How a seam falls under light. How an interior becomes warmer every year.</p>
-      <p class="text-body">Materials are chosen for what they'll become. Time is the only finish that can't be applied.</p>
+      <p class="text-body" style="margin-top:24px">Every HOF interior is completed by hand in our atelier in Sindelfingen. Materials are chosen for what they'll become. Time is the only finish that can't be applied.</p>
       <a href="about.html#atelier" class="link-arrow">The Atelier</a>
+    </div>
+    <div class="editorial-img tall">
+      <img src="images/prelude/detail-craft.png" alt="Craft Detail">
     </div>
   </div>
 </section>
 
-<!-- STORIES / EDITORIAL TILES -->
-<section class="section">
+<!-- LEARN MORE / STORIES -->
+<section class="section fade-in">
   <div class="container">
     <h2 class="heading-lg">Stories</h2>
     <div class="story-grid">
-      <a href="about.html#atelier" class="story-tile">
+      <a href="#" class="story-tile">
         <div class="story-tile-img">
           <img src="images/prelude/detail-texture.png" alt="Atelier">
         </div>
         <h3 class="story-tile-title">Inside the Atelier</h3>
         <p class="story-tile-sub">Where every composition begins and ends.</p>
       </a>
-      <a href="about.html#craft" class="story-tile">
+      <a href="#" class="story-tile">
         <div class="story-tile-img">
           <img src="images/prelude/interior-detail-2.png" alt="Craft">
         </div>
         <h3 class="story-tile-title">The Art of Making</h3>
         <p class="story-tile-sub">Two hands. One composition. No compromise.</p>
       </a>
-      <a href="collection.html" class="story-tile">
+      <a href="#" class="story-tile">
         <div class="story-tile-img">
           <img src="images/prelude/mood-board.png" alt="Collections">
         </div>
@@ -188,21 +191,41 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="footer" id="contact">
+<footer class="footer">
   <div class="container">
     <div class="footer-top">
-      <div class="footer-logo">HOF</div>
-      <p class="footer-tagline">CURATED, NOT MADE.</p>
+      <div class="footer-monogram">H</div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
     </div>
-    <div class="footer-links">
-      <a href="collection.html">Collections</a>
-      <a href="about.html">About</a>
-      <a href="#">Press</a>
-      <a href="#">Contact</a>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="prelude.html">Prelude</a>
+        <a href="cadence.html">Cadence</a>
+        <a href="genese.html">Genese</a>
+        <a href="vernal.html">Vernal</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>Maison HOF · Sindelfingen, Germany</p>
-      <p>Crafted, Not Made.</p>
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
     </div>
   </div>
 </footer>

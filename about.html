@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOF — The Maison</title>
+<title>HOF — The Art of Driving Identity</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -11,22 +11,26 @@
 <body>
 
 <!-- NAVIGATION -->
-<nav class="nav scrolled" id="nav">
-  <a href="index.html" class="nav-logo">HOF</a>
-  <div class="nav-links">
-    <a href="collection.html">The Collection</a>
-    <a href="about.html">The Maison</a>
-    <a href="index.html#contact">Contact</a>
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-monogram">H</span>
+  </a>
+  <div class="nav-right">
+    <a href="#" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
   </div>
   <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="collection.html">The Collection</a>
-  <a href="about.html">The Maison</a>
-  <a href="index.html#contact">Contact</a>
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="#">Press</a>
+  <a href="contact.html">Contact</a>
 </div>
-
-<!-- PAGE 02 — ABOUT -->
 
 <!-- HERO -->
 <header class="hero-inner">
@@ -39,49 +43,67 @@
   </div>
 </header>
 
-<!-- IDENTITY -->
-<section class="about-section" id="identity">
+<!-- IDENTITY AND STORY -->
+<section class="about-section fade-in" id="identity">
   <div class="container">
-    <div class="about-content">
-      <h2 class="heading-display">Identity.</h2>
-      <p class="text-editorial">There's a point where having everything stops meaning anything. The house is done. The wardrobe is considered. The next experience matters less than the last one did.</p>
-      <p class="text-editorial">At that point, the question changes. It's no longer what something does. It's what it says about the person who chose it. Taste over wealth. Identity over possession. The automobile — the most personal object most people will ever own — finally treated with the same attention.</p>
-      <p class="text-editorial">That's where HOF starts. Every composition begins with meaning. A cultural reference. A material conviction. A point of view. The object follows.</p>
+    <div class="about-culture-grid">
+      <div class="about-content">
+        <span class="label">Identity and Story</span>
+        <h2 class="heading-display">Identity.</h2>
+        <p class="text-editorial">There's a point where having everything stops meaning anything. The house is done. The wardrobe is considered. The next experience matters less than the last one did.</p>
+        <p class="text-editorial">At that point, the question changes. It's no longer what something does. It's what it says about the person who chose it. Taste over wealth. Identity over possession.</p>
+        <p class="text-editorial">That's where HOF starts. Every composition begins with meaning. A cultural reference. A material conviction. A point of view. The object follows.</p>
+      </div>
+      <div class="about-culture-img">
+        <img src="images/prelude/interior-front.png" alt="HOF Interior">
+      </div>
     </div>
   </div>
 </section>
 
 <!-- CAR COUTURE -->
-<section class="about-section">
+<section class="about-section fade-in">
   <div class="container">
-    <div class="about-content">
-      <h2 class="heading-display">Car Couture.</h2>
-      <p class="text-editorial">Haute couture's principles applied to the automobile. Seasonal collections. Cultural narratives. Artisan making. A composition that exists for one season and belongs to the person who recognised it.</p>
-      <p class="text-editorial">Fashion, jewellery, horology — they've operated this way for decades. The automobile hadn't. Now it does.</p>
-      <p class="text-accent">A HOF is not configured. It is recognised.</p>
+    <div class="about-culture-grid" style="direction:rtl">
+      <div class="about-culture-img" style="direction:ltr">
+        <img src="images/prelude/detail-texture.png" alt="Car Couture Detail">
+      </div>
+      <div class="about-content" style="direction:ltr">
+        <span class="label">The Principle</span>
+        <h2 class="heading-editorial">CAR<br>COUTURE.</h2>
+        <p class="text-editorial">Haute couture's principles applied to the automobile. Seasonal collections. Cultural narratives. Artisan making. A composition that exists for one season and belongs to the person who recognised it.</p>
+        <p class="text-editorial">Fashion, jewellery, horology — they've operated this way for decades. The automobile hadn't. Now it does.</p>
+        <p class="text-accent">A HOF is not configured. It is recognised.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CRAFT -->
-<section class="about-section" id="craft">
+<!-- OUR CRAFT -->
+<section class="about-section fade-in" id="craft">
   <div class="container">
-    <div class="about-content">
-      <h2 class="heading-display">Craft.</h2>
-      <p class="text-editorial">Sindelfingen. A few kilometres from where Carl Benz created the first automobile. Where Benz industrialised movement, HOF returns it to the hand.</p>
-      <p class="text-editorial">Every composition is completed entirely by hand. Leather chosen for how it ages in five years. Seams placed by hand because a hand knows tension differently. Surfaces finished with the understanding that patina is the material's memory.</p>
-      <p class="text-editorial">No compression. No industrial efficiency. Just intimacy — what happens when someone spends real time with a material.</p>
+    <div class="about-culture-grid">
+      <div class="about-content">
+        <span class="label">Our Craft</span>
+        <h2 class="heading-display">Craft.</h2>
+        <p class="text-editorial">Sindelfingen. A few kilometres from where Carl Benz created the first automobile. Where Benz industrialised movement, HOF returns it to the hand.</p>
+        <p class="text-editorial">Every composition is completed entirely by hand. Leather chosen for how it ages in five years. Seams placed by hand because a hand knows tension differently.</p>
+        <p class="text-editorial">No compression. No industrial efficiency. Just intimacy — what happens when someone spends real time with a material.</p>
+      </div>
+      <div class="about-culture-img">
+        <img src="images/prelude/detail-craft.png" alt="Craft Detail">
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FULL IMAGE -->
-<div class="full-image full-image-tall">
+<div class="full-image full-image-tall fade-in">
   <img src="images/prelude/interior-rear.png" alt="HOF Interior Craft">
 </div>
 
 <!-- QUOTE -->
-<section class="about-section">
+<section class="about-section fade-in">
   <div class="container">
     <div class="about-content centered">
       <div class="quote-block">
@@ -92,61 +114,60 @@
   </div>
 </section>
 
-<!-- CULTURE -->
-<section class="about-section">
+<!-- CULTURE AND NARRATIVES -->
+<section class="about-section fade-in">
   <div class="container">
-    <div class="about-content">
-      <h2 class="heading-display">Culture.</h2>
-      <p class="text-editorial">Where does a HOF come from? Not Sindelfingen. Culture. The sensibility that connects a Tadao Ando building to a Jacquemus campaign, a Frank Ocean album to an Aman resort. Beauty in restraint. Meaning in material. Presence in silence.</p>
-      <p class="text-editorial">Each collection starts with a reference — a mood, a body of work. The palette follows. Then the names. Then the photography. Everything from one source.</p>
-      <p class="text-editorial">Prelude: the moment before bloom. The tension of Parisian ateliers in February. Early morning light through glass. Everything about to begin.</p>
-      <p class="text-editorial">Next season, everything changes. New reference. New palette. New name. This season's compositions will be gone. That's the point.</p>
-      <a href="collection.html" class="link-arrow">The Collection</a>
-    </div>
-  </div>
-</section>
-
-<!-- ATELIER -->
-<section class="about-section" id="atelier">
-  <div class="container">
-    <div class="craft-grid">
-      <div class="craft-img">
-        <img src="images/prelude/detail-craft.png" alt="Atelier HOF">
+    <div class="about-culture-grid" style="direction:rtl">
+      <div class="about-culture-img" style="direction:ltr">
+        <img src="images/prelude/mood-board.png" alt="Culture">
       </div>
-      <div class="craft-text">
-        <h2 class="heading-display">The Atelier.</h2>
-        <p class="text-editorial">Sindelfingen, Germany. At the heart of automotive heritage. At a deliberate distance from everything that term implies.</p>
-        <p class="text-editorial">A space designed around the hand. Long tables. Natural light. Materials that wait in their own time.</p>
-        <p class="text-editorial">Every composition that leaves this room is complete. It carries its season, its cultural reference, and the hands that gave it form. Made to order. Unrepeatable.</p>
-        <p class="text-sm" style="margin-top:32px">Sindelfingen, Germany<br>Each composition made to order. Each one unrepeatable.</p>
+      <div class="about-content" style="direction:ltr">
+        <span class="label">Culture and Narratives</span>
+        <h2 class="heading-display">Culture.</h2>
+        <p class="text-editorial">Where does a HOF come from? Not Sindelfingen. Culture. The sensibility that connects a Tadao Ando building to a Jacquemus campaign, a Frank Ocean album to an Aman resort.</p>
+        <p class="text-editorial">Each collection starts with a reference — a mood, a body of work. The palette follows. Then the names. Then the photography. Everything from one source.</p>
+        <a href="collection.html" class="link-arrow">The Collection</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- EXPLORE -->
-<section class="about-section">
+<!-- THE ATELIER -->
+<section class="about-section fade-in" id="atelier">
+  <div class="container" style="text-align:center; max-width:800px;">
+    <div style="display:inline-flex; align-items:center; justify-content:center; font-size:32px; font-weight:600; letter-spacing:4px; color:var(--dark); border:2px solid var(--dark); padding:8px 18px; line-height:1; margin-bottom:32px;">H</div>
+    <h2 class="heading-display" style="text-align:center">The Atelier.</h2>
+    <p class="text-editorial" style="text-align:center">Sindelfingen, Germany. At the heart of automotive heritage. At a deliberate distance from everything that term implies.</p>
+    <p class="text-editorial" style="text-align:center">A space designed around the hand. Long tables. Natural light. Materials that wait in their own time. Every composition that leaves this room carries its season, its cultural reference, and the hands that gave it form.</p>
+  </div>
+</section>
+
+<!-- YOU MIGHT ALSO BE INTERESTED IN -->
+<section class="also-like fade-in">
   <div class="container">
-    <h2 class="heading-lg">The Collection</h2>
-    <div class="car-grid" style="grid-template-columns: repeat(3, 1fr);">
-      <a href="prelude.html" class="car-tile">
-        <div class="car-tile-img"><img src="images/prelude/exterior-hero.png" alt="Prelude"></div>
-        <span class="car-tile-label">Collector Model · SS26</span>
-        <h3 class="car-tile-name">Prelude</h3>
+    <h2>You might also be interested in</h2>
+    <div class="also-like-grid">
+      <a href="prelude.html" class="also-like-card">
+        <div class="also-like-card-img">
+          <img src="images/prelude/exterior-hero.png" alt="Prelude">
+        </div>
+        <p class="also-like-card-brand">HOF</p>
+        <p class="also-like-card-name">Prelude &middot; Collector Model</p>
       </a>
-      <a href="vernal.html" class="car-tile">
-        <div class="car-tile-img"><img src="images/vernal/mood-board.png" alt="Vernal"></div>
-        <span class="car-tile-label">Seasonal Model · SS26</span>
-        <h3 class="car-tile-name">Vernal</h3>
+      <a href="cadence.html" class="also-like-card">
+        <div class="also-like-card-img">
+          <img src="images/cadence/exterior-hero.png" alt="Cadence">
+        </div>
+        <p class="also-like-card-brand">HOF</p>
+        <p class="also-like-card-name">Cadence &middot; Seasonal</p>
       </a>
-      <a href="cadence.html" class="car-tile">
-        <div class="car-tile-img"><img src="images/cadence/exterior-hero.png" alt="Cadence"></div>
-        <span class="car-tile-label">Seasonal Model · SS26</span>
-        <h3 class="car-tile-name">Cadence</h3>
+      <a href="genese.html" class="also-like-card">
+        <div class="also-like-card-img">
+          <img src="images/genese/exterior-hero.png" alt="Genese">
+        </div>
+        <p class="also-like-card-brand">HOF</p>
+        <p class="also-like-card-name">Genese &middot; Seasonal</p>
       </a>
-    </div>
-    <div class="center">
-      <a href="collection.html" class="link-underline">All compositions</a>
     </div>
   </div>
 </section>
@@ -155,18 +176,38 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-top">
-      <div class="footer-logo">HOF</div>
-      <p class="footer-tagline">CURATED, NOT MADE.</p>
+      <div class="footer-monogram">H</div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
     </div>
-    <div class="footer-links">
-      <a href="collection.html">Collections</a>
-      <a href="about.html">About</a>
-      <a href="#">Press</a>
-      <a href="#">Contact</a>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="prelude.html">Prelude</a>
+        <a href="cadence.html">Cadence</a>
+        <a href="genese.html">Genese</a>
+        <a href="vernal.html">Vernal</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
     </div>
     <div class="footer-bottom">
-      <p>Maison HOF · Sindelfingen, Germany</p>
-      <p>Crafted, Not Made.</p>
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
     </div>
   </div>
 </footer>

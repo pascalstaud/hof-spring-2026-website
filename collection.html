@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HOF — Collections</title>
+<title>HOF — All Models</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
@@ -11,13 +11,14 @@
 <body>
 
 <!-- NAVIGATION -->
-<nav class="nav" id="nav">
+<nav class="nav nav-white" id="nav">
   <div class="nav-left">
     <a href="collection.html">Collections</a>
     <a href="about.html">About</a>
   </div>
   <a href="index.html" class="nav-logo">
-    <span class="nav-monogram">H</span>
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white">
+    <img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
   </a>
   <div class="nav-right">
     <a href="#" class="nav-link">Press</a>
@@ -32,127 +33,71 @@
   <a href="contact.html">Contact</a>
 </div>
 
-<!-- COLLECTION HERO -->
-<div class="collection-overview">
-  <div class="collection-hero-img">
-    <img src="images/prelude/exterior-side.png" alt="HOF Spring Summer 2026">
+<!-- PAGE HEADER -->
+<section class="section" style="padding-top: 120px;">
+  <div class="container">
+    <h1 class="heading-display">All Models</h1>
+    <p class="text-editorial">Explore the full HOF collection. From seasonal compositions to limited collector models — each one handcrafted at our atelier in Sindelfingen.</p>
   </div>
-</div>
+</section>
 
-<!-- FILTER + GRID -->
+<!-- FILTER BAR -->
 <section class="section fade-in">
   <div class="container">
     <div class="filter-bar">
-      <button class="filter-btn active">All Collections</button>
-      <button class="filter-btn">Spring Summer 26</button>
-      <button class="filter-btn">Collector Models</button>
-      <button class="filter-btn">Seasonal Models</button>
+      <button class="filter-btn active" data-filter="all">All Models</button>
+      <button class="filter-btn" data-filter="ss26">Spring Summer 26</button>
+      <button class="filter-btn" data-filter="collector">Collector Models</button>
+      <button class="filter-btn" data-filter="seasonal">Seasonal Models</button>
     </div>
 
+    <!-- COLLECTION GRID -->
     <div class="collection-grid">
-      <a href="prelude.html" class="collection-card">
+      <a href="prelude.html" class="collection-card" data-season="ss26" data-type="collector">
         <div class="collection-card-img">
           <img src="images/prelude/exterior-hero.png" alt="Prelude">
         </div>
         <p class="collection-card-brand">HOF</p>
         <p class="collection-card-name">Prelude &middot; Collector Model</p>
       </a>
-      <a href="vernal.html" class="collection-card">
-        <div class="collection-card-img">
-          <img src="images/vernal/mood-board.png" alt="Vernal">
-        </div>
-        <p class="collection-card-brand">HOF</p>
-        <p class="collection-card-name">Vernal &middot; Seasonal</p>
-      </a>
-      <a href="cadence.html" class="collection-card">
+      <a href="cadence.html" class="collection-card" data-season="ss26" data-type="seasonal">
         <div class="collection-card-img">
           <img src="images/cadence/exterior-hero.png" alt="Cadence">
         </div>
         <p class="collection-card-brand">HOF</p>
         <p class="collection-card-name">Cadence &middot; Seasonal</p>
       </a>
-      <a href="genese.html" class="collection-card">
+      <a href="genese.html" class="collection-card" data-season="ss26" data-type="seasonal">
         <div class="collection-card-img">
           <img src="images/genese/exterior-hero.png" alt="Genese">
         </div>
         <p class="collection-card-brand">HOF</p>
         <p class="collection-card-name">Genese &middot; Seasonal</p>
       </a>
+      <a href="vernal.html" class="collection-card" data-season="ss26" data-type="seasonal">
+        <div class="collection-card-img">
+          <img src="images/vernal/mood-board.png" alt="Vernal">
+        </div>
+        <p class="collection-card-brand">HOF</p>
+        <p class="collection-card-name">Vernal &middot; Seasonal</p>
+      </a>
+      <a href="#" class="collection-card" data-season="aw25" data-type="collector">
+        <div class="collection-card-img">
+          <img src="images/sir-class/hero-cinematic.png" alt="Sir Class">
+        </div>
+        <p class="collection-card-brand">HOF</p>
+        <p class="collection-card-name">Sir Class &middot; Collector Model</p>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- EDITORIAL: COLLECTION STORY -->
-<section class="editorial-block fade-in">
-  <div class="container">
-    <div class="editorial-img tall">
-      <img src="images/prelude/interior-front.png" alt="Prelude Interior">
-    </div>
-    <div class="editorial-text">
-      <span class="label">Spring Summer 2026</span>
-      <h2 class="heading-editorial">PRELUDE.</h2>
-      <p class="text-editorial">Prelude is not a season. It's a shift. Light returns. Colours soften. Structure gives way to movement. Something held in tension begins to open.</p>
-      <p class="text-editorial">HOF composed this moment into an object. Not the bloom — the state before it.</p>
-      <a href="prelude.html" class="link-arrow">Explore the Collector Model</a>
-    </div>
-  </div>
-</section>
-
-<!-- FULL IMAGE -->
-<div class="full-image fade-in">
-  <img src="images/prelude/exterior-hero.png" alt="HOF G V Prelude">
-</div>
-<div class="container-narrow center" style="padding:24px 48px">
-  <p class="text-sm">HOF G &middot; V — Prelude &middot; Collector Model &middot; SS26</p>
-</div>
-
-<!-- SHAPED BY COUTURE -->
-<section class="section fade-in">
-  <div class="container-narrow">
-    <h2 class="heading-display">Shaped by Couture.</h2>
-    <p class="text-editorial">Every surface is a deliberate act. Two tones — warm champagne and a deeper ground — in a satin finish that holds light, softens it, lets it go.</p>
-    <p class="text-editorial">Inside, the atmosphere shifts. Textile inserts carry a botanical jacquard created for Prelude alone — a floral language drawn from the Kenzo couture tradition, reinterpreted in grey and ivory.</p>
-    <p class="text-editorial">The cabin is a room. Composed, not configured.</p>
-  </div>
-</section>
-
-<!-- DETAIL IMAGES -->
-<div class="image-grid-3 fade-in">
-  <img src="images/prelude/detail-texture.png" alt="Exterior detail">
-  <img src="images/prelude/interior-detail-2.png" alt="Interior detail">
-  <img src="images/prelude/detail-craft.png" alt="Craft detail">
-</div>
-<div class="container" style="padding-top:16px; padding-bottom:16px">
-  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
-    <p class="text-sm">Exterior — Satin finish, two-tone composition.</p>
-    <p class="text-sm">Interior — Botanical textile inserts, warm leather.</p>
-    <p class="text-sm">Detail — Every stitch placed by hand, Sindelfingen.</p>
-  </div>
-</div>
-
-<!-- CLOSING -->
-<section class="section fade-in">
-  <div class="container-narrow center">
-    <h2 class="heading-display">A Composition You Inhabit.</h2>
-    <p class="text-editorial">Presence. Not the kind that announces — the kind you notice once you're inside. A mood. A material. A silence.</p>
-    <div class="quote-block">
-      <p class="quote-text">"True elegance appears at the moment something opens, not when it insists."</p>
-      <p class="quote-attr">HOF Creative Direction</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONSULTATION -->
-<section class="consultation fade-in">
-  <div class="consultation-inner">
-    <div class="consultation-img">
-      <img src="images/prelude/interior-rear.png" alt="Consultation">
-    </div>
-    <div class="consultation-text">
-      <h2>Book your personal consultation</h2>
-      <p>Long table. Material samples. A designer who listens before drawing. Every HOF begins with a conversation.</p>
-      <a href="contact.html" class="btn btn-dark">Book an Appointment</a>
-    </div>
+<!-- CONSULTATION CTA -->
+<section class="consultation-simple fade-in">
+  <div class="container center">
+    <h2>Book your personal consultation</h2>
+    <p>Every HOF begins with a conversation.</p>
+    <a href="contact.html" class="btn btn-dark">Book an Appointment</a>
   </div>
 </section>
 
@@ -160,7 +105,7 @@
 <footer class="footer">
   <div class="container">
     <div class="footer-top">
-      <div class="footer-monogram">H</div>
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
       <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
       <p class="footer-tagline-sm">Curated, Not Made.</p>
     </div>

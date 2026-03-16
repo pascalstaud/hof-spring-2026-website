@@ -20,7 +20,7 @@
     <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white"><img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
   </a>
   <div class="nav-right">
-    <a href="#" class="nav-link">Press</a>
+    <a href="press.html" class="nav-link">Press</a>
     <a href="contact.html" class="btn btn-contact">Contact us</a>
   </div>
   <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
@@ -28,7 +28,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="collection.html">Collections</a>
   <a href="about.html">About</a>
-  <a href="#">Press</a>
+  <a href="press.html">Press</a>
   <a href="contact.html">Contact</a>
 </div>
 
@@ -60,8 +60,8 @@
     <p class="product-description">Prelude names both the season and its defining composition. The reference: early botanical illustration. Precision of line. Patience of observation.</p>
     <p class="product-description">A satin exterior in a two-tone early-morning palette — champagne meeting indigo. An interior of botanical textile inserts drawn from the tradition of Parisian couture and hand-placed embroidery.</p>
 
-    <p class="product-price">From &euro;450,000*</p>
-    <p class="product-price-note" style="font-size:12px; font-weight:300; color:var(--gray-400); margin-top:-24px; margin-bottom:16px;">* Price excludes base vehicle. Final pricing subject to specification and configuration.</p>
+    <p class="product-price" style="font-size:24px; font-weight:500; margin:24px 0 4px;">From &euro;450,000*</p>
+    <p style="font-size:12px; font-weight:300; color:var(--gray-400); margin-bottom:16px;">* Price excludes base vehicle. Final pricing subject to specification and configuration.</p>
 
     <!-- Craft Sheet — Accordion -->
     <div class="craft-sheet">
@@ -200,9 +200,11 @@
             <label for="booking-location">Location</label>
             <select id="booking-location">
               <option value="">Select a location</option>
+              <option value="digital">Digital Consultation</option>
               <option value="sindelfingen">Atelier HOF, Sindelfingen</option>
-              <option value="munich">Munich Showroom</option>
-              <option value="dubai">Dubai Showroom</option>
+              <option value="autowelt">Autowelt Schweiz</option>
+              <option value="zurich">Zürich</option>
+              <option value="dubai">Private Meeting, Dubai</option>
               <option value="private">Private consultation at your location</option>
             </select>
           </div>
@@ -223,7 +225,8 @@
             <label for="booking-model">Model of Interest</label>
             <select id="booking-model">
               <option value="prelude" selected>Prelude — Collector Model</option>
-              <option value="sir-class">Sir Class — Collector Model</option>
+              <option value="sir-class">Sir Class — Permanent Model</option>
+              <option value="sir-class-1063">Sir Class 1063 — Collector Model (Sold Out)</option>
               <option value="cadence">Cadence — Seasonal</option>
               <option value="genese">Genese — Seasonal</option>
               <option value="vernal">Vernal — Seasonal</option>

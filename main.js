@@ -81,5 +81,23 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     const parent = btn.closest('.filter-bar');
     parent.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
+
+    const filter = btn.dataset.filter;
+    const grid = btn.closest('.container').querySelector('.collection-grid');
+    if (!grid) return;
+
+    grid.querySelectorAll('.collection-card').forEach(card => {
+      if (filter === 'all') {
+        card.style.display = '';
+      } else if (filter === 'ss26') {
+        card.style.display = card.dataset.season === 'ss26' ? '' : 'none';
+      } else if (filter === 'collector') {
+        card.style.display = card.dataset.type === 'collector' ? '' : 'none';
+      } else if (filter === 'seasonal') {
+        card.style.display = card.dataset.type === 'seasonal' ? '' : 'none';
+      } else if (filter === 'permanent') {
+        card.style.display = card.dataset.type === 'permanent' ? '' : 'none';
+      }
+    });
   });
 });

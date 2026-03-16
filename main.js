@@ -3,8 +3,10 @@
 // Navigation scroll behavior
 const nav = document.getElementById('nav');
 if (nav) {
+  // Apply scrolled state immediately on load if already scrolled
+  if (window.scrollY > 40) nav.classList.add('scrolled');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 80);
+    nav.classList.toggle('scrolled', window.scrollY > 40);
   });
 }
 

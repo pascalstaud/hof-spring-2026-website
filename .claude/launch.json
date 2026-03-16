@@ -2,9 +2,9 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "hof-website",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8090", "--directory", "/Users/pascalstaud/Library/CloudStorage/GoogleDrive-pascal.staud@h-o-f.com/Shared drives/10_Team Drive/50_Marketing (Pascal and Christian)/09_Website/hof-spring-2026-website"],
+      "name": "hof-site",
+      "runtimeExecutable": "/opt/homebrew/bin/npx",
+      "runtimeArgs": ["http-server", "/Users/pascalstaud/Library/CloudStorage/GoogleDrive-pascal.staud@h-o-f.com/Shared drives/10_Team Drive/50_Marketing (Pascal and Christian)/09_Website/hof-spring-2026-website", "-p", "8090", "-c-1"],
       "port": 8090
     }
   ]

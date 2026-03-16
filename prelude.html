@@ -60,7 +60,8 @@
     <p class="product-description">Prelude names both the season and its defining composition. The reference: early botanical illustration. Precision of line. Patience of observation.</p>
     <p class="product-description">A satin exterior in a two-tone early-morning palette — champagne meeting indigo. An interior of botanical textile inserts drawn from the tradition of Parisian couture and hand-placed embroidery.</p>
 
-    <p class="product-price">From &euro;[PRICE]</p>
+    <p class="product-price">From &euro;450,000*</p>
+    <p class="product-price-note" style="font-size:12px; font-weight:300; color:var(--gray-400); margin-top:-24px; margin-bottom:16px;">* Price excludes base vehicle. Final pricing subject to specification and configuration.</p>
 
     <!-- Craft Sheet — Accordion -->
     <div class="craft-sheet">
@@ -184,16 +185,55 @@
   </div>
 </section>
 
-<!-- CONSULTATION -->
-<section class="consultation fade-in">
-  <div class="consultation-inner">
-    <div class="consultation-img">
-      <img src="images/prelude/interior-rear.png" alt="Consultation">
-    </div>
-    <div class="consultation-text">
-      <h2>Book your personal consultation</h2>
-      <p>Long table. Material samples. A designer who listens before drawing. Every HOF begins with a conversation.</p>
-      <a href="contact.html" class="btn btn-dark">Book an Appointment</a>
+<!-- BOOKING / APPOINTMENT -->
+<section class="booking-section fade-in">
+  <div class="container">
+    <div class="booking-layout">
+      <div class="booking-img">
+        <img src="images/prelude/interior-rear.png" alt="Consultation">
+      </div>
+      <div class="booking-form-wrap">
+        <h2 class="heading-section">Book your personal consultation</h2>
+        <p class="text-body">Long table. Material samples. A designer who listens before drawing. Every HOF begins with a conversation.</p>
+        <div class="booking-form">
+          <div class="form-group">
+            <label for="booking-location">Location</label>
+            <select id="booking-location">
+              <option value="">Select a location</option>
+              <option value="sindelfingen">Atelier HOF, Sindelfingen</option>
+              <option value="munich">Munich Showroom</option>
+              <option value="dubai">Dubai Showroom</option>
+              <option value="private">Private consultation at your location</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="booking-date">Preferred Date</label>
+            <input type="date" id="booking-date" min="2026-03-20">
+          </div>
+          <div class="form-group">
+            <label for="booking-time">Preferred Time</label>
+            <select id="booking-time">
+              <option value="">Select a time</option>
+              <option value="morning">Morning (9:00 – 12:00)</option>
+              <option value="afternoon">Afternoon (13:00 – 17:00)</option>
+              <option value="evening">Evening (17:00 – 20:00)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="booking-model">Model of Interest</label>
+            <select id="booking-model">
+              <option value="prelude" selected>Prelude — Collector Model</option>
+              <option value="sir-class">Sir Class — Collector Model</option>
+              <option value="cadence">Cadence — Seasonal</option>
+              <option value="genese">Genese — Seasonal</option>
+              <option value="vernal">Vernal — Seasonal</option>
+              <option value="bespoke">Bespoke / Meet the Designer</option>
+            </select>
+          </div>
+          <a href="contact.html" class="btn btn-dark" style="width:100%; text-align:center; margin-top:8px;">Request Appointment</a>
+          <p style="font-size:11px; color:var(--gray-400); margin-top:12px; text-align:center;">Or contact us directly via <a href="#" style="text-decoration:underline; color:var(--gray-500);">WhatsApp</a></p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -257,6 +297,7 @@
       <div class="footer-col">
         <p class="footer-col-title">Cars</p>
         <a href="prelude.html">Prelude</a>
+        <a href="sir-class.html">Sir Class</a>
         <a href="cadence.html">Cadence</a>
         <a href="genese.html">Genese</a>
         <a href="vernal.html">Vernal</a>

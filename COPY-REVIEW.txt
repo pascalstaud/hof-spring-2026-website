@@ -1,0 +1,226 @@
+HOF WEBSITE — COPY SUMMARY FOR REVIEW
+=======================================
+Generated: 2026-03-16
+Status: Draft — all copy subject to Pascal's review
+
+
+=====================================
+1. HOMEPAGE (index.html)
+=====================================
+
+HERO:
+  Label: "Spring Summer 2026"
+  Headline: "Write your own story"
+  Subline: "Five compositions. One conviction. The automobile as an act of self-expression."
+  CTA: "Explore the Collection"
+
+SECTION — All Cars:
+  Headline: "All Cars"
+  Cars listed: Prelude, Sir Class, Cadence, Genese, Vernal
+  CTA buttons: "Explore All Cars" / "Explore Prelude"
+
+SECTION — The Unusual Composition:
+  Headline: "THE UNUSUAL COMPOSITION. THE HOF CLASS."
+  Body: "Material speaks. Proportion speaks. The deliberate absence of everything unnecessary speaks loudest. This is the language of couture — applied to the automobile."
+  Link: "The Collection"
+
+SECTION — Prelude Feature:
+  Label: "Collector Model · SS26"
+  Headline: "PRELUDE."
+  Body: "The season's defining composition. Parisian couture sensibility meets botanical precision. A tonal range between champagne and indigo, brought to life through satin finishes, botanical textile inserts, and hand-placed embroidery."
+  Link: "Explore Prelude"
+
+SECTION — Car Couture:
+  Label: "The Principle"
+  Headline: "CAR COUTURE."
+  Body: "Seasonal rhythm. Cultural intention. The hand over the machine. Haute couture's principles — applied to the automobile."
+  Link: "The Maison"
+
+SECTION — Master Tailoring:
+  Label: "Our Craft"
+  Headline: "MASTER TAILORING."
+  Sublabel: "And Soul."
+  Body: "Every HOF interior is completed by hand in our atelier in Sindelfingen. Materials are chosen for what they'll become. Time is the only finish that can't be applied."
+  Link: "The Atelier"
+
+SECTION — Stories:
+  Story 1: "Inside the Atelier" — "Where every composition begins and ends."
+  Story 2: "The Art of Making" — "Two hands. One composition. No compromise."
+  Story 3: "Sir Class — A Look Back" — "The collector model that started it all."
+
+FOOTER:
+  Headline: "WRITE YOUR OWN STORY."
+  Tagline: "Curated, Not Made."
+
+
+=====================================
+2. PRELUDE PRODUCT PAGE (prelude.html)
+=====================================
+
+PRODUCT INFO:
+  Label: "Collector Model · SS26"
+  Platform: "HOF G · V"
+  Name: "Prelude"
+  Description 1: "Prelude names both the season and its defining composition. The reference: early botanical illustration. Precision of line. Patience of observation."
+  Description 2: "A satin exterior in a two-tone early-morning palette — champagne meeting indigo. An interior of botanical textile inserts drawn from the tradition of Parisian couture and hand-placed embroidery."
+  Price: "From €450,000*"
+  Price Note: "* Price excludes base vehicle. Final pricing subject to specification and configuration."
+
+CRAFT SHEET:
+  Exterior: "Satin two-tone finish in a botanical palette. Champagne meeting indigo. Discreet HOF identification. A presence that arrives without announcement."
+  Interior: "Botanical jacquard textile inserts, created exclusively for Prelude. A floral language drawn from the Kenzo couture tradition, reinterpreted in grey and ivory."
+  Embroidery: "Hand-placed botanical motif, visible only on close inspection. A private language for those who look."
+  Leather: "Warm palette, vegetable-tanned, selected for patina. Chosen for what it will become, not what it is today."
+  Wheels: "Disc-style, white with gold ring accent. Completing the composition's tonal harmony."
+  Atelier: "Completed by hand at Atelier HOF, Sindelfingen. Edition: Limited · SS26 · Collector Model."
+
+GALLERY CAPTIONS:
+  Row 1: "Interior — Botanical textile inserts, hand-placed embroidery, warm leather palette."
+  Row 1: "Detail — Every stitch placed by hand at Atelier HOF, Sindelfingen."
+  Row 2: "Satin finish, two-tone composition."
+  Row 2: "Warm leather, botanical details."
+  Row 2: "HOF G · V — Side profile."
+
+BOOKING SECTION:
+  Headline: "Book your personal consultation"
+  Body: "Long table. Material samples. A designer who listens before drawing. Every HOF begins with a conversation."
+  Locations: Atelier HOF Sindelfingen, Munich Showroom, Dubai Showroom, Private consultation
+  CTA: "Request Appointment"
+
+FAQ:
+  Q1: "How do I order a HOF composition?"
+  A1: "Every HOF begins with a personal consultation. Contact us to book an appointment at our atelier in Sindelfingen, or request a private consultation at a location of your choice."
+  Q2: "What is the delivery timeline?"
+  A2: "Each composition is completed by hand. Timelines vary by model and specification. Your personal consultant will provide detailed scheduling during the consultation process."
+  Q3: "Can I customise a seasonal composition?"
+  A3: "Seasonal compositions are curated as complete expressions. For bespoke requirements beyond the collection, our Meet the Designer programme offers fully individual compositions."
+  Q4: "What platforms are available?"
+  A4: "HOF compositions are currently available on the Mercedes G-Class platform in three derivatives: G 5-Door, G 3-Door Coupe, and G 3-Door Cabriolet."
+
+
+=====================================
+3. SIR CLASS PRODUCT PAGE (sir-class.html)
+=====================================
+
+HERO:
+  Label: "Collector Model · AW25"
+  Headline: "SIR CLASS"
+  Subline: "Born of Victory."
+
+SECTION — Born of Victory:
+  Label: "Collector Model"
+  Headline: "BORN OF VICTORY."
+  Body: "The HOF Sir Class honors one of motorsport's most decorated champions. A modern knight who has defied expectations and redefined racing. With seven world championships, this model pays tribute to a man whose influence transcends the track, embodying style, performance, and unwavering leadership."
+  Link: "Specifications"
+
+SECTION — The Last Lap:
+  Headline: "THE LAST LAP."
+  Body 1: "As he prepared for his final race at the Abu Dhabi Grand Prix, the HOF Sir Class stands as a tribute to his indomitable spirit, encapsulating the same relentless drive for excellence that has defined his legendary career."
+  Body 2: "A composition that captures the weight of a final chapter — and the certainty that what was built will outlast it."
+
+GALLERY CAPTIONS:
+  "Racing heritage, couture finish."
+  "Teal-lit interior atmosphere."
+  "Aerodynamic precision, refined lines."
+
+SECTION — Shaped by Racing Lines:
+  Headline: "SHAPED BY RACING LINES."
+  Body: "The HOF Sir Class exterior echoes a signature racecar design with sleek lines and accents in racing green. The bold aerodynamic body reflects the unparalleled power and precision required for the racetrack, showcasing speed, agility, and refined performance."
+
+GALLERY CAPTIONS:
+  "Sir Class — White on asphalt. Shadow and stance."
+  "HOF 23\" Collection H1063 Forged Wheel with Carbon Cover."
+
+SECTION — A Legacy You Can Drive:
+  Headline: "A LEGACY YOU CAN DRIVE."
+  Body: "The HOF Sir Class features a 4.0-litre V8 biturbo engine. With an astounding 1,063 horsepower, this vehicle accelerates from 0 to 100 km/h in just 3.5 seconds and reaches a top speed of 300 km/h."
+
+TECHNICAL SHEET:
+  Engine: 4.0L V8 Biturbo
+  Power: 1,063 HP
+  0-100 km/h: 3.5 seconds
+  Top Speed: 300 km/h
+  Wheels: 23" H1063 Forged, Carbon Cover
+  Edition: Limited · AW25 · Collector Model
+
+BOOKING SECTION:
+  Headline: "Book your personal consultation"
+  Body: "Experience the Sir Class firsthand. Schedule a private viewing at our atelier or a location of your choice."
+
+
+=====================================
+4. PRELUDE COLLECTION PAGE (prelude-collection.html)
+=====================================
+
+HERO:
+  Label: "Spring Summer 2026"
+  Headline: "Prelude."
+  Subline: "The moment before opening."
+
+COLLECTION INTRO:
+  Headline: "Before the Bloom."
+  Body 1: "Prelude is a time signature. A season named not for arrival, but for the stillness that precedes it. A state before bloom — where every decision is deliberate, and every surface has been considered."
+  Body 2: "Spring Summer 2026 is composed around this threshold. Four expressions — one collector model, three seasonal — each an interpretation of materials on the edge of transformation."
+
+EDITORIAL — Collector Model:
+  Label: "The Collector Model · SS26"
+  Headline: "Prelude."
+  Body 1: "The defining composition of the season. A satin exterior in a two-tone early-morning palette — champagne meeting indigo. An interior of botanical textile inserts drawn from the tradition of Parisian couture."
+  Body 2: "Prelude names both the season and its founding gesture. It is an automobile designed to arrive before it is noticed."
+  Link: "Explore the Collector Model"
+
+EDITORIAL QUOTE:
+  Headline: "A Composition You Inhabit."
+  Body: "Prelude is not designed to be seen. It is designed to be inhabited — a composition that reveals itself to those who sit within it."
+  Quote: "We don't decorate automobiles. We compose them. The interior is the first movement."
+  Attribution: "HOF Creative Direction"
+
+SEASONAL — Cadence:
+  Label: "Seasonal · SS26"
+  Headline: "Cadence."
+  Body: "Dark. Architectural. The structure beneath the surface. Cadence is the model that reveals the rhythm of HOF's design language — a composition in obsidian and carbon."
+  Link: "Explore Cadence"
+
+SEASONAL — Genese:
+  Label: "Seasonal · SS26"
+  Headline: "Genese."
+  Body: "Amber light meets cool interior expression. Genese explores the duality of material and origin — two interior expressions for a single exterior composition."
+  Link: "Explore Genese"
+
+SEASONAL — Vernal:
+  Label: "Seasonal · SS26"
+  Headline: "Vernal."
+  Body: "Organic. Textural. Where Bauhaus geometry meets natural rhythm. Vernal is currently in development at Atelier HOF."
+  Link: "Coming Soon"
+
+SECTION — Car Couture:
+  Headline: "CAR COUTURE."
+  Body: "HOF applies the principles of haute couture to the automobile. Seasonal rhythm. Cultural intention. The hand over the machine. Materials chosen for what they will become."
+  Link: "The Maison"
+
+CONSULTATION:
+  Headline: "Book your personal consultation"
+  Body: "Every HOF begins with a conversation. Materials, ideas, and a designer who listens before drawing."
+  CTA: "Book an Appointment"
+
+
+=====================================
+5. ALL MODELS / COLLECTION PAGE (collection.html)
+=====================================
+
+PAGE HEADER:
+  Headline: "All Models"
+  Body: "Explore the full HOF collection. From seasonal compositions to limited collector models — each one handcrafted at our atelier in Sindelfingen."
+
+FILTERS:
+  "All Models" / "Spring Summer 26" / "Collector Models" / "Seasonal Models"
+
+CONSULTATION:
+  Headline: "Book your personal consultation"
+  Body: "Every HOF begins with a conversation."
+  CTA: "Book an Appointment"
+
+
+=====================================
+END OF COPY DOCUMENT
+=====================================

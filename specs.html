@@ -44,7 +44,7 @@
       text-align: left;
       vertical-align: top;
       padding: 14px 20px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 300;
       color: var(--gray-700);
       line-height: 1.6;
@@ -56,11 +56,14 @@
       padding-bottom: 20px;
       border-bottom: 2px solid var(--dark);
       vertical-align: bottom;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     .spec-table th:first-child,
     .spec-table td:first-child {
-      width: 140px;
+      width: 160px;
     }
 
     /* Model header cells */
@@ -145,6 +148,16 @@
       color: var(--gray-300) !important;
     }
 
+    /* Standard / Included items */
+    .spec-standard {
+      color: var(--accent) !important;
+      font-weight: 400 !important;
+    }
+    .spec-optional {
+      color: var(--gray-500) !important;
+      font-style: italic;
+    }
+
     /* Link to product page */
     .spec-link {
       display: inline-block;
@@ -186,11 +199,132 @@
     }
     .spec-legend-dot.orange { background: #E67E22; }
     .spec-legend-dot.gray { background: var(--gray-300); }
+    .spec-legend-dot.green { background: var(--accent); }
+
+    /* ── Bento Box Section ── */
+    .bento-section {
+      padding: 80px 48px;
+      max-width: 1600px;
+      margin: 0 auto;
+      border-top: 1px solid var(--gray-100);
+    }
+    .bento-section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .bento-section-header h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .bento-section-header p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-500);
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .bento-model {
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .bento-model:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+    .bento-model-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .bento-model-subtitle {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 32px;
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .bento-card {
+      border: 1px solid var(--gray-100);
+      padding: 28px;
+      transition: border-color 0.3s ease;
+    }
+    .bento-card:hover {
+      border-color: var(--dark);
+    }
+    .bento-card.bento-default {
+      border-color: var(--dark);
+      position: relative;
+    }
+    .bento-card.bento-default::after {
+      content: 'DEFAULT';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--accent);
+    }
+    .bento-card-name {
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .bento-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--gray-50, #f5f5f5);
+      font-size: 12px;
+    }
+    .bento-row:last-child {
+      border-bottom: none;
+    }
+    .bento-row-label {
+      font-weight: 500;
+      color: var(--dark);
+      letter-spacing: 0.5px;
+    }
+    .bento-row-value {
+      font-weight: 300;
+      color: var(--gray-600);
+      text-align: right;
+    }
+
+    .bento-color-swatch {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 6px;
+      border: 1px solid var(--gray-200);
+    }
 
     @media (max-width: 768px) {
-      .spec-table-wrap { padding: 0 16px 60px; }
+      .spec-table-wrap { padding: 0 16px 60px; overflow-x: auto; }
       .spec-legend { padding: 16px 16px 40px; }
       .spec-page-header { padding: 120px 24px 40px; }
+      .bento-section { padding: 60px 16px; }
     }
   </style>
 </head>
@@ -248,6 +382,10 @@
       <span class="spec-legend-dot gray"></span>
       N/A — not applicable
     </div>
+    <div class="spec-legend-item">
+      <span class="spec-legend-dot green"></span>
+      Standard / Included
+    </div>
   </div>
 
   <!-- Spec Table -->
@@ -259,44 +397,44 @@
           <th class="spec-model-header">
             <img src="images/prelude/exterior-hero.png" alt="Prelude" class="spec-model-img">
             <div class="spec-model-name">Prelude</div>
-            <div class="spec-model-type">Collector Model · SS26</div>
+            <div class="spec-model-type">Collector Model &middot; SS26</div>
             <div class="spec-model-status available">Available</div>
           </th>
           <th class="spec-model-header">
             <img src="images/genese/exterior-hero.png" alt="Genese" class="spec-model-img">
             <div class="spec-model-name">Genese</div>
-            <div class="spec-model-type">Seasonal Model · SS26</div>
+            <div class="spec-model-type">Seasonal Model &middot; SS26</div>
             <div class="spec-model-status available">Available</div>
           </th>
           <th class="spec-model-header">
             <img src="images/cadence/exterior-hero.png" alt="Cadence" class="spec-model-img">
             <div class="spec-model-name">Cadence</div>
-            <div class="spec-model-type">Seasonal Model · SS26</div>
+            <div class="spec-model-type">Seasonal Model &middot; SS26</div>
             <div class="spec-model-status available">Available</div>
           </th>
           <th class="spec-model-header">
             <img src="images/vernal/mood-board.png" alt="Vernal" class="spec-model-img">
             <div class="spec-model-name">Vernal</div>
-            <div class="spec-model-type">Seasonal Model · SS26</div>
+            <div class="spec-model-type">Seasonal Model &middot; SS26</div>
             <div class="spec-model-status development">In Development</div>
           </th>
           <th class="spec-model-header">
             <img src="images/sir-class/hero-34-front-web.jpg" alt="Sir Class" class="spec-model-img">
             <div class="spec-model-name">Sir Class</div>
-            <div class="spec-model-type">Permanent Model · 2026</div>
+            <div class="spec-model-type">Permanent Model &middot; 2026</div>
             <div class="spec-model-status available">Available</div>
           </th>
           <th class="spec-model-header">
             <img src="images/sir-class/hero-front-web.jpg" alt="Sir Class 1063" class="spec-model-img">
             <div class="spec-model-name">Sir Class 1063</div>
-            <div class="spec-model-type">Collector Model · AW25</div>
+            <div class="spec-model-type">Collector Model &middot; AW25</div>
             <div class="spec-model-status sold-out">Sold Out</div>
           </th>
         </tr>
       </thead>
       <tbody>
 
-        <!-- IDENTITY -->
+        <!-- ═══ IDENTITY ═══ -->
         <tr class="spec-category">
           <td colspan="7">Identity</td>
         </tr>
@@ -346,7 +484,7 @@
           <td>Collector Model</td>
         </tr>
 
-        <!-- PRICING -->
+        <!-- ═══ PRICING ═══ -->
         <tr class="spec-category">
           <td colspan="7">Pricing</td>
         </tr>
@@ -369,95 +507,180 @@
           <td>* Excludes base vehicle</td>
         </tr>
 
-        <!-- PLATFORM / PERFORMANCE -->
+        <!-- ═══ PLATFORM & PERFORMANCE ═══ -->
         <tr class="spec-category">
           <td colspan="7">Platform &amp; Performance</td>
         </tr>
         <tr>
           <td class="spec-label">Base Vehicle</td>
-          <td>Mercedes G-Class</td>
-          <td>Mercedes G-Class</td>
-          <td>Mercedes G-Class</td>
-          <td>Mercedes G-Class</td>
-          <td>Mercedes-Benz B465</td>
-          <td>Mercedes G-Class</td>
+          <td>Mercedes-AMG G63 (W465)</td>
+          <td>Mercedes-AMG G63 (W465)</td>
+          <td>Mercedes-AMG G63 (W465)</td>
+          <td>Mercedes-AMG G63 (W465)</td>
+          <td>Mercedes-AMG G63 (W465)</td>
+          <td>Mercedes-AMG G63 (W465)</td>
         </tr>
         <tr>
-          <td class="spec-label">Body Options</td>
-          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
-          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
-          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
-          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
+          <td class="spec-label">Vehicle Sourcing</td>
+          <td colspan="6" style="text-align:center; font-size:12px;">Client-provided or sourced by HOF in the client's name. Other G-Class variants possible on request.</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Body Type</td>
+          <td>5-Door</td>
+          <td>5-Door</td>
+          <td>5-Door</td>
+          <td>5-Door</td>
+          <td>5-Door</td>
+          <td>5-Door</td>
         </tr>
         <tr>
           <td class="spec-label">Engine</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td>4.0L V8 Biturbo</td>
-          <td>4.0L V8 Biturbo</td>
+          <td>4.0L V8 Biturbo + 48V Mild-Hybrid</td>
+          <td>4.0L V8 Biturbo + 48V Mild-Hybrid</td>
+          <td>4.0L V8 Biturbo + 48V Mild-Hybrid</td>
+          <td>4.0L V8 Biturbo + 48V Mild-Hybrid</td>
+          <td>4.0L V8 Biturbo + 48V Mild-Hybrid</td>
+          <td>4.0L V8 Biturbo + 48V Mild-Hybrid</td>
         </tr>
         <tr>
-          <td class="spec-label">Power (HP)</td>
-          <td class="spec-na">N/A (composition focus)</td>
-          <td class="spec-na">N/A (composition focus)</td>
-          <td class="spec-na">N/A (composition focus)</td>
-          <td class="spec-na">N/A (composition focus)</td>
-          <td>800 HP</td>
-          <td>1,063 HP</td>
+          <td class="spec-label">Displacement</td>
+          <td>3,982 cc</td>
+          <td>3,982 cc</td>
+          <td>3,982 cc</td>
+          <td>3,982 cc</td>
+          <td>3,982 cc</td>
+          <td>3,982 cc</td>
         </tr>
         <tr>
-          <td class="spec-label">0–100 km/h</td>
-          <td class="spec-na">—</td>
-          <td class="spec-na">—</td>
-          <td class="spec-na">—</td>
-          <td class="spec-na">—</td>
-          <td class="spec-missing">TBD</td>
-          <td>3.5 seconds</td>
+          <td class="spec-label">Power (Stock)</td>
+          <td>585 PS (430 kW)</td>
+          <td>585 PS (430 kW)</td>
+          <td>585 PS (430 kW)</td>
+          <td>585 PS (430 kW)</td>
+          <td>585 PS (430 kW)</td>
+          <td>585 PS (430 kW)</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Power Upgrade</td>
+          <td class="spec-optional">Optional: 800 PS</td>
+          <td class="spec-optional">Optional: 800 PS</td>
+          <td class="spec-optional">Optional: 800 PS</td>
+          <td class="spec-optional">Optional: 800 PS</td>
+          <td class="spec-standard">Standard: 800 PS</td>
+          <td>1,063 PS</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Torque</td>
+          <td>850 Nm (stock)</td>
+          <td>850 Nm (stock)</td>
+          <td>850 Nm (stock)</td>
+          <td>850 Nm (stock)</td>
+          <td>850 Nm+</td>
+          <td>850 Nm+</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Transmission</td>
+          <td>AMG SPEEDSHIFT TCT 9G</td>
+          <td>AMG SPEEDSHIFT TCT 9G</td>
+          <td>AMG SPEEDSHIFT TCT 9G</td>
+          <td>AMG SPEEDSHIFT TCT 9G</td>
+          <td>AMG SPEEDSHIFT TCT 9G</td>
+          <td>AMG SPEEDSHIFT TCT 9G</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Drive System</td>
+          <td>AMG 4MATIC</td>
+          <td>AMG 4MATIC</td>
+          <td>AMG 4MATIC</td>
+          <td>AMG 4MATIC</td>
+          <td>AMG 4MATIC</td>
+          <td>AMG 4MATIC</td>
+        </tr>
+        <tr>
+          <td class="spec-label">0&ndash;100 km/h</td>
+          <td>4.4 s (stock)</td>
+          <td>4.4 s (stock)</td>
+          <td>4.4 s (stock)</td>
+          <td>4.4 s (stock)</td>
+          <td class="spec-missing">TBD (800 PS tune)</td>
+          <td>3.5 s</td>
         </tr>
         <tr>
           <td class="spec-label">Top Speed</td>
-          <td class="spec-na">—</td>
-          <td class="spec-na">—</td>
-          <td class="spec-na">—</td>
-          <td class="spec-na">—</td>
+          <td>220 km/h (stock, limited)</td>
+          <td>220 km/h (stock, limited)</td>
+          <td>220 km/h (stock, limited)</td>
+          <td>220 km/h (stock, limited)</td>
           <td class="spec-missing">TBD</td>
           <td>300 km/h</td>
         </tr>
         <tr>
           <td class="spec-label">Wheels</td>
-          <td>Disc-style, white with gold ring accent</td>
-          <td>White disc-style, orange centre cap</td>
-          <td>All-black, architectural profile</td>
-          <td class="spec-missing">TBD</td>
-          <td>23" Forged, Carbon Cover</td>
+          <td>23" HOF Forged</td>
+          <td>23" HOF Forged</td>
+          <td>23" HOF Forged</td>
+          <td>23" HOF Forged</td>
+          <td>23" HOF Forged, Carbon Cover</td>
           <td>23" H1063 Forged, Carbon Cover</td>
         </tr>
 
-        <!-- EXTERIOR -->
+        <!-- ═══ EXTERIOR ARCHITECTURE ═══ -->
         <tr class="spec-category">
-          <td colspan="7">Exterior</td>
+          <td colspan="7">Exterior Architecture</td>
         </tr>
         <tr>
-          <td class="spec-label">Color / Finish</td>
-          <td>Satin two-tone: champagne meeting indigo</td>
-          <td>Silver-white metallic</td>
-          <td>Dark charcoal metallic</td>
-          <td>Pale organic tone, soft satin</td>
+          <td class="spec-label">Exterior Silhouette</td>
+          <td>HOF Salon</td>
+          <td>HOF Sport</td>
+          <td>HOF Sport</td>
+          <td>HOF Salon</td>
+          <td>HOF Sport</td>
+          <td>HOF Sir Class</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Surface Language</td>
+          <td>Pure Surface<br><span style="font-size:11px; color:var(--gray-400);">Side cladding removed, refined lines</span></td>
+          <td>Sculpted Surface<br><span style="font-size:11px; color:var(--gray-400);">Side protection elements retained</span></td>
+          <td>Sculpted Surface<br><span style="font-size:11px; color:var(--gray-400);">Side protection elements retained</span></td>
           <td class="spec-missing">TBD</td>
-          <td>White with racing green accents</td>
+          <td>Sculpted Surface<br><span style="font-size:11px; color:var(--gray-400);">Side protection elements retained</span></td>
+          <td>Sculpted Surface<br><span style="font-size:11px; color:var(--gray-400);">Side protection elements, signature aero</span></td>
         </tr>
         <tr>
-          <td class="spec-label">Exterior Character</td>
-          <td>Botanical palette, discreet HOF identification. A presence that arrives without announcement.</td>
-          <td>Composed, almost neutral. Fine amber pinstripe accent. Defined by what it withholds.</td>
-          <td>Blacked-out trim. Architectural finish. A form that holds its ground.</td>
-          <td>Sculptural presence. A form that breathes. Honest material reference.</td>
-          <td>Racing heritage, sleek aerodynamic lines. Next-generation precision.</td>
-          <td>Bold aerodynamic body. Signature racecar design elements. Racing heritage.</td>
+          <td class="spec-label">Door Configuration</td>
+          <td class="spec-standard">Coach Doors (standard)<br><span style="font-size:11px; color:var(--gray-400);">Reverse-opening, centre-hinged</span></td>
+          <td>Standard front-hinged</td>
+          <td>Standard front-hinged</td>
+          <td>Standard front-hinged</td>
+          <td>Standard front-hinged</td>
+          <td>Standard front-hinged</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Exterior Finish</td>
+          <td>Satin two-tone</td>
+          <td>Metallic</td>
+          <td>Metallic</td>
+          <td>Soft satin</td>
+          <td>Metallic shift</td>
+          <td>Metallic with accents</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Signature Element</td>
+          <td>Discreet HOF identification, botanical palette</td>
+          <td>Fine amber pinstripe accent</td>
+          <td>Blacked-out trim, architectural finish</td>
+          <td>Sculptural presence, honest material</td>
+          <td>Silver-to-black gradient shift</td>
+          <td>Racing heritage aero elements</td>
+        </tr>
+        <tr>
+          <td class="spec-label">H Logo on Side</td>
+          <td class="spec-na">&mdash;</td>
+          <td class="spec-na">&mdash;</td>
+          <td class="spec-na">&mdash;</td>
+          <td class="spec-na">&mdash;</td>
+          <td>Optional</td>
+          <td class="spec-na">&mdash;</td>
         </tr>
         <tr>
           <td class="spec-label">Design Reference</td>
@@ -465,18 +688,59 @@
           <td>Natural amber &amp; resin, translucency of light</td>
           <td>Precision watchmaking, sculptural black forms</td>
           <td>Bauhaus principles, organic architecture</td>
-          <td>Motorsport evolution, B465 platform design</td>
-          <td>7x World Championship tribute, motorsport heritage</td>
+          <td>Motorsport evolution, W465 platform</td>
+          <td>7x World Championship tribute</td>
         </tr>
 
-        <!-- INTERIOR -->
+        <!-- ═══ EXTERIOR COLOUR OPTIONS (BENTO BOX) ═══ -->
+        <tr class="spec-category">
+          <td colspan="7">Exterior Colour Options</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Default</td>
+          <td><span class="bento-color-swatch" style="background: linear-gradient(135deg, #D4CFC4 50%, #2C3E6B 50%);"></span>Two-tone: Cream &amp; Indigo</td>
+          <td><span class="bento-color-swatch" style="background: linear-gradient(135deg, #C0C0C0 50%, #E87A2E 50%);"></span>Silver with Orange accents</td>
+          <td><span class="bento-color-swatch" style="background:#3A3A3A;"></span>Charcoal / Black</td>
+          <td><span class="bento-color-swatch" style="background:#C0C0C0;"></span>All Silver</td>
+          <td><span class="bento-color-swatch" style="background: linear-gradient(135deg, #C0C0C0 50%, #1A1A1A 50%);"></span>Silver-to-Black Shift</td>
+          <td><span class="bento-color-swatch" style="background: linear-gradient(135deg, #FFFFFF 50%, #2D5F3A 50%);"></span>White &amp; Racing Green</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Option 2</td>
+          <td><span class="bento-color-swatch" style="background:#2C3E6B;"></span>All Indigo</td>
+          <td><span class="bento-color-swatch" style="background: linear-gradient(135deg, #E87A2E 50%, #C0C0C0 50%);"></span>All Orange with Silver accents</td>
+          <td><span class="bento-color-swatch" style="background:#2D4A3A;"></span>Dark Green</td>
+          <td class="spec-na">&mdash;</td>
+          <td><span class="bento-color-swatch" style="background:#1A1A1A;"></span>All Black</td>
+          <td class="spec-na">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Option 3</td>
+          <td><span class="bento-color-swatch" style="background:#D4CFC4;"></span>All Cream</td>
+          <td class="spec-na">&mdash;</td>
+          <td class="spec-na">&mdash;</td>
+          <td class="spec-na">&mdash;</td>
+          <td><span class="bento-color-swatch" style="background:#C0C0C0;"></span>All Silver</td>
+          <td class="spec-na">&mdash;</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Total Exterior Options</td>
+          <td><strong>3</strong></td>
+          <td><strong>2</strong></td>
+          <td><strong>2</strong></td>
+          <td><strong>1</strong></td>
+          <td><strong>3</strong> (each &plusmn; H logo)</td>
+          <td><strong>1</strong> (fixed)</td>
+        </tr>
+
+        <!-- ═══ INTERIOR ═══ -->
         <tr class="spec-category">
           <td colspan="7">Interior</td>
         </tr>
         <tr>
           <td class="spec-label">Primary Material</td>
           <td>Warm-palette vegetable-tanned leather</td>
-          <td>Amber-toned leather (Expression I) / White leather (Expression II)</td>
+          <td>Amber-toned leather (Expr. I) / White leather (Expr. II)</td>
           <td>Black smooth &amp; structured grain leather</td>
           <td>Vegetable-tanned leather, chosen for patina</td>
           <td class="spec-missing">TBD</td>
@@ -484,39 +748,57 @@
         </tr>
         <tr>
           <td class="spec-label">Textile / Insert</td>
-          <td>Botanical jacquard textile (exclusive to Prelude)</td>
+          <td>Botanical jacquard textile (exclusive)</td>
           <td>Semi-translucent material details</td>
           <td>Hexagonal seat textures</td>
-          <td>Natural weave textiles, tone-on-tone pattern</td>
+          <td>Natural weave textiles, tone-on-tone</td>
           <td class="spec-missing">TBD</td>
           <td class="spec-missing">TBD</td>
         </tr>
         <tr>
           <td class="spec-label">Embroidery / Detail</td>
-          <td>Hand-placed botanical motif (visible only on close inspection)</td>
+          <td>Hand-placed botanical motif</td>
           <td>Fine grid stitching</td>
-          <td>Tonal stitching with deep emerald accents</td>
+          <td>Tonal stitching, emerald accents</td>
           <td>Bauhaus-inspired geometry</td>
           <td class="spec-missing">TBD</td>
           <td class="spec-missing">TBD</td>
         </tr>
         <tr>
-          <td class="spec-label">Color Palette</td>
-          <td>Grey and ivory floral language</td>
-          <td>Deep amber (Expr. I) / White with amber (Expr. II)</td>
+          <td class="spec-label">Interior Colour</td>
+          <td>Front: Cream / Rear: Indigo<br><span style="font-size:11px; color:var(--gray-400);">Two-zone interior, front-to-back contrast</span></td>
+          <td>Expr. I: Deep Amber mono<br>Expr. II: White with amber accents</td>
           <td>Full dark, single disciplined palette</td>
-          <td>Warm sand, cream, olive undertone, deep charcoal accent</td>
+          <td>Warm sand, cream, olive, charcoal</td>
           <td>Teal-lit atmosphere</td>
           <td>Teal-lit cockpit</td>
         </tr>
         <tr>
           <td class="spec-label">Interior Variants</td>
-          <td class="spec-na">Single expression</td>
-          <td>Expression I (Amber monochrome)<br>Expression II (White with amber)</td>
-          <td class="spec-na">Single expression</td>
-          <td class="spec-na">Single expression</td>
+          <td>Single expression</td>
+          <td>Expression I (Amber)<br>Expression II (White &amp; Amber)</td>
+          <td>Single expression</td>
+          <td>Single expression</td>
           <td class="spec-missing">TBD</td>
           <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Console / Trim</td>
+          <td>Cream leather with botanical textile inlays</td>
+          <td class="spec-missing">TBD</td>
+          <td>Dark marble-textured console</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Steering Wheel</td>
+          <td>Standard AMG</td>
+          <td>Standard AMG</td>
+          <td>Standard AMG</td>
+          <td>Standard AMG</td>
+          <td>Standard AMG<br><span class="spec-optional">Optional: F1-style steering wheel</span></td>
+          <td>Standard AMG<br><span class="spec-optional">Optional: F1-style steering wheel</span></td>
         </tr>
         <tr>
           <td class="spec-label">Ambient Lighting</td>
@@ -527,40 +809,36 @@
           <td class="spec-missing">TBD</td>
           <td class="spec-missing">TBD</td>
         </tr>
-        <tr>
-          <td class="spec-label">Steering Wheel</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td>Flat-bottom</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
+
+        <!-- ═══ AUDIO ═══ -->
+        <tr class="spec-category">
+          <td colspan="7">Audio</td>
         </tr>
         <tr>
-          <td class="spec-label">Console / Trim</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td>Dark marble-textured console</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
-          <td class="spec-missing">TBD</td>
+          <td class="spec-label">HOF Bass Speaker</td>
+          <td class="spec-standard">Standard</td>
+          <td class="spec-standard">Standard</td>
+          <td class="spec-standard">Standard</td>
+          <td class="spec-standard">Standard</td>
+          <td class="spec-standard">Standard</td>
+          <td class="spec-standard">Standard</td>
         </tr>
 
-        <!-- PHILOSOPHY -->
+        <!-- ═══ DESIGN PHILOSOPHY ═══ -->
         <tr class="spec-category">
           <td colspan="7">Design Philosophy</td>
         </tr>
         <tr>
           <td class="spec-label">Core Concept</td>
           <td>Botanical illustration meets Parisian couture. Precision of line, patience of observation.</td>
-          <td>Duality and inversion. One exterior, two interior worlds. Origin concept — single thought, two readings.</td>
+          <td>Duality and inversion. One exterior, two interior worlds. Single thought, two readings.</td>
           <td>Architectural expression. Restriction intensifies expression. Monochrome conviction.</td>
           <td>Form follows feeling. Beauty lives in the unhurried. Minimal expression, maximum presence.</td>
           <td>Evolution of a legend. What began as tribute now stands permanent.</td>
           <td>Tribute to motorsport's most decorated champion. Final lap made forever.</td>
         </tr>
 
-        <!-- PRODUCTION -->
+        <!-- ═══ PRODUCTION ═══ -->
         <tr class="spec-category">
           <td colspan="7">Production</td>
         </tr>
@@ -589,7 +867,7 @@
           <td class="spec-missing">TBD</td>
           <td class="spec-missing">TBD</td>
           <td class="spec-missing">TBD</td>
-          <td class="spec-na">—</td>
+          <td class="spec-na">&mdash;</td>
         </tr>
         <tr>
           <td class="spec-label">Development Status</td>
@@ -601,7 +879,7 @@
           <td>Delivered / Sold Out</td>
         </tr>
 
-        <!-- LINKS -->
+        <!-- ═══ WEBSITE ═══ -->
         <tr class="spec-category">
           <td colspan="7">Website</td>
         </tr>
@@ -619,6 +897,365 @@
     </table>
   </div>
 
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- BENTO BOX CONFIGURATION GUIDE                   -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="bento-section">
+    <div class="bento-section-header">
+      <span class="label">Configuration Principle</span>
+      <h2>The Bento Box</h2>
+      <p>Each HOF composition is presented in its signature configuration. Clients may select from curated exterior and interior combinations &mdash; a closed palette of options, each considered as a complete expression. No open-ended configurator. Every combination is a composition.</p>
+    </div>
+
+    <!-- ── Prelude ── -->
+    <div class="bento-model">
+      <div class="bento-model-title">Prelude</div>
+      <div class="bento-model-subtitle">3 Exterior Options &middot; 1 Interior Expression &middot; Coach Doors Standard</div>
+      <div class="bento-grid">
+        <div class="bento-card bento-default">
+          <div class="bento-card-name">Composition I</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background: linear-gradient(135deg, #D4CFC4 50%, #2C3E6B 50%);"></span>Two-tone: Cream &amp; Indigo</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior Front</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#E8E0D0;"></span>Cream leather</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior Rear</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#2C3E6B;"></span>Indigo leather</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Console / Trim</span>
+            <span class="bento-row-value">Cream with botanical inlays</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Doors</span>
+            <span class="bento-row-value">Coach Doors (standard)</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Salon &middot; Pure Surface</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-card-name">Composition II</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#2C3E6B;"></span>All Indigo</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior Front</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#E8E0D0;"></span>Cream leather</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior Rear</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#2C3E6B;"></span>Indigo leather</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Console / Trim</span>
+            <span class="bento-row-value">Cream with botanical inlays</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Doors</span>
+            <span class="bento-row-value">Coach Doors (standard)</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Salon &middot; Pure Surface</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-card-name">Composition III</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#D4CFC4;"></span>All Cream</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior Front</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#E8E0D0;"></span>Cream leather</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior Rear</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#2C3E6B;"></span>Indigo leather</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Console / Trim</span>
+            <span class="bento-row-value">Cream with botanical inlays</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Doors</span>
+            <span class="bento-row-value">Coach Doors (standard)</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Salon &middot; Pure Surface</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Genese ── -->
+    <div class="bento-model">
+      <div class="bento-model-title">Genese</div>
+      <div class="bento-model-subtitle">2 Exterior Options &middot; 2 Interior Expressions</div>
+      <div class="bento-grid">
+        <div class="bento-card bento-default">
+          <div class="bento-card-name">Composition I</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background: linear-gradient(135deg, #C0C0C0 50%, #E87A2E 50%);"></span>Silver with Orange accents</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#C87533;"></span>Expression I: Deep Amber</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-card-name">Composition II</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background: linear-gradient(135deg, #E87A2E 50%, #C0C0C0 50%);"></span>All Orange with Silver accents</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#F0EDE8;"></span>Expression II: White &amp; Amber</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Cadence ── -->
+    <div class="bento-model">
+      <div class="bento-model-title">Cadence</div>
+      <div class="bento-model-subtitle">2 Exterior Options &middot; 1 Interior Expression</div>
+      <div class="bento-grid">
+        <div class="bento-card bento-default">
+          <div class="bento-card-name">Composition I</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#3A3A3A;"></span>Charcoal / Black</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#1A1A1A;"></span>Full dark, single palette</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-card-name">Composition II</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#2D4A3A;"></span>Dark Green</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#1A1A1A;"></span>Full dark, single palette</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Vernal ── -->
+    <div class="bento-model">
+      <div class="bento-model-title">Vernal</div>
+      <div class="bento-model-subtitle">1 Exterior Option &middot; 1 Interior Expression</div>
+      <div class="bento-grid">
+        <div class="bento-card bento-default">
+          <div class="bento-card-name">Singular Composition</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#C0C0C0;"></span>All Silver</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#D4C9A8;"></span>Warm sand, cream, olive</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Salon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Sir Class ── -->
+    <div class="bento-model">
+      <div class="bento-model-title">Sir Class</div>
+      <div class="bento-model-subtitle">3 Exterior Options &middot; Each &plusmn; H Logo &middot; Optional F1 Steering Wheel</div>
+      <div class="bento-grid">
+        <div class="bento-card bento-default">
+          <div class="bento-card-name">Composition I</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background: linear-gradient(135deg, #C0C0C0 50%, #1A1A1A 50%);"></span>Silver-to-Black Shift</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">H Logo</span>
+            <span class="bento-row-value">With or without</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Steering</span>
+            <span class="bento-row-value">Standard / Optional F1</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-card-name">Composition II</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#1A1A1A;"></span>All Black</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">H Logo</span>
+            <span class="bento-row-value">With or without</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Steering</span>
+            <span class="bento-row-value">Standard / Optional F1</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+        <div class="bento-card">
+          <div class="bento-card-name">Composition III</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background:#C0C0C0;"></span>All Silver</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">H Logo</span>
+            <span class="bento-row-value">With or without</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Steering</span>
+            <span class="bento-row-value">Standard / Optional F1</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sport &middot; Sculpted Surface</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Sir Class 1063 ── -->
+    <div class="bento-model">
+      <div class="bento-model-title">Sir Class 1063</div>
+      <div class="bento-model-subtitle">Fixed Configuration &middot; Sold Out</div>
+      <div class="bento-grid">
+        <div class="bento-card bento-default">
+          <div class="bento-card-name">Singular Composition</div>
+          <div class="bento-row">
+            <span class="bento-row-label">Exterior</span>
+            <span class="bento-row-value"><span class="bento-color-swatch" style="background: linear-gradient(135deg, #FFFFFF 50%, #2D5F3A 50%);"></span>White &amp; Racing Green</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Interior</span>
+            <span class="bento-row-value">Teal-lit cockpit</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Steering</span>
+            <span class="bento-row-value">Standard + Optional F1</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Silhouette</span>
+            <span class="bento-row-value">HOF Sir Class &middot; Sculpted Surface</span>
+          </div>
+          <div class="bento-row">
+            <span class="bento-row-label">Status</span>
+            <span class="bento-row-value" style="color:#C0392B; font-weight:500;">Sold Out</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HOF Exterior Colour Collection Reference -->
+  <div class="bento-section" style="border-top: 2px solid var(--dark);">
+    <div class="bento-section-header">
+      <span class="label">Reference</span>
+      <h2>HOF Colour Collection</h2>
+      <p>Available exterior colours across the HOF palette. Individual model availability varies by composition.</p>
+    </div>
+    <div class="bento-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px;">
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#1E3A5F; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Cosmic Blue</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#E8E2D6; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Altiplano White</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#B22222; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Lava Red</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#E87A2E; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Canyon Orange</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#C5A55A; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Sahara Gold</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#A8C3A0; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Celadon Green</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#2D5F3A; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Aztec Green</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#1A1A1A; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Meteor Black</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#8B6F47; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Eclipse Bronze</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#3A5F3A; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Schwarzwald Green</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#E8B89D; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Silk Apricot</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#C0C0C0; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Frost Silver</div>
+      </div>
+      <div style="text-align:center; padding:16px;">
+        <div style="width:48px; height:48px; border-radius:50%; background:#B8A9C9; margin:0 auto 8px; border:1px solid var(--gray-200);"></div>
+        <div style="font-size:12px; font-weight:500; color:var(--dark);">Lavender Veil</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container center">
@@ -626,7 +1263,7 @@
         <div class="footer-monogram">
           <img src="images/hof-logo-white.svg" alt="HOF Monogram">
         </div>
-        <p class="footer-tagline-sm">Internal Spec Sheet — Not for Distribution</p>
+        <p class="footer-tagline-sm">Internal Spec Sheet &mdash; Not for Distribution</p>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 HOF Manufaktur</p>

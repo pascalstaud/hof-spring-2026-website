@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF — Product Spec Sheet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Spec Sheet Specific Styles */
+    .spec-page-header {
+      padding: 140px 0 60px;
+      text-align: center;
+    }
+    .spec-page-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+    .spec-page-header p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-500);
+      letter-spacing: 1px;
+    }
+
+    .spec-table-wrap {
+      padding: 0 48px 80px;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      text-align: left;
+      vertical-align: top;
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.6;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .spec-table thead th {
+      background: var(--white);
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--dark);
+      vertical-align: bottom;
+    }
+
+    .spec-table th:first-child,
+    .spec-table td:first-child {
+      width: 140px;
+    }
+
+    /* Model header cells */
+    .spec-model-header {
+      text-align: center;
+    }
+    .spec-model-img {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      margin: 0 auto 12px;
+      display: block;
+      background: var(--light);
+    }
+    .spec-model-name {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 4px;
+    }
+    .spec-model-type {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 4px;
+    }
+    .spec-model-status {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .spec-model-status.available { color: var(--accent); }
+    .spec-model-status.sold-out { color: #C0392B; }
+    .spec-model-status.development { color: var(--gray-400); }
+
+    /* Category rows */
+    .spec-category td {
+      background: var(--light);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--dark);
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    /* Label column */
+    .spec-label {
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      color: var(--dark) !important;
+      letter-spacing: 0.5px;
+    }
+
+    /* Price highlight */
+    .spec-price {
+      font-size: 18px !important;
+      font-weight: 500 !important;
+      color: var(--dark) !important;
+      letter-spacing: 0.5px;
+    }
+    .spec-price-note {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--gray-400);
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* Missing data */
+    .spec-missing {
+      color: #E67E22 !important;
+      font-style: italic;
+    }
+    .spec-na {
+      color: var(--gray-300) !important;
+    }
+
+    /* Link to product page */
+    .spec-link {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--dark);
+      border-bottom: 1px solid var(--dark);
+      padding-bottom: 2px;
+      transition: color 0.3s ease;
+    }
+    .spec-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Legend */
+    .spec-legend {
+      padding: 24px 48px 60px;
+      max-width: 1600px;
+      margin: 0 auto;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .spec-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray-500);
+    }
+    .spec-legend-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .spec-legend-dot.orange { background: #E67E22; }
+    .spec-legend-dot.gray { background: var(--gray-300); }
+
+    @media (max-width: 768px) {
+      .spec-table-wrap { padding: 0 16px 60px; }
+      .spec-legend { padding: 16px 16px 40px; }
+      .spec-page-header { padding: 120px 24px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav nav-white">
+    <div class="nav-left">
+      <a href="collection.html">Collection</a>
+      <a href="about.html">Manufaktur</a>
+      <a href="press.html">Press</a>
+    </div>
+    <a href="index.html" class="nav-logo">
+      <img src="images/hof-logo-dark.svg" alt="HOF" class="nav-logo-img dark">
+      <img src="images/hof-logo-white.svg" alt="HOF" class="nav-logo-img white">
+    </a>
+    <div class="nav-right">
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="contact.html" class="btn btn-contact">Book Consultation</a>
+      <button class="nav-menu" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="collection.html">Collection</a>
+    <a href="prelude.html">Prelude</a>
+    <a href="genese.html">Genese</a>
+    <a href="cadence.html">Cadence</a>
+    <a href="vernal.html">Vernal</a>
+    <a href="sir-class-new.html">Sir Class</a>
+    <a href="sir-class.html">Sir Class 1063</a>
+    <a href="about.html">Manufaktur</a>
+    <a href="press.html">Press</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <!-- Page Header -->
+  <div class="spec-page-header">
+    <span class="label">Internal Review</span>
+    <h1>Product Spec Sheet</h1>
+    <p>All models at a glance — Spring Summer 2026 &amp; Permanent Collection</p>
+  </div>
+
+  <!-- Legend -->
+  <div class="spec-legend">
+    <div class="spec-legend-item">
+      <span class="spec-legend-dot orange"></span>
+      Missing / TBD — needs input
+    </div>
+    <div class="spec-legend-item">
+      <span class="spec-legend-dot gray"></span>
+      N/A — not applicable
+    </div>
+  </div>
+
+  <!-- Spec Table -->
+  <div class="spec-table-wrap">
+    <table class="spec-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="spec-model-header">
+            <img src="images/prelude/exterior-hero.png" alt="Prelude" class="spec-model-img">
+            <div class="spec-model-name">Prelude</div>
+            <div class="spec-model-type">Collector Model · SS26</div>
+            <div class="spec-model-status available">Available</div>
+          </th>
+          <th class="spec-model-header">
+            <img src="images/genese/exterior-hero.png" alt="Genese" class="spec-model-img">
+            <div class="spec-model-name">Genese</div>
+            <div class="spec-model-type">Seasonal Model · SS26</div>
+            <div class="spec-model-status available">Available</div>
+          </th>
+          <th class="spec-model-header">
+            <img src="images/cadence/exterior-hero.png" alt="Cadence" class="spec-model-img">
+            <div class="spec-model-name">Cadence</div>
+            <div class="spec-model-type">Seasonal Model · SS26</div>
+            <div class="spec-model-status available">Available</div>
+          </th>
+          <th class="spec-model-header">
+            <img src="images/vernal/mood-board.png" alt="Vernal" class="spec-model-img">
+            <div class="spec-model-name">Vernal</div>
+            <div class="spec-model-type">Seasonal Model · SS26</div>
+            <div class="spec-model-status development">In Development</div>
+          </th>
+          <th class="spec-model-header">
+            <img src="images/sir-class/hero-34-front-web.jpg" alt="Sir Class" class="spec-model-img">
+            <div class="spec-model-name">Sir Class</div>
+            <div class="spec-model-type">Permanent Model · 2026</div>
+            <div class="spec-model-status available">Available</div>
+          </th>
+          <th class="spec-model-header">
+            <img src="images/sir-class/hero-front-web.jpg" alt="Sir Class 1063" class="spec-model-img">
+            <div class="spec-model-name">Sir Class 1063</div>
+            <div class="spec-model-type">Collector Model · AW25</div>
+            <div class="spec-model-status sold-out">Sold Out</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- IDENTITY -->
+        <tr class="spec-category">
+          <td colspan="7">Identity</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Public Name</td>
+          <td>Prelude</td>
+          <td>Genese</td>
+          <td>Cadence</td>
+          <td>Vernal</td>
+          <td>Sir Class</td>
+          <td>Sir Class 1063</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Internal Name</td>
+          <td>Kenzo Couture</td>
+          <td>Imperial Amber</td>
+          <td>Timeless Almanac</td>
+          <td>Organic Bauhaus</td>
+          <td>Sir Class (New)</td>
+          <td>Sir Class 1063</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Tagline</td>
+          <td>Precision of line. Patience of observation.</td>
+          <td>The most intimate composition.</td>
+          <td>Monochrome — precise, not brutal.</td>
+          <td>A room you've always known but never found.</td>
+          <td>The Legacy Continues.</td>
+          <td>Born of Victory.</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Collection</td>
+          <td>Spring Summer 2026</td>
+          <td>Spring Summer 2026</td>
+          <td>Spring Summer 2026</td>
+          <td>Spring Summer 2026</td>
+          <td>Permanent Collection</td>
+          <td>Autumn Winter 2025</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Category</td>
+          <td>Collector Model</td>
+          <td>Seasonal Model</td>
+          <td>Seasonal Model</td>
+          <td>Seasonal Model</td>
+          <td>Permanent Model</td>
+          <td>Collector Model</td>
+        </tr>
+
+        <!-- PRICING -->
+        <tr class="spec-category">
+          <td colspan="7">Pricing</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Price</td>
+          <td class="spec-price">From &euro;450,000*</td>
+          <td class="spec-price spec-missing">TBD</td>
+          <td class="spec-price spec-missing">TBD</td>
+          <td class="spec-price spec-missing">TBD</td>
+          <td class="spec-price spec-missing">TBD</td>
+          <td class="spec-price">&euro;750,000*</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Price Note</td>
+          <td>* Excludes base vehicle</td>
+          <td class="spec-missing">Needs pricing</td>
+          <td class="spec-missing">Needs pricing</td>
+          <td class="spec-missing">Needs pricing</td>
+          <td class="spec-missing">Needs pricing</td>
+          <td>* Excludes base vehicle</td>
+        </tr>
+
+        <!-- PLATFORM / PERFORMANCE -->
+        <tr class="spec-category">
+          <td colspan="7">Platform &amp; Performance</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Base Vehicle</td>
+          <td>Mercedes G-Class</td>
+          <td>Mercedes G-Class</td>
+          <td>Mercedes G-Class</td>
+          <td>Mercedes G-Class</td>
+          <td>Mercedes-Benz B465</td>
+          <td>Mercedes G-Class</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Body Options</td>
+          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
+          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
+          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
+          <td>5-Door / 3-Door Coup&eacute; / Cabriolet</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Engine</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td>4.0L V8 Biturbo</td>
+          <td>4.0L V8 Biturbo</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Power (HP)</td>
+          <td class="spec-na">N/A (composition focus)</td>
+          <td class="spec-na">N/A (composition focus)</td>
+          <td class="spec-na">N/A (composition focus)</td>
+          <td class="spec-na">N/A (composition focus)</td>
+          <td>800 HP</td>
+          <td>1,063 HP</td>
+        </tr>
+        <tr>
+          <td class="spec-label">0–100 km/h</td>
+          <td class="spec-na">—</td>
+          <td class="spec-na">—</td>
+          <td class="spec-na">—</td>
+          <td class="spec-na">—</td>
+          <td class="spec-missing">TBD</td>
+          <td>3.5 seconds</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Top Speed</td>
+          <td class="spec-na">—</td>
+          <td class="spec-na">—</td>
+          <td class="spec-na">—</td>
+          <td class="spec-na">—</td>
+          <td class="spec-missing">TBD</td>
+          <td>300 km/h</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Wheels</td>
+          <td>Disc-style, white with gold ring accent</td>
+          <td>White disc-style, orange centre cap</td>
+          <td>All-black, architectural profile</td>
+          <td class="spec-missing">TBD</td>
+          <td>23" Forged, Carbon Cover</td>
+          <td>23" H1063 Forged, Carbon Cover</td>
+        </tr>
+
+        <!-- EXTERIOR -->
+        <tr class="spec-category">
+          <td colspan="7">Exterior</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Color / Finish</td>
+          <td>Satin two-tone: champagne meeting indigo</td>
+          <td>Silver-white metallic</td>
+          <td>Dark charcoal metallic</td>
+          <td>Pale organic tone, soft satin</td>
+          <td class="spec-missing">TBD</td>
+          <td>White with racing green accents</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Exterior Character</td>
+          <td>Botanical palette, discreet HOF identification. A presence that arrives without announcement.</td>
+          <td>Composed, almost neutral. Fine amber pinstripe accent. Defined by what it withholds.</td>
+          <td>Blacked-out trim. Architectural finish. A form that holds its ground.</td>
+          <td>Sculptural presence. A form that breathes. Honest material reference.</td>
+          <td>Racing heritage, sleek aerodynamic lines. Next-generation precision.</td>
+          <td>Bold aerodynamic body. Signature racecar design elements. Racing heritage.</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Design Reference</td>
+          <td>Early botanical illustration, Kenzo couture tradition</td>
+          <td>Natural amber &amp; resin, translucency of light</td>
+          <td>Precision watchmaking, sculptural black forms</td>
+          <td>Bauhaus principles, organic architecture</td>
+          <td>Motorsport evolution, B465 platform design</td>
+          <td>7x World Championship tribute, motorsport heritage</td>
+        </tr>
+
+        <!-- INTERIOR -->
+        <tr class="spec-category">
+          <td colspan="7">Interior</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Primary Material</td>
+          <td>Warm-palette vegetable-tanned leather</td>
+          <td>Amber-toned leather (Expression I) / White leather (Expression II)</td>
+          <td>Black smooth &amp; structured grain leather</td>
+          <td>Vegetable-tanned leather, chosen for patina</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Textile / Insert</td>
+          <td>Botanical jacquard textile (exclusive to Prelude)</td>
+          <td>Semi-translucent material details</td>
+          <td>Hexagonal seat textures</td>
+          <td>Natural weave textiles, tone-on-tone pattern</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Embroidery / Detail</td>
+          <td>Hand-placed botanical motif (visible only on close inspection)</td>
+          <td>Fine grid stitching</td>
+          <td>Tonal stitching with deep emerald accents</td>
+          <td>Bauhaus-inspired geometry</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Color Palette</td>
+          <td>Grey and ivory floral language</td>
+          <td>Deep amber (Expr. I) / White with amber (Expr. II)</td>
+          <td>Full dark, single disciplined palette</td>
+          <td>Warm sand, cream, olive undertone, deep charcoal accent</td>
+          <td>Teal-lit atmosphere</td>
+          <td>Teal-lit cockpit</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Interior Variants</td>
+          <td class="spec-na">Single expression</td>
+          <td>Expression I (Amber monochrome)<br>Expression II (White with amber)</td>
+          <td class="spec-na">Single expression</td>
+          <td class="spec-na">Single expression</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Ambient Lighting</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td>Blue ambient lighting</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Steering Wheel</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td>Flat-bottom</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Console / Trim</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td>Dark marble-textured console</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+        </tr>
+
+        <!-- PHILOSOPHY -->
+        <tr class="spec-category">
+          <td colspan="7">Design Philosophy</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Core Concept</td>
+          <td>Botanical illustration meets Parisian couture. Precision of line, patience of observation.</td>
+          <td>Duality and inversion. One exterior, two interior worlds. Origin concept — single thought, two readings.</td>
+          <td>Architectural expression. Restriction intensifies expression. Monochrome conviction.</td>
+          <td>Form follows feeling. Beauty lives in the unhurried. Minimal expression, maximum presence.</td>
+          <td>Evolution of a legend. What began as tribute now stands permanent.</td>
+          <td>Tribute to motorsport's most decorated champion. Final lap made forever.</td>
+        </tr>
+
+        <!-- PRODUCTION -->
+        <tr class="spec-category">
+          <td colspan="7">Production</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Atelier</td>
+          <td>Atelier HOF, Sindelfingen</td>
+          <td>Atelier HOF, Sindelfingen</td>
+          <td>Atelier HOF, Sindelfingen</td>
+          <td>Atelier HOF, Sindelfingen</td>
+          <td>Atelier HOF, Sindelfingen</td>
+          <td>Atelier HOF, Sindelfingen</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Edition Size</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td>Permanent (no limit)</td>
+          <td>Limited (Sold Out)</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Delivery Timeline</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-missing">TBD</td>
+          <td class="spec-na">—</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Development Status</td>
+          <td>Production-ready</td>
+          <td>Production-ready</td>
+          <td>Production-ready</td>
+          <td>In Atelier Development</td>
+          <td>Production-ready</td>
+          <td>Delivered / Sold Out</td>
+        </tr>
+
+        <!-- LINKS -->
+        <tr class="spec-category">
+          <td colspan="7">Website</td>
+        </tr>
+        <tr>
+          <td class="spec-label">Product Page</td>
+          <td><a href="prelude.html" class="spec-link">View &rarr;</a></td>
+          <td><a href="genese.html" class="spec-link">View &rarr;</a></td>
+          <td><a href="cadence.html" class="spec-link">View &rarr;</a></td>
+          <td><a href="vernal.html" class="spec-link">View &rarr;</a></td>
+          <td><a href="sir-class-new.html" class="spec-link">View &rarr;</a></td>
+          <td><a href="sir-class.html" class="spec-link">View &rarr;</a></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container center">
+      <div class="footer-top">
+        <div class="footer-monogram">
+          <img src="images/hof-logo-white.svg" alt="HOF Monogram">
+        </div>
+        <p class="footer-tagline-sm">Internal Spec Sheet — Not for Distribution</p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 HOF Manufaktur</p>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

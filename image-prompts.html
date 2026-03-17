@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF — Image Generation Brief</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #1A1918;
+      --white: #FFFFFF;
+      --light: #F7F7F7;
+      --accent: #C4A265;
+      --gray-100: #F0F0F0;
+      --gray-200: #E0E0E0;
+      --gray-400: #A0A0A0;
+      --gray-500: #6B6B6B;
+      --gray-700: #3A3A3A;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); color: var(--dark); background: var(--white); }
+
+    .page-header {
+      padding: 80px 48px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 2px solid var(--dark);
+    }
+    .page-header .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    .model-section {
+      padding: 60px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .model-section:last-of-type { border-bottom: none; }
+
+    .model-header {
+      margin-bottom: 40px;
+    }
+    .model-header .model-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .model-header h2 {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .model-header .model-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
+    .story-block {
+      background: var(--light);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-left: 3px solid var(--accent);
+    }
+    .story-block h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .story-block p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .story-block p:last-child { margin-bottom: 0; }
+
+    .target-block {
+      background: var(--dark);
+      color: var(--white);
+      padding: 24px 32px;
+      margin-bottom: 40px;
+    }
+    .target-block h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .target-block p {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+    }
+
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .prompt-card {
+      border: 1px solid var(--gray-200);
+      padding: 28px;
+      transition: border-color 0.3s ease;
+    }
+    .prompt-card:hover { border-color: var(--dark); }
+    .prompt-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .prompt-card-id {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .prompt-card-size {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-400);
+    }
+    .prompt-card h4 {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .prompt-card .prompt-purpose {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+    .prompt-card .prompt-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.8;
+      background: var(--light);
+      padding: 16px;
+      border-left: 2px solid var(--accent);
+      font-style: italic;
+    }
+    .prompt-card .prompt-notes {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-500);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .section-divider {
+      padding: 40px 48px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-divider h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE HEADER                                       -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page-header">
+  <span class="label">Internal Creative Brief</span>
+  <h1>Image Generation Brief</h1>
+  <p>Complete story definitions, target groups, and AI image prompts for every HOF collection page. Each prompt is designed for high-end automotive visualization (Midjourney, DALL-E, or Flux). Generate at 16:9 unless noted otherwise.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 1. KINSŌ                                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Collector Model &middot; SS26</span>
+    <h2>Kins&omacr;</h2>
+    <div class="model-sub">Internal: Kenzo Couture &middot; HOF Salon Silhouette &middot; Coach Doors &middot; Pure Surface</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Kins&omacr; (金装)</strong> &mdash; Japanese for &ldquo;golden attire.&rdquo; In the tradition of Kintsugi, where broken pottery is repaired with gold to celebrate its history, Kins&omacr; adorns the surface to reveal the soul within.</p>
+    <p>The HOF Kins&omacr; is where Parisian haute couture meets Tokyo precision. It begins not with a car, but with a fabric &mdash; a botanical jacquard woven exclusively for this expression, depicting the patience of observation found in early botanical illustration. The same eye that once catalogued every petal of a Japanese chrysanthemum now curates every surface of this G-Class.</p>
+    <p>The two-tone exterior &mdash; cream meeting indigo &mdash; borrows from fashion's most enduring principle: that contrast creates conversation. Like a Dior gown where structure meets fluidity, Kins&omacr; divides its silhouette into light and dark, day and night, the seen and the sensed.</p>
+    <p>Coach Doors open like the pages of a couture lookbook. The interior reveals a two-zone world: cream leather in the front cabin, transitioning to deep indigo in the rear &mdash; as if crossing the threshold from a Parisian atelier into a Japanese tea room.</p>
+    <p>Every detail is placed, not added. The botanical motif appears only on close inspection &mdash; a hand-placed embroidery that rewards those who look twice. The wheels, finished in white with a gold ring accent, complete a composition that whispers rather than announces.</p>
+    <p><strong>Kins&omacr; is not a car with a story. It is a story that became a car.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The cultural collector. Art Basel regulars. Fashion-aware, design-educated. They know the difference between Dries Van Noten and Rick Owens. They don't buy cars &mdash; they collect expressions. Their home features curated objects, not accumulations. Age 35&ndash;55. Net worth 5M+. They are moved by narrative, not numbers.</p>
+  </div>
+
+  <div class="prompt-grid">
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-01</span>
+        <span class="prompt-card-size">Hero &middot; 16:9</span>
+      </div>
+      <h4>Collection Hero &mdash; Full Car, 3/4 Front</h4>
+      <div class="prompt-purpose">Main hero image for the Kins&omacr; collection page. First thing visitors see.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) with a refined luxury body kit, completely smooth sides with no side cladding/protection elements (Pure Surface). Two-tone paint: upper cabin in soft warm cream/champagne satin, lower body in deep indigo blue satin. Coach doors (rear-hinged rear doors). White disc-style wheels with a thin gold ring accent. Shot from 3/4 front angle, in a minimal Parisian courtyard with aged limestone walls and climbing ivy. Morning light, soft shadows. No visible logos except subtle HOF. Photorealistic, editorial quality, fashion magazine aesthetic. Shot on medium format camera, shallow depth of field on background.</div>
+      <div class="prompt-notes">Key: Clean sides (no G-Class side bumper cladding), two-tone split at the beltline (window line), cream above indigo below. The car should look couture, not tuned.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-02</span>
+        <span class="prompt-card-size">Editorial &middot; 16:9</span>
+      </div>
+      <h4>Coach Door Detail &mdash; Door Open, Interior Visible</h4>
+      <div class="prompt-purpose">Shows the signature Coach Doors and the cream/indigo interior transition.</div>
+      <div class="prompt-text">Close-up of a Mercedes G-Class rear coach door (reverse-opening, centre-hinged like Rolls-Royce) fully open. The interior reveals cream leather seats in front transitioning to deep indigo leather in the rear. Botanical jacquard textile visible on door panel insert. Warm natural light entering the cabin. Cropped tight, editorial style. The exterior paint visible is cream satin on the upper portion, indigo satin below. Focus on the craftsmanship of the door opening and material quality.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-03</span>
+        <span class="prompt-card-size">Material Close-Up &middot; 1:1</span>
+      </div>
+      <h4>Botanical Jacquard Fabric Detail</h4>
+      <div class="prompt-purpose">Shows the exclusive fabric &mdash; the soul of Kins&omacr;. Used in the &ldquo;From Fabric to Form&rdquo; section.</div>
+      <div class="prompt-text">Extreme macro close-up of a botanical jacquard textile in cream and indigo tones. The pattern shows delicate botanical illustrations &mdash; Japanese chrysanthemums, fern fronds, seed pods &mdash; woven into the fabric with gold thread accents. The texture is rich, slightly raised. Shot on a flat surface with soft directional studio lighting, casting gentle shadows that reveal the weave. Fashion editorial quality. Think Herm&egrave;s silk scarf photography but applied to automotive textile.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-04</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Front Cabin &mdash; Cream Interior with Botanical Details</h4>
+      <div class="prompt-purpose">Shows the front zone of the two-zone interior concept.</div>
+      <div class="prompt-text">Interior view of a Mercedes G-Class (W465) from the passenger perspective looking across the cabin. Full cream/ivory leather dashboard, seats, and centre console. Botanical jacquard textile inserts on the seat centres and door panels. Console trim in cream leather with subtle botanical inlay details. The steering wheel is wrapped in cream leather. Ambient lighting is warm and soft. The mood is a Parisian salon &mdash; refined, unhurried, considered. Natural light from the windshield creates gentle gradients. No harsh contrasts.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-05</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Rear Cabin &mdash; Indigo Interior, Lounge Seats</h4>
+      <div class="prompt-purpose">Shows the rear zone and the Lounge Seat option (two individual S-Class-style seats instead of bench).</div>
+      <div class="prompt-text">Interior view of a Mercedes G-Class rear cabin with two individual lounge seats (no bench, S-Class executive style) in deep indigo blue leather. Botanical embroidery visible on the headrests &mdash; a subtle hand-placed chrysanthemum motif in tonal thread, only visible on close inspection. Ambient lighting creates a cocoon-like atmosphere. The front seats in cream are partially visible, showing the colour transition. A Japanese tea ceremony aesthetic &mdash; restrained, purposeful, meditative. Shot from low angle looking between the front seats towards the rear.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-06</span>
+        <span class="prompt-card-size">Lifestyle &middot; 16:9</span>
+      </div>
+      <h4>Fashion Atelier &mdash; Fabric Selection Scene</h4>
+      <div class="prompt-purpose">Storytelling image showing HOF as a Maison, not a manufacturer. Used in the &ldquo;Curated, Not Made&rdquo; section.</div>
+      <div class="prompt-text">A designer's hands selecting fabrics from a curated collection on a large white table in a bright, minimal atelier. Swatches of botanical jacquard in cream and indigo, leather samples in ivory, metal trim pieces in brushed gold. A Japanese botanical illustration book open beside the samples. Natural north light from tall windows. The scene feels like a fashion house preparing a collection &mdash; not an automotive factory. Minimal, precise, editorial. Shot overhead or at a 45-degree angle.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-07</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; All Indigo Colorway</h4>
+      <div class="prompt-purpose">Shows the second Bento Box option: all-indigo exterior.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in full deep indigo blue satin paint, with luxury body kit (no side cladding, Pure Surface), coach doors, white disc wheels with gold ring. Full side profile shot against a plain white or very light grey backdrop. The car appears like a fashion item photographed for a lookbook &mdash; clean, isolated, every line visible. Studio lighting, no background distractions. The indigo should feel deep and rich, like a midnight fabric.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-08</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; All Cream Colorway</h4>
+      <div class="prompt-purpose">Shows the third Bento Box option: all-cream exterior.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in full warm cream/champagne satin paint, luxury body kit (Pure Surface, no side cladding), coach doors, white disc wheels with gold ring. Full side profile against a minimal cream-toned studio backdrop. The car appears monochromatic, almost sculpted from a single block of ivory. Gentle studio lighting creates soft shadows that define the body lines. Fashion editorial quality.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-09</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>Two-Tone Bodykit Variant &mdash; Cabin Indigo, Bodykit Cream</h4>
+      <div class="prompt-purpose">Fourth Bento Box option: inverted two-tone where the cabin (above beltline) is indigo and the lower body/bodykit is cream.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) with inverted two-tone paint: upper cabin/greenhouse in deep indigo blue, lower body and bumpers in warm cream/champagne. Luxury body kit (Pure Surface), coach doors. White disc wheels with gold ring. 3/4 front angle, shot in a minimalist architectural setting with clean concrete and natural light. The inversion creates a bold, fashion-forward statement &mdash; like wearing a dark blazer with light trousers.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-10</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Wheel Detail &mdash; White Disc with Gold Ring</h4>
+      <div class="prompt-purpose">Close-up of the signature Kins&omacr; wheel design.</div>
+      <div class="prompt-text">Extreme close-up of a luxury 23-inch forged wheel, disc-style (flat face, no spokes visible), finished in pearl white with a single thin gold ring accent near the outer lip. Behind it, a gold brake caliper. The cream satin body paint is partially visible. Shot at ground level, macro lens, with the wheel filling most of the frame. Studio-quality lighting. The wheel should look like a piece of jewellery.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 2. GENESE                                         -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Seasonal Model &middot; SS26</span>
+    <h2>Genese</h2>
+    <div class="model-sub">Internal: Imperial Amber &middot; HOF Sport Silhouette &middot; Sculpted Surface</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Genese</strong> &mdash; French for &ldquo;genesis,&rdquo; the origin, the bold beginning. Where Kins&omacr; whispers, Genese speaks. Not loudly &mdash; but with the unmistakable conviction of someone who has decided. The colour is the statement.</p>
+    <p>Canyon Orange is not a colour you choose by accident. It is a declaration. The HOF Genese takes the audacity of a Lamborghini Miura&rsquo;s original orange and gives it the restraint of a Maison. The result is a G-Class that commands attention not through aggression, but through chromatic conviction.</p>
+    <p>The exterior tells a dual story: in its default composition, canyon orange dominates, with silver accents providing the counterpoint. The Sport Silhouette keeps the G-Class side elements &mdash; muscular, defined, present. Inside, the amber interior wraps the cabin in a warm, enveloping tone that feels less like leather and more like light itself, filtered through centuries-old resin.</p>
+    <p>The Genese offers two interior worlds: Expression I bathes everything in deep amber &mdash; monochrome, total, immersive. Expression II inverts the equation: white leather meets amber accents, creating a gallery-like space where the colour becomes the art, not the architecture.</p>
+    <p><strong>Bold does not mean loud. Bold means decided.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The confident creative. Architects, gallerists, creative directors. They wear statement pieces &mdash; not for attention, but because they mean it. They understand that bold is not loud; bold is conviction applied to colour. Age 30&ndash;50. They drive to be seen &mdash; but by the right people.</p>
+  </div>
+
+  <div class="prompt-grid">
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-01</span>
+        <span class="prompt-card-size">Hero &middot; 16:9</span>
+      </div>
+      <h4>Collection Hero &mdash; Full Car, 3/4 Front, Canyon Orange</h4>
+      <div class="prompt-purpose">Main hero. The orange car is the DEFAULT &mdash; not silver.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in vibrant Canyon Orange metallic paint with sport body kit (side protection elements/cladding retained, sculpted aggressive lines). Silver metallic accents on bumper trim and side elements. White disc-style wheels with orange centre cap. Shot from 3/4 front angle in an industrial-chic gallery space &mdash; raw concrete floors, massive steel-frame windows, warm late afternoon light streaming in, casting long orange reflections on the polished floor. The car should look like a sculpture in a gallery. Photorealistic, editorial quality.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-02</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Expression I &mdash; Deep Amber Monochrome Interior</h4>
+      <div class="prompt-purpose">First interior expression: total amber immersion.</div>
+      <div class="prompt-text">Interior of a Mercedes G-Class (W465) entirely in deep amber/cognac leather. Dashboard, seats, door panels, steering wheel, centre console &mdash; everything in a rich amber tone. Fine grid stitching visible on the seats. Semi-translucent material details on the door panel inserts. The ambient lighting is warm amber. The feeling is being inside a piece of amber &mdash; warm, enveloping, timeless. Late afternoon golden hour light through the windshield. Shot from driver perspective.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-03</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Expression II &mdash; White with Amber Accents Interior</h4>
+      <div class="prompt-purpose">Second interior expression: gallery-white with amber accents.</div>
+      <div class="prompt-text">Interior of a Mercedes G-Class (W465) in crisp white leather with canyon orange/amber accent stitching and trim elements. White dashboard and seats, with amber leather on the centre console, steering wheel rim, and door handle pulls. The contrast is sharp but refined &mdash; a white gallery with amber sculptures. Clean, minimal, airy. Bright daylight, high-key lighting. Shot from passenger side looking across the cabin.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-04</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>Silver with Orange Accents &mdash; Second Colorway</h4>
+      <div class="prompt-purpose">Alternative Bento Box option: silver base with orange accent elements.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in silver-white metallic paint with sport body kit. Canyon Orange accents on the side protection elements, bumper trim details, and brake calipers. White disc wheels with orange centre cap. 3/4 rear angle, shot against a clean urban backdrop &mdash; polished concrete, reflective surfaces. The orange accents pop against the silver like jewellery. Daytime, overcast sky for even lighting.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-05</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>All Black Colorway</h4>
+      <div class="prompt-purpose">Third Bento Box option.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in deep black metallic paint with sport body kit. All black, including wheels (black disc-style). Orange brake calipers visible behind the wheels as the only colour accent. Shot at twilight in a dark urban setting &mdash; wet asphalt reflections, subtle street lighting. The car appears as a shadow with presence. Moody, cinematic. Think Christopher Nolan meets fashion editorial.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-06</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>All White Colorway</h4>
+      <div class="prompt-purpose">Fourth Bento Box option.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in pure white metallic paint with sport body kit. All white, including white disc wheels with orange centre cap. Shot in a bright, high-key studio environment &mdash; white cyclorama backdrop, soft studio lighting creating gentle shadows. The car looks like a blank canvas. Minimalist fashion editorial style. Clean, clinical, considered.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">GEN-07</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Amber Material Close-Up</h4>
+      <div class="prompt-purpose">Material storytelling &mdash; the origin of the colour.</div>
+      <div class="prompt-text">Macro close-up of natural amber resin, backlit to show translucency and internal inclusions. Beside it, a swatch of the amber/cognac leather used in the Genese interior, showing the fine grid stitching pattern. The two materials &mdash; natural and crafted &mdash; placed side by side on a white surface, creating a dialogue between nature and design. Studio lighting, shallow depth of field.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 3. CADENCE                                        -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Seasonal Model &middot; SS26</span>
+    <h2>Cadence</h2>
+    <div class="model-sub">Internal: Timeless Almanac &middot; HOF Sport Silhouette &middot; Sculpted Surface</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Cadence</strong> &mdash; from the Latin &ldquo;cadentia,&rdquo; the rhythm of falling tones. In music, a cadence is the moment of resolution &mdash; the chord that tells you where the composition arrives. The HOF Cadence arrives in two tones.</p>
+    <p>This is the Maybach principle, reimagined through the lens of Car Couture. The two-tone tradition &mdash; where a car&rsquo;s silhouette is divided into two deliberate colour zones &mdash; has defined the most distinguished motorcars since the 1930s. Cadence takes this heritage and strips it to its essence: Schwarzwald Green below, Champagne above. The forest meets the salon.</p>
+    <p>The dividing line runs at the beltline &mdash; the classical proportion where the glass meets the body. Above: warm champagne that catches light like vintage cloth. Below: a deep, living green that carries the weight of the Black Forest itself.</p>
+    <p>Inside, the discipline continues. A single dark palette &mdash; black smooth leather, structured grain textures, hexagonal seat patterns, tonal stitching with deep emerald accents. Blue ambient lighting creates an atmosphere that feels less like a cabin and more like a private study at midnight.</p>
+    <p>The second composition offers the inverse mood: all dark green, a monochrome declaration where the two-tone heritage dissolves into a single, powerful conviction.</p>
+    <p><strong>Two tones. One resolution.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The architectural mind. They appreciate proportion, restraint, and the tension between two complementary tones. They collect watches (Patek Philippe, not Rolex), live in spaces designed by John Pawson, and see beauty in structural integrity. Age 40&ndash;60. Old-money sensibility with new-world awareness.</p>
+  </div>
+
+  <div class="prompt-grid">
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">CAD-01</span>
+        <span class="prompt-card-size">Hero &middot; 16:9</span>
+      </div>
+      <h4>Collection Hero &mdash; Two-Tone Green + Champagne</h4>
+      <div class="prompt-purpose">Main hero showing the Maybach-style two-tone.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) with two-tone paint in the Maybach tradition: upper cabin/greenhouse in warm champagne/sand metallic, lower body below the beltline in deep Schwarzwald Green (dark forest green) metallic. Sport body kit with side protection elements retained (Sculpted Surface). All-black architectural wheels, 23-inch. Shot from 3/4 front angle, set against a minimalist concrete and dark wood architectural backdrop &mdash; think Tadao Ando meets forest edge. Overcast autumn light. The two-tone split should be crisp and classical. Photorealistic, editorial quality.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">CAD-02</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>All Dark Green Colorway</h4>
+      <div class="prompt-purpose">Second Bento Box option: monochrome green.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in full Schwarzwald Green (deep dark forest green) metallic paint. Sport body kit, all-black wheels. Side profile, shot on a misty forest road at dawn. The car almost disappears into the landscape &mdash; a form that belongs. Moody, atmospheric, Scandinavian design magazine quality. The green should be dark, rich, alive &mdash; not olive, not military, but the green of old-growth forest.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">CAD-03</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>All Champagne Colorway</h4>
+      <div class="prompt-purpose">Third Bento Box option: monochrome champagne.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in full warm champagne/sand metallic paint. Sport body kit, all-black wheels. Shot in a minimalist courtyard with natural stone walls and a single olive tree. Warm Mediterranean light. The car glows softly &mdash; not flashy, but warm and considered. Like a cashmere coat in the sun.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">CAD-04</span>
+        <span class="prompt-card-size">Full Car &middot; 16:9</span>
+      </div>
+      <h4>Grey/Silver Colorway</h4>
+      <div class="prompt-purpose">Fourth Bento Box option.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in refined grey/frost silver metallic paint. Sport body kit, all-black architectural wheels. Shot in an urban architectural setting &mdash; a modernist museum exterior, clean lines, grey concrete. The car matches the architecture. Overcast sky. Monochromatic, disciplined, precise. A visual essay in grey.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">CAD-05</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Dark Interior with Blue Ambient Lighting</h4>
+      <div class="prompt-purpose">The Cadence interior &mdash; midnight study atmosphere.</div>
+      <div class="prompt-text">Interior of a Mercedes G-Class (W465) in full black leather &mdash; smooth on the dashboard, structured grain on the seats with hexagonal textures. Tonal dark stitching with subtle deep emerald green thread accents. Dark marble-textured centre console. Flat-bottom steering wheel. Blue ambient lighting creates a moody, intimate atmosphere. The cabin feels like a private library at night &mdash; dark, warm, intellectually stimulating. Shot from the rear looking forward through the front seats.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">CAD-06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Hexagonal Seat Texture Close-Up</h4>
+      <div class="prompt-purpose">Material storytelling &mdash; the architectural precision.</div>
+      <div class="prompt-text">Extreme macro close-up of black leather car seat with a hexagonal quilting pattern. The hexagons are precision-stamped, creating a geometric landscape. Tonal stitching with a single emerald green thread running through the pattern. Studio lighting from one side, creating dramatic shadows within each hexagonal cell. The texture should look both organic and engineered &mdash; like a honeycomb designed by an architect.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 4. VERNAL                                         -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Seasonal Model &middot; SS26</span>
+    <h2>Vernal</h2>
+    <div class="model-sub">Internal: Organic Bauhaus &middot; HOF Salon Silhouette &middot; In Development</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Vernal</strong> &mdash; of spring, of renewal, of the essential. When Walter Gropius founded the Bauhaus in 1919, he believed in the total work of art &mdash; the Gesamtkunstwerk &mdash; where form, function, and material speak as one. The HOF Vernal is this conviction applied to a G-Class.</p>
+    <p>Silver. One colour. One conviction. Where other HOF expressions layer and contrast, Vernal strips back to the irreducible. The all-silver exterior is not a choice of colour &mdash; it is the absence of choice. It is the final answer, not the first option.</p>
+    <p>Inside, natural materials take centre stage: vegetable-tanned leather chosen not for its uniformity but for its capacity to develop patina over time. Natural weave textiles in tone-on-tone patterns. Warm sand, cream, and olive tones create an interior that feels like a room you&rsquo;ve always known but never found.</p>
+    <p>Bauhaus geometry appears in the smallest details &mdash; the stitching patterns, the seat cushion divisions, the way light falls across surfaces designed to age with dignity. Every line serves a purpose. Every surface earns its presence.</p>
+    <p>The Salon Silhouette gives Vernal the same clean sides as Kins&omacr; &mdash; but here, the intention is different. Where Kins&omacr;&rsquo;s Pure Surface serves couture, Vernal&rsquo;s serves Bauhaus: form follows function. Nothing more, nothing less.</p>
+    <p><strong>Less is not less. Less is everything that remains after everything unnecessary is removed.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The minimalist. Their home is more gallery than mansion. They own one perfect watch, one perfect chair, one perfect knife. They read Kinfolk. They visit Vitsoe showrooms. They believe beauty lives in restraint. Age 35&ndash;55. Design professionals, tech founders, quiet wealth. They don&rsquo;t want to be noticed &mdash; they want to be right.</p>
+  </div>
+
+  <div class="prompt-grid">
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">VER-01</span>
+        <span class="prompt-card-size">Hero &middot; 16:9</span>
+      </div>
+      <h4>Collection Hero &mdash; All Silver, Minimal</h4>
+      <div class="prompt-purpose">Main hero. One colour, one conviction.</div>
+      <div class="prompt-text">A Mercedes G-Class (W465) in frost silver metallic paint with luxury body kit (Pure Surface / no side cladding, clean sides). HOF Salon silhouette. Standard doors (not coach doors). Silver/grey wheels, 23-inch, clean disc design. Shot from 3/4 front angle against a Bauhaus-inspired architectural backdrop &mdash; a white cubic building (think Weissenhof Estate in Stuttgart or Bauhaus Dessau), surrounded by young silver birch trees. Overcast sky, diffused light, no harsh shadows. The car should look like a Bauhaus object &mdash; honest, functional, beautiful. The silver matches the architecture. Photorealistic, design magazine quality.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">VER-02</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior &mdash; Natural Materials, Bauhaus Geometry</h4>
+      <div class="prompt-purpose">The Bauhaus interior &mdash; natural, honest, aging with dignity.</div>
+      <div class="prompt-text">Interior of a Mercedes G-Class (W465) in warm, natural tones. Vegetable-tanned leather in light sand/cream, showing natural grain and the beginning of beautiful patina. Natural weave textile inserts on seat centres in a tone-on-tone geometric pattern inspired by Bauhaus weaving workshops (think Anni Albers). Centre console in warm oak or natural wood grain. Warm sand, cream, olive, and deep charcoal accents. Natural light flooding in, creating warm tones. The feeling is a Scandinavian cabin meets design studio. Shot looking from rear towards front.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">VER-03</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Bauhaus Textile Pattern Close-Up</h4>
+      <div class="prompt-purpose">Material storytelling &mdash; the Bauhaus weave.</div>
+      <div class="prompt-text">Macro close-up of a natural weave textile with a geometric Bauhaus-inspired pattern. Cream, sand, olive green, and charcoal threads woven in a structured grid pattern reminiscent of Anni Albers textile designs. The texture is visible &mdash; handwoven quality, organic irregularities. Beside it, a piece of vegetable-tanned leather showing natural grain. Shot on a concrete surface, studio lighting, overhead angle. The materials should look honest and beautiful.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">VER-04</span>
+        <span class="prompt-card-size">Lifestyle &middot; 16:9</span>
+      </div>
+      <h4>Bauhaus Architecture Context Shot</h4>
+      <div class="prompt-purpose">Environmental storytelling &mdash; Vernal in its natural habitat.</div>
+      <div class="prompt-text">A silver Mercedes G-Class (W465) parked in front of a modernist white Bauhaus villa &mdash; flat roof, large glass windows, clean geometric facade. A perfectly maintained garden with geometric hedges and silver birch trees. Morning mist. The car and architecture share the same DNA: honest form, functional beauty, no decoration for its own sake. The scene feels like a Wallpaper* magazine editorial. Wide shot, the architecture dominates, the car belongs.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 5. INSPIRATION PAGE                               -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Brand Page</span>
+    <h2>Inspiration &mdash; Car Couture</h2>
+    <div class="model-sub">Why HOF exists. Where craftsmanship meets couture. From idea to expression.</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Page Story</h3>
+    <p>This page is HOF&rsquo;s manifesto in visual form. It answers one question: <em>Why does this Maison exist?</em></p>
+    <p>The answer: Because the automobile deserves the same creative intelligence that fashion, art, and architecture have enjoyed for centuries. HOF brings together what belongs together &mdash; the engineering precision of automotive manufacturing with the creative conviction of haute couture.</p>
+    <p>The page flows through HOF&rsquo;s creative process: <strong>Inspiration</strong> (where ideas begin &mdash; in culture, in art, in material) &rarr; <strong>Curation</strong> (how HOF selects, edits, and composes) &rarr; <strong>Collaboration</strong> (working with artisans, textile houses, cultural figures) &rarr; <strong>Craft</strong> (the atelier, the hand, the finish) &rarr; <strong>Expression</strong> (the final composition, on the road).</p>
+  </div>
+
+  <div class="prompt-grid">
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">INS-01</span>
+        <span class="prompt-card-size">Hero &middot; 16:9</span>
+      </div>
+      <h4>Hero &mdash; Hands Working with Materials</h4>
+      <div class="prompt-purpose">The opening image. Not a car &mdash; hands. Craft first.</div>
+      <div class="prompt-text">Close-up of two pairs of hands on a large white work table. One pair handles automotive leather (a curved piece, as if for a dashboard), the other handles a fine textile swatch with botanical patterns. Between them: metal trim samples, colour swatches, a sketchbook with G-Class silhouette drawings, a Japanese botanical illustration reference book. The hands are precise, unhurried, considered. Bright north-facing atelier light from tall industrial windows. The mood is a fashion house at work &mdash; not a factory. Photorealistic, editorial, warm but restrained. Shot overhead or at slight angle.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">INS-02</span>
+        <span class="prompt-card-size">Editorial &middot; 16:9</span>
+      </div>
+      <h4>Inspiration &mdash; Mood Board Wall</h4>
+      <div class="prompt-purpose">Section: Where ideas begin. Shows HOF's curatorial process.</div>
+      <div class="prompt-text">A large white wall in a design studio, covered with an editorial mood board. Pinned to it: fabric swatches (jacquard, leather, natural textiles), photographs of Japanese gardens, Art Deco motor cars, Bauhaus architecture, a Kenzo runway image, amber resin specimens, botanical illustrations, paint colour chips, a G-Class silhouette sketch. The arrangement is precise and considered, not chaotic. A single desk lamp illuminates part of the wall. The room is minimal &mdash; white walls, concrete floor, one Vitra chair. The image tells the story of curation: everything on the wall earned its place.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">INS-03</span>
+        <span class="prompt-card-size">Editorial &middot; 16:9</span>
+      </div>
+      <h4>Collaboration &mdash; Material Suppliers at Work</h4>
+      <div class="prompt-purpose">Section: Working with artisans and textile houses.</div>
+      <div class="prompt-text">Inside a textile workshop/weaving atelier. A skilled artisan operates a jacquard loom, producing a botanical-patterned fabric. Rich cream and indigo threads visible on the loom. Rolls of finished fabric in the background. Industrial-scale but artisanal quality &mdash; the kind of workshop that supplies Herm&egrave;s, not H&amp;M. Warm, atmospheric light. The connection between fashion textile craft and automotive interior is implicit. Documentary style, editorial quality.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">INS-04</span>
+        <span class="prompt-card-size">Editorial &middot; 16:9</span>
+      </div>
+      <h4>Craft &mdash; Leather Artisan at Work in the Atelier</h4>
+      <div class="prompt-purpose">Section: The hand, the atelier, the finish.</div>
+      <div class="prompt-text">An automotive leather craftsperson in the HOF Atelier (bright, clean workshop in Sindelfingen &mdash; not dark, not greasy). They are hand-stitching a leather dashboard panel, using a curved needle. The leather is warm cream/ivory. A completed seat cover hangs on a form nearby. Tools arranged precisely on the workbench. The craftsperson wears a clean white coat. Overhead industrial lighting but warm tone. The image connects haute couture sewing atelier aesthetics with automotive interior craftsmanship. Editorial, respectful, not staged.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">INS-05</span>
+        <span class="prompt-card-size">Editorial &middot; 16:9</span>
+      </div>
+      <h4>Expression &mdash; Final Car in Showroom</h4>
+      <div class="prompt-purpose">Section: The result. Idea becomes expression.</div>
+      <div class="prompt-text">A finished HOF G-Class (cream and indigo two-tone, Kins&omacr;) in a minimal showroom/salon. Polished concrete floor, white walls, a single large botanical artwork on the wall. Two mid-century modern chairs beside the car. A leather portfolio on a side table. The scene feels like a private viewing at a gallery &mdash; not a car dealership. Quiet, considered, museum-like. One person (well-dressed, 35, understated) stands at a distance, contemplating the car. Wide shot, lots of breathing space.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">INS-06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Material Composition &mdash; Flat Lay</h4>
+      <div class="prompt-purpose">Shows the material palette as a fashion flat lay.</div>
+      <div class="prompt-text">Overhead flat lay of HOF materials arranged on white paper. A piece of cream leather, a piece of indigo leather, a botanical jacquard textile swatch, a metal trim sample in brushed gold, a painted colour chip in canyon orange, another in Schwarzwald Green, a piece of natural oak veneer, and a small amber resin specimen. Arranged in a precise grid with equal spacing &mdash; like a specimen collection or a fashion look-book material page. Clean studio lighting, no shadows. The composition says: we curate materials, not cars.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- SUMMARY                                           -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section" style="background: var(--dark); color: var(--white); margin: 0; max-width: none; padding: 60px 48px;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <h2 style="font-family: var(--font-serif); font-size: 36px; font-weight: 300; color: var(--white); margin-bottom: 24px;">Summary &mdash; Total Images Needed</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
+      <thead>
+        <tr>
+          <th style="text-align: left; padding: 12px 0; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.2);">Model</th>
+          <th style="text-align: center; padding: 12px 0; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.2);">Images</th>
+          <th style="text-align: left; padding: 12px 0; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid rgba(255,255,255,0.2);">IDs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.1);">Kins&omacr;</td>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--white); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">10</td>
+          <td style="padding: 12px 0; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.1);">KIN-01 to KIN-10</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.1);">Genese</td>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--white); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">7</td>
+          <td style="padding: 12px 0; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.1);">GEN-01 to GEN-07</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.1);">Cadence</td>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--white); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">6</td>
+          <td style="padding: 12px 0; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.1);">CAD-01 to CAD-06</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.1);">Vernal</td>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--white); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">4</td>
+          <td style="padding: 12px 0; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.1);">VER-01 to VER-04</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 300; color: rgba(255,255,255,0.7); border-bottom: 1px solid rgba(255,255,255,0.1);">Inspiration Page</td>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--white); text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1);">6</td>
+          <td style="padding: 12px 0; font-size: 12px; font-weight: 300; color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.1);">INS-01 to INS-06</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px 0; font-size: 14px; font-weight: 500; color: var(--white); border-top: 2px solid var(--accent);">Total</td>
+          <td style="padding: 12px 0; font-size: 20px; font-weight: 500; color: var(--accent); text-align: center; border-top: 2px solid var(--accent);">33</td>
+          <td style="padding: 12px 0; border-top: 2px solid var(--accent);"></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size: 13px; font-weight: 300; color: rgba(255,255,255,0.5); line-height: 1.7;">
+      <strong style="color: var(--accent);">File Naming Convention:</strong> Save images as [ID].jpg (e.g., KIN-01.jpg, GEN-03.jpg) in a folder called <code style="background: rgba(255,255,255,0.1); padding: 2px 6px;">generated-images/</code>. I will integrate them into the pages once provided.<br><br>
+      <strong style="color: var(--accent);">Format:</strong> All images 16:9 unless marked 1:1. Resolution: minimum 2400px wide. JPEG, 85% quality.<br><br>
+      <strong style="color: var(--accent);">Critical Consistency Notes:</strong><br>
+      &bull; The G-Class must always be the new W465 (2025+) platform<br>
+      &bull; HOF Salon Silhouette = clean sides, no side cladding (Kins&omacr;, Vernal)<br>
+      &bull; HOF Sport Silhouette = side protection elements retained (Genese, Cadence)<br>
+      &bull; Coach Doors = only on Kins&omacr;<br>
+      &bull; No visible Mercedes logos &mdash; replace with subtle HOF identification<br>
+      &bull; No people in car shots unless specifically noted
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-/* HOF — Spring Summer 2026 · Prelude */
+/* HOF — Spring Summer 2026 · Kinsō */
 
 // Navigation scroll behavior
 const nav = document.getElementById('nav');

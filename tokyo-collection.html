@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Tokyo · The Story · Spring Summer 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .story-section { padding: 100px 0; }
+  .story-section.dark { background: var(--dark); color: var(--white); }
+  .story-section.cream { background: #F8F6F1; }
+
+  .story-text { max-width: 680px; margin: 0 auto; padding: 0 48px; }
+  .story-text h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+  .story-text .chapter-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .story-section.dark .chapter-label { color: var(--gray-300); }
+  .story-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: 20px;
+  }
+  .story-section.dark .story-text p { color: var(--gray-300); }
+  .story-text p.pull-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 3vw, 30px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--accent);
+    margin: 48px 0;
+    padding-left: 24px;
+    border-left: 2px solid var(--accent);
+  }
+  .story-section.dark .story-text p.pull-quote { color: #C8B898; border-color: #C8B898; }
+
+  .story-image {
+    width: 100%;
+    overflow: hidden;
+  }
+  .story-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .story-image.contained {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-image.contained img {
+    border-radius: 2px;
+  }
+
+  .story-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-duo img, .story-duo .placeholder-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .image-caption {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 48px 0;
+  }
+  .image-caption p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+  }
+
+  /* Placeholder for missing images */
+  .placeholder-image {
+    background: var(--gray-100);
+    border: 2px dashed var(--gray-300);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 32px;
+    min-height: 500px;
+  }
+  .placeholder-image .placeholder-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 24px;
+  }
+  .placeholder-image .placeholder-prompt {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--gray-500);
+    max-width: 560px;
+    font-style: italic;
+  }
+  .placeholder-image .placeholder-ref {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 20px;
+  }
+  .story-section.dark .placeholder-image {
+    background: var(--gray-900);
+    border-color: var(--gray-700);
+  }
+  .story-section.dark .placeholder-image .placeholder-label { color: var(--gray-400); }
+  .story-section.dark .placeholder-image .placeholder-prompt { color: var(--gray-500); }
+  .story-section.dark .placeholder-image .placeholder-ref { color: #C8B898; }
+
+  @media (max-width: 768px) {
+    .story-section { padding: 64px 0; }
+    .story-text { padding: 0 24px; }
+    .story-duo { grid-template-columns: 1fr; padding: 0 24px; }
+    .story-duo img, .story-duo .placeholder-image { height: 280px; }
+    .story-image.contained { padding: 0 24px; }
+    .image-caption { padding: 12px 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white">
+    <img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="images/tokyo-collection/HOF_SS26_031.jpg" alt="Tokyo aerial night — amber rivers of light through silver city" class="hero-img">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-label">Performance Model &middot; Spring Summer 2026</p>
+    <h1 class="hero-title">Tokyo.</h1>
+    <p class="hero-sub">Light made solid. Precision born where Edo Kiriko crystal meets automotive Manufaktur.</p>
+  </div>
+</header>
+
+<!-- ACT I — THE QUESTION -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act I &middot; The Question</span>
+    <h2>What if fire could<br>be frozen?</h2>
+    <p>Light trapped inside solid form. Not projected. Not reflected. Held — the way amber holds a moment, the way crystal holds the memory of heat.</p>
+    <p>Edo Kiriko — Tokyo's own tradition of cutting geometric patterns into crystal since 1834. Precision that transforms raw material into a vessel for light. A discipline where every facet is calculated, every angle intentional, every cut a conversation between the artisan's hand and the material's will.</p>
+    <p class="pull-quote">"The most precise things are never cold. They are luminous."</p>
+  </div>
+</section>
+
+<!-- IMAGE 1 — Edo Kiriko Craftsman -->
+<section class="story-section cream fade-in">
+  <div class="story-image contained">
+    <img src="images/tokyo-collection/HOF_SS26_030.jpg" alt="Edo Kiriko craftsman cutting crystal on wheel — the tradition that inspired Tokyo">
+  </div>
+  <div class="image-caption">
+    <p>Edo Kiriko — where every cut is a conversation with light, Tokyo.</p>
+  </div>
+</section>
+
+<!-- ACT II — THE MATERIAL -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act II &middot; The Material</span>
+    <h2>Cast crystal resin.<br>Solid light.</h2>
+    <p>A transparent amber-orange material inspired by haute horlogerie watchmaking. Not plastic. Not glass. Something between — where you can embed forms and colors within solid material. A substance that carries light the way amber carries time.</p>
+    <p>In the world of fine watchmaking, crystal cases are objects of obsession — transparent housings that reveal the mechanism within. Tokyo takes this principle and scales it to the interior. Dashboard elements, door panel accents, steering wheel spokes, speaker surrounds — each one a crystal component that glows like captured amber light.</p>
+  </div>
+</section>
+
+<!-- IMAGE 2 — Material Duo -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/tokyo-collection/HOF_SS26_028.jpg" alt="Material flat lay with crystal resin — amber and silver composition">
+    <img src="images/tokyo-collection/HOF_SS26_033.jpg" alt="H-pattern leather and crystal resin detail — geometric precision">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Material study — cast crystal resin, amber-orange against silver.</p>
+      <p>H-pattern leather meets crystal resin — geometric DNA.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE 3 — Mood: Kiriko Glass -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/HOF_SS26_032.jpg" alt="Amber Kiriko glass with caustic light patterns — the luminous quality that defines Tokyo">
+</div>
+<div class="image-caption">
+  <p>Crystal and caustic light — the quality Tokyo captures in solid form.</p>
+</div>
+
+<!-- ACT II continued — THE PALETTE -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act II &middot; The Palette</span>
+    <h2>Silver meets<br>amber-orange.</h2>
+    <p>Every HOF composition begins with a dialogue between two tones. For Tokyo, the conversation is between Silver — precise, architectural, the color of machined metal — and Amber-Orange, the warm pulse of crystal resin catching light from within.</p>
+    <p>Silver is the city. The structure. The grid of Tokyo's skyline at dusk. Amber-orange is the fire within — the lantern glow, the molten glass, the last light trapped in crystal before it cools.</p>
+    <p>This is not a color scheme. It is a temperature relationship.</p>
+  </div>
+</section>
+
+<!-- IMAGE 4 — Craft: Molten Crystal Resin -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/HOF_SS26_034.jpg" alt="Molten crystal resin being poured into mould — the birth of solid light">
+</div>
+<div class="image-caption">
+  <p>The pour — where liquid fire becomes solid form.</p>
+</div>
+
+<!-- CAR IMAGE — Side Profile Night -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/car-side-night.jpg" alt="HOF Tokyo — orange Sport Silhouette, side profile on wet Tokyo street at night">
+</div>
+<div class="image-caption">
+  <p>HOF G &middot; V — Tokyo &middot; Composition II &middot; Side Profile &middot; Tokyo at night.</p>
+</div>
+
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/tokyo-collection/car-interior-white.jpg" alt="HOF Tokyo — Expression II interior, white leather with amber crystal resin accents, Tokyo night skyline">
+    <img src="images/tokyo-collection/car-front-studio.jpg" alt="HOF Tokyo — orange Sport Silhouette, front 3/4 in dark studio with orange ground glow">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Expression II — white leather gallery, amber crystal resin catching Tokyo's night skyline.</p>
+      <p>Composition II — all orange, the Sport Silhouette under studio light.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACT III — THE TRANSLATION -->
+<section class="story-section dark fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act III &middot; The Translation</span>
+    <h2>Two expressions.<br>One crystal language.</h2>
+    <p>Two interior expressions. Expression I: deep amber leather with orange crystal resin — a warm cockpit wrapped in fire tones. Every surface radiates. The seats, embossed with the H-pattern, ground the warmth in geometric order. The crystal elements across dashboard and door panels glow like embers held in silver settings.</p>
+    <p>Expression II: white leather against orange crystal resin — a gallery space where every amber element reads as a jewel against snow. Clinical precision meeting organic warmth. The same crystal components, now thrown into sharp relief, each one a specimen of captured light.</p>
+    <p>The H-pattern connects everything — embossed into leather, cut into crystal, the geometric DNA that links Edo Kiriko tradition to HOF design language.</p>
+    <p class="pull-quote">"We don't illuminate cars. We embed light."</p>
+  </div>
+</section>
+
+<!-- CAR IMAGE — Expression I Interior (Deep Amber) -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/car-interior-amber.jpg" alt="HOF Tokyo — Expression I interior, full deep amber leather with crystal resin accents glowing throughout">
+</div>
+<div class="image-caption">
+  <p>Expression I — a warm cockpit where amber leather and crystal resin become one continuous flame.</p>
+</div>
+
+<!-- CAR IMAGE — Rear Bench with H-pattern -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/tokyo-collection/car-rear-bench.jpg" alt="HOF Tokyo — rear bench with H-pattern embossing in deep amber leather, dual HOF screens">
+    <img src="images/tokyo-collection/car-crystal-detail.jpg" alt="HOF Tokyo — crystal resin H-pattern detail next to embossed leather, the Manufaktur dialogue">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>The rear — H-pattern embossed into amber leather, dual screens, a world curated for the connoisseur.</p>
+      <p>The dialogue — cast crystal resin meets embossed leather. The same H, two materials, one intention.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE 5 — Landscape: Antelope Canyon -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/HOF_SS26_035.jpg" alt="Antelope Canyon — amber canyon walls carved by light and time">
+</div>
+<div class="image-caption">
+  <p>Light carved in stone — the same amber language, written by nature.</p>
+</div>
+
+<!-- IMAGE 6 — Atmosphere Duo -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/tokyo-collection/HOF_SS26_044.jpg" alt="Umbrella craftsman — Japanese precision and handcraft tradition">
+    <img src="images/tokyo-collection/HOF_SS26_047.jpg" alt="Lantern alley — amber light through Tokyo's intimate streets">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Precision by hand — the discipline that shapes every element.</p>
+      <p>Lantern alley — where amber light defines the atmosphere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE 7 — Two Expressions -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/HOF_SS26_046.jpg" alt="Split image — amber room and white gallery with crystal cube, the two expressions of Tokyo">
+</div>
+<div class="image-caption">
+  <p>Two expressions — fire and gallery. The same crystal, two temperatures.</p>
+</div>
+
+<!-- ACT III continued — THE DETAILS -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act III &middot; The Details</span>
+    <h2>Every element,<br>a lens.</h2>
+    <p>The crystal resin components are not decorative. They are optical — designed to catch, hold, and redirect ambient light the way a prism breaks white into spectrum. The speaker surrounds become luminous rings. The steering wheel spokes carry transparent amber inserts that glow in peripheral vision.</p>
+    <p>The H-pattern embossed into the seats creates a tactile geometry that echoes the faceted cuts of Kiriko crystal. Touch and sight aligned. The same pattern, rendered in two materials — leather and resin — creating a dialogue between soft and solid, warm and cool, opaque and transparent.</p>
+    <p>This is what precision means at HOF. Not perfection. Intention made visible.</p>
+  </div>
+</section>
+
+<!-- CAR IMAGE — Orange Rear 3/4 at Sunset -->
+<div class="story-image fade-in">
+  <img src="images/tokyo-collection/car-orange-rear.jpg" alt="HOF Tokyo — orange Sport Silhouette rear 3/4 against sunset skyline">
+</div>
+<div class="image-caption">
+  <p>Composition II — all orange. The Sport Silhouette catches the last light.</p>
+</div>
+
+<!-- CAR IMAGE — Silver Rear + Tokyo Night Duo -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/tokyo-collection/car-silver-rear.jpg" alt="HOF Tokyo — silver Sport Silhouette rear 3/4 at golden hour">
+    <img src="images/tokyo-collection/car-rear-tokyo.jpg" alt="HOF Tokyo — orange rear detail in Tokyo alley at night with neon reflections">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Composition I — silver catches the golden hour.</p>
+      <p>Tokyo at night — where amber meets neon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAR IMAGE — Front Tokyo Night -->
+<section class="story-section dark fade-in">
+  <div class="story-image contained">
+    <img src="images/tokyo-collection/car-front-tokyo.jpg" alt="HOF Tokyo — orange front 3/4 in Tokyo alley at night">
+  </div>
+  <div class="image-caption" style="max-width:1200px; margin:0 auto;">
+    <p style="color: var(--gray-400);">The city that never stops refining.</p>
+  </div>
+</section>
+
+<!-- EPILOGUE -->
+<section class="story-section dark fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Epilogue</span>
+    <h2>Tokyo.</h2>
+    <p>東京 — Eastern Capital. The city that never stops refining. Where tradition is not preserved but sharpened. Where the oldest crafts produce the newest forms.</p>
+    <p>Light made solid. Precision made visible. Fire frozen in crystal, carried in silver, worn in leather.</p>
+    <p>Spring Summer 2026. The moment where Edo Kiriko meets automotive Manufaktur — and the interior becomes a vessel for light.</p>
+    <p class="pull-quote">"Curated, Not Made."</p>
+  </div>
+</section>
+
+<!-- CTA — Explore the Collection -->
+<section class="consultation fade-in">
+  <div class="consultation-inner">
+    <div class="consultation-img">
+      <img src="images/tokyo-collection/HOF_SS26_028.jpg" alt="Tokyo — Material Palette">
+    </div>
+    <div class="consultation-text">
+      <h2>Explore the Tokyo compositions</h2>
+      <p>Two expressions, one crystal language. Discover the full Spring Summer 2026 collection — or begin your personal consultation.</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="kinso-collection.html" class="btn btn-dark">The Collection</a>
+        <a href="contact.html" class="btn btn-dark" style="background:transparent; border:1px solid var(--dark);">Book a Consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kinsō</a>
+        <a href="sir-class.html">Sir Class</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

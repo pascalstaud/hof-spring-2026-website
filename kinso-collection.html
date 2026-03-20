@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Kinsō · The Story · Spring Summer 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .story-section { padding: 100px 0; }
+  .story-section.dark { background: var(--dark); color: var(--white); }
+  .story-section.cream { background: #F8F6F1; }
+
+  .story-text { max-width: 680px; margin: 0 auto; padding: 0 48px; }
+  .story-text h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+  .story-text .chapter-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .story-section.dark .chapter-label { color: var(--gray-300); }
+  .story-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: 20px;
+  }
+  .story-section.dark .story-text p { color: var(--gray-300); }
+  .story-text p.pull-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 3vw, 30px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--accent);
+    margin: 48px 0;
+    padding-left: 24px;
+    border-left: 2px solid var(--accent);
+  }
+  .story-section.dark .story-text p.pull-quote { color: #C8B898; border-color: #C8B898; }
+
+  .story-image {
+    width: 100%;
+    overflow: hidden;
+  }
+  .story-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .story-image.contained {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-image.contained img {
+    border-radius: 2px;
+  }
+
+  .story-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-duo img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .story-trio {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-trio img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .image-caption {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 48px 0;
+  }
+  .image-caption p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+  }
+
+  /* Product Cards */
+  .product-cards { max-width:1200px; margin:0 auto; padding:60px 48px; }
+  .product-cards h3 { font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gray-400); margin-bottom:24px; }
+  .product-cards-grid { display:grid; grid-template-columns:repeat(4, 1fr); gap:20px; }
+  .product-card { text-decoration:none; color:inherit; display:block; }
+  .product-card img { width:100%; height:240px; object-fit:cover; border-radius:2px; margin-bottom:10px; }
+  .product-card .product-card-name { font-size:13px; font-weight:400; margin-bottom:2px; }
+  .product-card .product-card-price { font-size:12px; color:var(--gray-400); }
+
+  /* Product link indicators on images */
+  .story-duo a, .story-trio a, .story-image a {
+    position: relative;
+    display: block;
+  }
+  .story-duo a::after, .story-trio a::after, .story-image a::after {
+    content: 'Shop →';
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: rgba(255,255,255,0.92);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .story-duo a:hover::after, .story-trio a:hover::after, .story-image a:hover::after {
+    opacity: 1;
+  }
+  /* Always-visible subtle indicator */
+  .story-duo a::before, .story-trio a::before, .story-image a::before {
+    content: '';
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2'%3E%3Cpath d='M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z'/%3E%3Cline x1='3' y1='6' x2='21' y2='6'/%3E%3Cpath d='M16 10a4 4 0 01-8 0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+  .story-duo a:hover::before, .story-trio a:hover::before, .story-image a:hover::before {
+    opacity: 0;
+  }
+
+  /* Car product link — different icon */
+  .car-link {
+    position: relative;
+    display: block;
+  }
+  .car-link::after {
+    content: 'View Product →';
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(255,255,255,0.92);
+    color: var(--dark);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+  .car-link:hover::after {
+    opacity: 1;
+  }
+  .car-link::before {
+    content: '';
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%231a1a1a' stroke-width='2'%3E%3Cpath d='M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6'/%3E%3Cpolyline points='15 3 21 3 21 9'/%3E%3Cline x1='10' y1='14' x2='21' y2='3'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+  .car-link:hover::before {
+    opacity: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .product-cards-grid { grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .story-section { padding: 64px 0; }
+    .story-text { padding: 0 24px; }
+    .story-duo { grid-template-columns: 1fr; padding: 0 24px; }
+    .story-duo img { height: 280px; }
+    .story-trio { grid-template-columns: 1fr; padding: 0 24px; }
+    .story-trio img { height: 240px; }
+    .story-image.contained { padding: 0 24px; }
+    .image-caption { padding: 12px 24px 0; }
+    .product-cards { padding: 40px 24px; }
+  }
+  @media (max-width: 600px) {
+    .product-cards-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white">
+    <img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="images/kinso-collection/HOF_SS26_041.jpg" alt="Kinsō — symmetrical botanical composition" class="hero-img">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-label">Collector Model &middot; Spring Summer 2026</p>
+    <h1 class="hero-title">Kins&#333;.</h1>
+    <p class="hero-sub">Where Japanese textile tradition meets Parisian composition. A car dressed, not configured.</p>
+  </div>
+</header>
+
+<!-- ACT I — THE QUESTION -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act I &middot; The Question</span>
+    <h2>What if a car<br>could be dressed?</h2>
+    <p>Not wrapped. Not painted. Dressed — the way a couturier dresses a body. With textile, with intention, with the understanding that surface is not superficial. That what covers a thing can carry its entire meaning.</p>
+    <p>Kins&#333; begins in Kyoto, in the workshops of Nishijin-ori — the silk-weaving district where jacquard looms have produced the world's most intricate textiles for over five centuries. Where botanical illustration meets the patience of thread. Where a single obi can take six months to complete because every petal, every leaf, every tendril is not printed but woven.</p>
+    <p>This is the tradition that HOF chose as its starting point. Not because it is old, but because it understands something that automotive design has forgotten: that decoration is not excess. It is language.</p>
+    <p class="pull-quote">"The most precise things are never cold. They are luminous."</p>
+  </div>
+</section>
+
+<!-- IMAGE 1 — Nishijin Weaver (Full Width) -->
+<div class="story-image fade-in">
+  <img src="images/kinso-collection/HOF_SS26_001.jpg" alt="Nishijin weaver — botanical jacquard on traditional loom">
+</div>
+<div class="image-caption">
+  <p>Nishijin-ori — five centuries of weaving botanical precision, Kyoto.</p>
+</div>
+
+<!-- ACT II — THE MATERIAL -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act II &middot; The Material</span>
+    <h2>Botanical jacquard.<br>Not printed. Woven.</h2>
+    <p>The textile at the heart of Kins&#333; is not a surface treatment. It is a structure — a botanical jacquard where every motif is constructed thread by thread, the way a building is constructed beam by beam. Flora drawn from Edo-period botanical illustration, translated into a weave dense enough to upholster an interior, refined enough to line a couture jacket.</p>
+    <p>Aizome Blue — the deepest indigo, born from fermented leaves in a process that takes weeks of patience. Japanese indigo dyeing is not chemistry. It is fermentation, intuition, time. The blue that emerges carries a depth that synthetic dyes cannot replicate — a blue that remembers the plant it came from.</p>
+    <p>Silk Gold — the colour of first light on raw silk. Warm but never yellow. Luminous but never loud. The tone that appears in the first seconds of dawn, before the world decides what colour the day will be.</p>
+  </div>
+</section>
+
+<!-- IMAGE 2 — Material Duo -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/kinso-collection/HOF_SS26_003.jpg" alt="Material study — botanical jacquard, silk gold and aizome blue">
+    <img src="images/kinso-collection/HOF_SS26_008.jpg" alt="Textile detail — woven botanical motif close-up">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Material study — Silk Gold botanical jacquard against Aizome Blue.</p>
+      <p>The weave — every petal constructed, not printed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE — Loom (Full Width, Large) -->
+<div class="story-image fade-in">
+  <img src="images/kinso-collection/HOF_SS26_006.jpg" alt="Nishijin loom — botanical jacquard being woven, dramatic perspective through indigo threads">
+</div>
+<div class="image-caption">
+  <p>The loom — where thread becomes language. Nishijin-ori, Kyoto.</p>
+</div>
+
+<!-- IMAGE — Aizome Hands, Full Width -->
+<div class="story-image fade-in">
+  <img src="images/kinso-collection/aizome-hands.jpg" alt="Aizome dyeing — hands wringing indigo fabric, the blue that carries memory">
+</div>
+<div class="image-caption">
+  <p>Aizome — the blue that carries memory. Fermented indigo, Tokushima.</p>
+</div>
+
+<!-- ACT II continued — THE PALETTE -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act II &middot; The Palette</span>
+    <h2>Silk Gold meets<br>Aizome Blue.</h2>
+    <p>Every HOF composition begins with a dialogue between two tones. For Kins&#333;, the conversation is between warmth and depth — the luminous gold of raw silk and the fermented indigo of Aizome tradition.</p>
+    <p>Silk Gold is the light. The surface that catches morning. The warmth that tells you a space has been considered, not just constructed. Aizome Blue is the weight. The tone that grounds, that anchors, that gives the composition its gravity.</p>
+    <p>The two-tone exterior — Silk Gold above the beltline, Aizome Blue below — borrows from the language of fashion, where contrast creates conversation. Like a Japanese designer who first stepped onto the Paris stage, Kins&#333; bridges two worlds without compromise. The botanical jacquard woven for this expression carries the patience of observation found in early botanical illustration — every petal, every vein recorded with reverence.</p>
+  </div>
+</section>
+
+<!-- IMAGE 4 — Kiriko Glass, Dark BG Full Width -->
+<section class="story-section dark fade-in">
+  <div class="story-image contained">
+    <img src="images/kinso-collection/HOF_SS26_004.jpg" alt="Kiriko glass — cut crystal catching amber light, the precision that inspired Kinsō">
+  </div>
+  <div class="image-caption" style="max-width:1200px; margin:0 auto;">
+    <p style="color: var(--gray-400);">Kiriko glass — where every cut is a decision about light.</p>
+  </div>
+</section>
+
+<!-- CAR IMAGE — Side Profile -->
+<div class="story-image fade-in">
+  <a href="product-kinso.html" class="car-link"><img src="images/kinso-collection/car-side-profile.jpg" alt="HOF G V — Kinsō in Silk Gold and Aizome Blue, side profile"></a>
+</div>
+<div class="image-caption">
+  <p>HOF G &middot; V — Kins&#333; &middot; Silk Gold &amp; Aizome Blue &middot; Side Profile.</p>
+</div>
+
+<!-- CAR + ACCESSORY DUO — Interior + Men's Jacket -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <a href="product-kinso.html" class="car-link"><img src="images/kinso-collection/car-interior-front.jpg" alt="Kinsō interior — cream leather with botanical jacquard inserts"></a>
+    <a href="acc-jacket-mens-product.html"><img src="images/kinso-collection/acc-jacket-mens.jpg" alt="Kinsō Men's Jacket — Aizome Blue leather with botanical jacquard"></a>
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <p>The same botanical jacquard — from car interior to couture jacket.</p>
+  </div>
+</section>
+
+<!-- ACT III — THE TRANSLATION -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act III &middot; The Translation</span>
+    <h2>A room,<br>not a cabin.</h2>
+    <p>Coach Doors are not a feature. They are a threshold — the moment between the outside world and the interior world. They open like the entrance to a private room, not a vehicle. The gesture of arrival, slowed down, made deliberate.</p>
+    <p>The two-tone exterior — Silk Gold meeting Aizome Blue — is not decoration. It is architecture. The upper body wears one tone, the lower another, the way a well-dressed figure balances colour between jacket and trouser, between hat and shoe.</p>
+    <p>Inside, the interior becomes a room. Not a cockpit, not a cabin — a room. Lounge Seats that recline like armchairs in a Kyoto tea house. Botanical jacquard panels that line the ceiling and doors the way silk lines the interior of a bespoke trunk.</p>
+    <p class="pull-quote">"We don't configure cars. We compose them."</p>
+  </div>
+</section>
+
+<!-- CAR IMAGE — Coach Doors -->
+<div class="story-image fade-in">
+  <a href="product-kinso.html" class="car-link"><img src="images/kinso-collection/car-coach-doors.jpg" alt="HOF G V — Kinsō Coach Doors open, golden interior light spilling outward"></a>
+</div>
+<div class="image-caption">
+  <p>Coach Doors — a threshold between worlds.</p>
+</div>
+
+<!-- ACCESSORY DUO — Weekender + Doctor's Bag -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <a href="acc-weekender-product.html"><img src="images/kinso-collection/acc-weekender.jpg" alt="Kinsō Weekender — Aizome Blue jacquard, gold closure"></a>
+    <a href="acc-doctors-bag-product.html"><img src="images/kinso-collection/acc-doctors-bag.jpg" alt="Kinsō Doctor's Bag — botanical jacquard, gold clasp"></a>
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <p>Car Couture — the same textile, carried.</p>
+  </div>
+</section>
+
+<!-- CAR IMAGE DUO — Interior Details + Rear -->
+<section class="story-section fade-in">
+  <div class="story-duo">
+    <a href="product-kinso.html" class="car-link"><img src="images/kinso-collection/car-interior-details.jpg" alt="Kinsō interior details — botanical jacquard door panel, gold H-pattern accents"></a>
+    <a href="product-kinso.html" class="car-link"><img src="images/kinso-collection/car-interior-rear.jpg" alt="Kinsō rear interior — lounge seats with botanical jacquard headliner"></a>
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Interior details — jacquard panels, gold accents, the H-pattern everywhere.</p>
+      <p>The rear — lounge seats, a room designed for the connoisseur.</p>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE — Material Detail, Contained -->
+<section class="story-section cream fade-in">
+  <div class="story-image contained">
+    <img src="images/kinso-collection/botanical-jacquard.jpg" alt="Botanical jacquard macro — gold thread on Aizome Blue ground">
+  </div>
+  <div class="image-caption">
+    <p>The weave — where pattern becomes surface, thread by thread.</p>
+  </div>
+</section>
+
+<!-- ACCESSORY TRIO — Compact Grid -->
+<section class="story-section fade-in">
+  <div class="story-trio">
+    <a href="acc-gloves-product.html"><img src="images/kinso-collection/acc-gloves.jpg" alt="Kinsō Driving Gloves — cream leather, jacquard inserts"></a>
+    <a href="acc-scarf-product.html"><img src="images/kinso-collection/acc-scarf-blue.jpg" alt="Kinsō Silk Scarf — Aizome Blue with botanical motif"></a>
+    <a href="acc-weekender-product.html"><img src="images/kinso-collection/acc-detail-clasp.jpg" alt="Kinsō Gold H Clasp — detail"></a>
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <p>Driving Gloves &middot; Silk Scarf &middot; Gold H Clasp</p>
+  </div>
+</section>
+
+<!-- ACT III continued — THE DETAILS -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act III &middot; The Details</span>
+    <h2>Every element,<br>a conversation.</h2>
+    <p>The bass speaker wears a gold surround — not chrome, not silver, gold. The speaker grille is lined with botanical jacquard, so that even sound passes through textile. The H-pattern appears everywhere — embossed into leather, woven into fabric, etched into metal — the geometric DNA that connects every surface to every other.</p>
+    <p>These are not features. They are choices. The kind of choices that take longer to make than to notice. The kind that reveal themselves slowly, over months of ownership, the way a well-tailored jacket reveals its construction only after years of wearing.</p>
+    <p>This is what precision means at HOF. Not perfection. Intention made visible.</p>
+  </div>
+</section>
+
+<!-- CAR IMAGE — Lounge, Full Width -->
+<div class="story-image fade-in">
+  <a href="product-kinso.html" class="car-link"><img src="images/kinso-collection/car-lounge.jpg" alt="Kinsō rear lounge — botanical jacquard ceiling, ambient light, a room not a seat"></a>
+</div>
+<div class="image-caption">
+  <p>The Lounge — a room, not a seat.</p>
+</div>
+
+<!-- FASHION DUO — Women's Jacket + Men's Jacket Back -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <a href="acc-jacket-womens-product.html"><img src="images/kinso-collection/acc-jacket-womens.jpg" alt="Kinsō Women's Jacket — botanical jacquard with matching weekender"></a>
+    <a href="acc-jacket-mens-product.html"><img src="images/kinso-collection/acc-jacket-mens-back.jpg" alt="Kinsō Men's Jacket back — full botanical jacquard panel"></a>
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <p>Not merchandise. Couture.</p>
+  </div>
+</section>
+
+<!-- IMAGE — Textile Macro, Full Width -->
+<div class="story-image fade-in">
+  <img src="images/kinso-collection/acc-detail-textile.jpg" alt="Botanical jacquard macro — gold thread on Aizome Blue, the weave that connects car to couture">
+</div>
+<div class="image-caption">
+  <p>The textile — the same botanical jacquard, from interior to jacket to scarf.</p>
+</div>
+
+<!-- IMAGE — Kintsugi, Dark BG Contained -->
+<section class="story-section dark fade-in">
+  <div class="story-image contained">
+    <img src="images/kinso-collection/HOF_SS26_007.jpg" alt="Kintsugi — gold repair on dark ceramic, the Japanese art of visible mending">
+  </div>
+  <div class="image-caption" style="max-width:1200px; margin:0 auto;">
+    <p style="color: var(--gray-400);">Kintsugi — the art of making repair beautiful. Gold as intention, not concealment.</p>
+  </div>
+</section>
+
+<!-- EPILOGUE -->
+<section class="story-section dark fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Epilogue</span>
+    <h2>Kins&#333;.</h2>
+    <p>金装 — the Japanese word for adornment. The discipline of making every visible thing carry invisible meaning. Not decoration for its own sake, but surface as language — where what covers a thing tells you what lives inside it.</p>
+    <p>Botanical jacquard woven, not printed. Aizome Blue fermented, not dyed. Silk Gold caught, not chosen. Coach Doors that open like the entrance to a private room. An interior that is a room, not a cabin. Accessories that carry the same textile from the car into the world.</p>
+    <p>Spring Summer 2026. The moment where Nishijin-ori meets automotive Manufaktur — and the car becomes a garment.</p>
+    <p class="pull-quote">"Curated, Not Made."</p>
+  </div>
+</section>
+
+<!-- PRODUCT CARDS -->
+<div class="product-cards fade-in">
+  <h3>Shop the Collection</h3>
+  <div class="product-cards-grid">
+    <a href="product-kinso.html" class="product-card" style="grid-column: 1 / -1;">
+      <img src="images/kinso-collection/car-side-profile.jpg" alt="HOF G V — Kinsō" style="height:320px;">
+      <p class="product-card-name">HOF G &middot; V — Kins&#333; &middot; Collector Model</p>
+      <p class="product-card-price">Silk Gold &amp; Aizome Blue &middot; Coach Doors &middot; Botanical Jacquard Interior</p>
+    </a>
+    <a href="acc-weekender-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-weekender.jpg" alt="Kinsō Weekender">
+      <p class="product-card-name">Kins&#333; Weekender</p>
+      <p class="product-card-price">From &euro;4,800</p>
+    </a>
+    <a href="acc-doctors-bag-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-doctors-bag.jpg" alt="Kinsō Doctor's Bag">
+      <p class="product-card-name">Kins&#333; Doctor's Bag</p>
+      <p class="product-card-price">From &euro;3,600</p>
+    </a>
+    <a href="acc-jacket-mens-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-jacket-mens.jpg" alt="Kinsō Men's Jacket">
+      <p class="product-card-name">Kins&#333; Men's Jacket</p>
+      <p class="product-card-price">From &euro;6,200</p>
+    </a>
+    <a href="acc-jacket-womens-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-jacket-womens.jpg" alt="Kinsō Women's Jacket">
+      <p class="product-card-name">Kins&#333; Women's Jacket</p>
+      <p class="product-card-price">From &euro;5,800</p>
+    </a>
+    <a href="acc-gloves-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-gloves.jpg" alt="Kinsō Driving Gloves">
+      <p class="product-card-name">Kins&#333; Driving Gloves</p>
+      <p class="product-card-price">From &euro;980</p>
+    </a>
+    <a href="acc-scarf-blue-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-scarf-blue.jpg" alt="Kinsō Silk Scarf">
+      <p class="product-card-name">Kins&#333; Silk Scarf</p>
+      <p class="product-card-price">From &euro;1,200</p>
+    </a>
+    <a href="acc-scarf-dark-product.html" class="product-card">
+      <img src="images/kinso-collection/acc-scarf-dark.jpg" alt="Kinsō Silk Scarf Noir">
+      <p class="product-card-name">Kins&#333; Silk Scarf Noir</p>
+      <p class="product-card-price">From &euro;1,200</p>
+    </a>
+  </div>
+</div>
+
+<!-- CTA — Explore the Collection -->
+<section class="consultation fade-in">
+  <div class="consultation-inner">
+    <div class="consultation-img">
+      <img src="images/kinso-collection/HOF_SS26_003.jpg" alt="Kinsō — Material Palette">
+    </div>
+    <div class="consultation-text">
+      <h2>Begin your composition</h2>
+      <p>Botanical couture, carried from interior to wardrobe. Discover the full Spring Summer 2026 collection — or begin your personal consultation.</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="kinso-collection.html" class="btn btn-dark">The Collection</a>
+        <a href="contact.html" class="btn btn-dark" style="background:transparent; border:1px solid var(--dark);">Book a Consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kinsō</a>
+        <a href="sir-class.html">Sir Class</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

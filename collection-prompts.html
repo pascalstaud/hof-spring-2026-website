@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF SS26 — Collection Image Prompts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #1A1918;
+      --white: #FFFFFF;
+      --light: #F7F7F7;
+      --accent: #C4A265;
+      --gray-100: #F0F0F0;
+      --gray-200: #E0E0E0;
+      --gray-400: #A0A0A0;
+      --gray-500: #6B6B6B;
+      --gray-700: #3A3A3A;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); color: var(--dark); background: var(--white); }
+
+    .page-header {
+      padding: 80px 48px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 2px solid var(--dark);
+    }
+    .page-header .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    .model-section {
+      padding: 60px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .model-section:last-of-type { border-bottom: none; }
+
+    .model-header {
+      margin-bottom: 40px;
+    }
+    .model-header .model-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .model-header h2 {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .model-header .model-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
+    .story-block {
+      background: var(--light);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-left: 3px solid var(--accent);
+    }
+    .story-block h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .story-block p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .story-block p:last-child { margin-bottom: 0; }
+
+    .target-block {
+      background: var(--dark);
+      color: var(--white);
+      padding: 24px 32px;
+      margin-bottom: 40px;
+    }
+    .target-block h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .target-block p {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+    }
+
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .prompt-card {
+      border: 1px solid var(--gray-200);
+      padding: 28px;
+      transition: border-color 0.3s ease;
+    }
+    .prompt-card:hover { border-color: var(--dark); }
+    .prompt-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .prompt-card-id {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .prompt-card-size {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-400);
+    }
+    .prompt-card h4 {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .prompt-card .prompt-purpose {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+    .prompt-card .prompt-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.8;
+      background: var(--light);
+      padding: 16px;
+      border-left: 2px solid var(--accent);
+      font-style: italic;
+    }
+    .prompt-card .prompt-notes {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-500);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .section-divider {
+      padding: 40px 48px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-divider h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE HEADER                                       -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page-header">
+  <span class="label">Internal Creative Brief</span>
+  <h1>HOF SS26 &mdash; Collection Image Prompts</h1>
+  <p>Mood, Material &amp; Craft Photography &mdash; AI Generation Brief. These prompts produce cultural, craft, and lifestyle imagery that tells each collection&rsquo;s story. They are NOT car renders &mdash; vehicle visuals come from 3D vendors. Each prompt is designed for Gemini image generation. Generate at 16:9 unless noted otherwise.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 1. KINSŌ                                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Collector Model &middot; SS26</span>
+    <h2>Kins&omacr; &mdash; &#37329;&#35013; &middot; Adornment</h2>
+    <div class="model-sub">Salon Silhouette &middot; Cleaned &middot; Coach Doors &middot; Silk Gold &amp; Aizome Blue</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Kins&omacr; (&#37329;&#35013;)</strong> &mdash; Japanese for &ldquo;golden adornment.&rdquo; This collection lives at the intersection of Japanese botanical textile art and Parisian haute couture. It begins with Aizome &mdash; the ancient indigo dyeing tradition where craftsmen work with hands stained deep blue from years of patience. Each dip, each oxidation, deepens the colour toward something living.</p>
+    <p>The two-tone exterior &mdash; Silk Gold above the beltline, Aizome Blue below &mdash; borrows from the language of fashion, where contrast creates conversation. Like a Japanese designer who first stepped onto the Paris stage, Kins&omacr; bridges two worlds without compromise. The botanical jacquard woven for this expression carries the patience of observation found in early botanical illustration &mdash; every petal, every vein recorded with reverence.</p>
+    <p>Coach Doors open like the binding of a couture lookbook. Inside, the Kintsugi philosophy makes itself felt &mdash; gold accents along seams and joins do not hide the construction, they celebrate it. Gold reveals the soul. The interior moves from warm Silk Gold cream leather in the front cabin to deep Aizome Blue in the rear &mdash; a threshold between a Parisian atelier and a Japanese tea room.</p>
+    <p><strong>Kins&omacr; is not a car with a story. It is a story that became a car.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The cultural collector. Art Basel regulars. Fashion-aware, design-educated. They know the difference between Dries Van Noten and Rick Owens. They don&rsquo;t buy cars &mdash; they collect expressions. Their home features curated objects, not accumulations. Age 35&ndash;55. Net worth 5M+. They are moved by narrative, not numbers.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M01</span>
+        <span class="prompt-card-size">Mood &middot; 1:1</span>
+      </div>
+      <h4>Botanical Flat Lay &mdash; The Source Material</h4>
+      <div class="prompt-purpose">Opening mood image for the Kins&omacr; collection page. Establishes that the car begins with a fabric, not a factory.</div>
+      <div class="prompt-text">Subject: Botanical flat lay with textile swatches and gold thread<br>Scene: Pressed chrysanthemums, fern fronds, seed pods arranged on pale linen beside cream-and-indigo jacquard swatches, gold thread spool, open botanical sketchbook with ink-watercolour plant studies<br>Materials &amp; Colors: Warm cream linen, deep Aizome Blue (indigo) jacquard, antique gold thread, dried botanicals in muted greens and browns<br>Lighting: Soft north-facing studio light, no harsh shadows, even diffused illumination<br>Camera: Overhead flat lay, medium format, shallow depth of field at edges, generous negative space between objects<br>Style: Fine art still life, haute couture atelier aesthetic<br>Aspect ratio: 1:1<br>Important: No car, no text, no logos. Jacquard swatch is the hero element. Palette restricted to cream, indigo, gold only.</div>
+      <div class="prompt-notes">Key: This is about craft source materials, not the car. The jacquard swatch should feel like the hero. Think fashion atelier, not automotive.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M02</span>
+        <span class="prompt-card-size">Craft &middot; 16:9</span>
+      </div>
+      <h4>Aizome Dyeing &mdash; Indigo Hands</h4>
+      <div class="prompt-purpose">Hero craft image. Tells the story of Aizome &mdash; the patience of the dye, the blue-stained hands of tradition.</div>
+      <div class="prompt-text">Subject: Japanese artisan lifting silk from indigo Aizome dye vat<br>Scene: Close-up of hands pulling wet raw silk from deep indigo vat, dripping dark dye, fabric transitioning from near-black to blue where oxygen hits. Wooden drying racks with graduated indigo fabrics in background<br>Materials &amp; Colors: Deep Aizome Blue (indigo) dye, raw silk, permanently blue-stained hands, warm wood beams, earthen floor<br>Lighting: Natural light from rice-paper screens, warm ambient tones, meditative mood<br>Camera: Eye level, shallow depth of field, focus on hands and fabric<br>Style: Documentary craft photography, editorial quality<br>Aspect ratio: 16:9<br>Important: No car, no text. Hands are the hero - blue staining must look deep and real. Indigo reads as Aizome Blue, not electric blue.</div>
+      <div class="prompt-notes">Key: The hands tell the story. The blue staining should look real and deep &mdash; this is a lifetime of craft. The indigo should read as Aizome Blue, not electric blue.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M03</span>
+        <span class="prompt-card-size">Architecture &middot; 16:9</span>
+      </div>
+      <h4>Two-Tone Architecture &mdash; Cream Meets Indigo</h4>
+      <div class="prompt-purpose">Abstract metaphor for the Kins&omacr; two-tone colour split. No car shown &mdash; pure architectural colour story.</div>
+      <div class="prompt-text">Subject: Minimalist architectural facade with two-tone horizontal color split<br>Scene: Building facade - warm cream limestone upper half, deep Aizome Blue glazed ceramic tile lower half, sharp horizontal division line. Single geometric balcony casting long shadow. Narrow gold metal trim at the division line<br>Materials &amp; Colors: Warm cream limestone, deep Aizome Blue (indigo) ceramic tile, gold-colored metal trim accent<br>Lighting: Late afternoon raking sun, long shadows, warm directional light<br>Camera: Straight-on, symmetrical composition, large format quality<br>Style: Architectural photography, clean and precise<br>Aspect ratio: 16:9<br>Important: No people, no signage, no car. Location deliberately ambiguous - could be Kyoto or Paris. Pure color and material study only.</div>
+      <div class="prompt-notes">Key: The horizontal colour division should mirror the car&rsquo;s beltline split: Silk Gold (warm cream) above, Aizome Blue below. The gold trim accent reinforces the Kintsugi thread.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M04</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Temple Doors &mdash; Coach Door Metaphor</h4>
+      <div class="prompt-purpose">Visual metaphor for the Coach Door experience. The act of opening, the threshold, the invitation inward.</div>
+      <div class="prompt-text">Subject: Traditional Japanese temple doors partially open<br>Scene: Heavy wooden ceremonial doors slightly ajar, revealing sliver of warm golden light from within. Smooth worn stone floor. One door swings toward viewer, one away. Soft incense haze catches interior light in the gap<br>Materials &amp; Colors: Deep indigo-stained aged wood, gold leaf on hinges and frame edges, warm stone floor, warm golden interior glow<br>Lighting: Dark exterior, warm golden interior glow through narrow opening, cinematic contrast<br>Camera: Standing eye level, centered, moody and contemplative<br>Style: Cinematic architectural photography, contemplative mood<br>Aspect ratio: 1:1<br>Important: No car shown. Doors are a metaphor for coach doors. Indigo wood plus gold accents only. Opening is narrow - suggests but does not fully reveal interior.</div>
+      <div class="prompt-notes">Key: This is a metaphor for Coach Doors &mdash; the act of opening into a different world. Do NOT show any car. The indigo wood + gold accents echo the Kins&omacr; palette.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M05</span>
+        <span class="prompt-card-size">Material &middot; 1:1</span>
+      </div>
+      <h4>Jacquard Textile Close-Up &mdash; Woven Botany</h4>
+      <div class="prompt-purpose">Extreme material detail showing the botanical jacquard that defines Kins&omacr;&rsquo;s interior soul.</div>
+      <div class="prompt-text">Subject: Extreme macro of botanical jacquard textile weave<br>Scene: Thread-level detail of jacquard weave showing chrysanthemum petals and fern fronds in the pattern. Fabric slightly draped to reveal dimensional quality. Fine gold metallic thread traces stem lines<br>Materials &amp; Colors: Cream silk warp, Aizome Blue (indigo) weft, fine gold metallic thread accents, soft cream bokeh background<br>Lighting: Directional studio light catching gold thread, emphasizing weave texture<br>Camera: Macro lens, f/2.8, focus stacking for critical sharpness on central motif<br>Style: Fine art textile still life, haute couture material photography<br>Aspect ratio: 1:1<br>Important: No car. Botanical pattern should be refined and abstracted, not literal flowers. Gold thread is accent only, not dominant. Fabric must look haute couture weight.</div>
+      <div class="prompt-notes">Key: The botanical pattern should be recognisable but refined &mdash; not literal flowers, more like 18th-century scientific illustration abstracted into textile. Gold thread is an accent, not dominant.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M06</span>
+        <span class="prompt-card-size">Craft &middot; 16:9</span>
+      </div>
+      <h4>Nishijin-ori Weaver &mdash; The Loom</h4>
+      <div class="prompt-purpose">Craft heritage image showing the tradition behind the Kins&omacr; jacquard. Human hands, ancient loom, living tradition.</div>
+      <div class="prompt-text">Subject: Nishijin-ori master weaver at traditional Jacquard loom in Kyoto<br>Scene: Weaver working at wooden loom, hundreds of cream and deep indigo silk threads stretching from ceiling bobbins through mechanism. Aged hands guiding shuttle. Chrysanthemum botanical pattern emerging thread by thread<br>Materials &amp; Colors: Cream and deep Aizome Blue (indigo) silk threads, warm aged wood loom, wooden floor, paper walls<br>Lighting: Warm afternoon side light from window, illuminating suspended threads<br>Camera: Low angle looking up through threads toward hands, documentary distance<br>Style: Documentary craft portrait, respectful and timeless<br>Aspect ratio: 16:9<br>Important: No car. Workshop is spare - no decoration except loom. Mood is sacred concentration. Should feel timeless - could be today or 200 years ago.</div>
+      <div class="prompt-notes">Key: Nishijin-ori is Kyoto&rsquo;s 500-year-old silk weaving tradition. The image should feel timeless &mdash; this could be today or 200 years ago. The cream and indigo thread palette ties directly to Kins&omacr;.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M07</span>
+        <span class="prompt-card-size">Atmosphere &middot; 16:9</span>
+      </div>
+      <h4>Tea Room Atmosphere &mdash; The Interior Feeling</h4>
+      <div class="prompt-purpose">Mood image evoking the rear cabin experience &mdash; the feeling of being inside Kins&omacr; without showing the car.</div>
+      <div class="prompt-text">Subject: Traditional Japanese tea room interior (chashitsu)<br>Scene: Tatami floor in warm cream, one wall deep Aizome Blue with hand-trowelled sakan plaster texture. Gold-leafed tea bowl on tatami. Alcove (tokonoma) with single chrysanthemum stem in dark ceramic vase. Everything reduced and essential<br>Materials &amp; Colors: Warm cream tatami, deep Aizome Blue (indigo) plaster wall, gold-leafed ceramic tea bowl, dark ceramic vase, warm wood<br>Lighting: Warm diffused late afternoon light from low window, autumn color temperature<br>Camera: Seated eye level (low position), wide angle, architectural interior<br>Style: Meditative architectural interior photography<br>Aspect ratio: 16:9<br>Important: No car. Palette is cream, Aizome Blue, gold accent only. Feeling is profound stillness - full silence, not empty. No unnecessary ornament.</div>
+      <div class="prompt-notes">Key: The colour palette (cream, Aizome Blue, gold accent) directly mirrors the Kins&omacr; interior. This image explains the FEELING of being in the rear cabin without showing any car.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">KIN-M08</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Kintsugi Bowl &mdash; Gold Reveals the Soul</h4>
+      <div class="prompt-purpose">Philosophical anchor image. The Kintsugi principle &mdash; gold along the breaks &mdash; underpins the entire Kins&omacr; design language.</div>
+      <div class="prompt-text">Subject: Kintsugi-repaired ceramic tea bowl<br>Scene: Single tea bowl on dark slate surface, cracked ceramic repaired with thick gold veins through fractures. Interior holds pool of shadow. Cream linen draped loosely behind, out of focus<br>Materials &amp; Colors: Deep Aizome Blue (indigo) matte glaze, pure gold repair lines, dark slate surface, soft cream linen backdrop<br>Lighting: Soft directional light from left, gold veins glowing against matte blue surface<br>Camera: Medium format, very shallow depth of field, centered composition, spare and restrained<br>Style: Museum-quality still life, fine art object photography<br>Aspect ratio: 1:1<br>Important: No text, no logos, no car. Bowl is the sole subject. Blue plus gold palette only. Gold lines are thick and celebrated, not hidden.</div>
+      <div class="prompt-notes">Key: Kintsugi = gold joins that celebrate imperfection. The blue + gold palette ties to Kins&omacr;. This is the philosophical image &mdash; gold reveals the soul.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 2. TOKYO                                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Performance Model &middot; SS26</span>
+    <h2>Tokyo &mdash; &#26481;&#20140; &middot; Eastern Capital</h2>
+    <div class="model-sub">Sport Silhouette &middot; Standard Doors &middot; Silver/Orange &middot; Cast Crystal Resin</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Tokyo (&#26481;&#20140;)</strong> &mdash; Eastern Capital. This collection draws from Edo Kiriko (&#27743;&#25144;&#20999;&#23376;), Tokyo&rsquo;s own precision glass-cutting tradition dating to 1834. Edo Kiriko is the art of cutting intricate geometric patterns into crystal glass &mdash; light trapped inside solid form. Fire, transparency, and absolute control.</p>
+    <p>The hero material is cast crystal resin &mdash; a transparent amber-orange resin inspired by haute horlogerie watchmaking, where you can embed forms and colours inside solid material, like the crystal cases of high-complication timepieces. Throughout the interior &mdash; dashboard accents, door panels, steering wheel inlays, speaker surrounds, headliner details &mdash; these crystal resin elements glow like captured amber light, turning the cabin into a lantern from within.</p>
+    <p>Two interior expressions: Expression I pairs deep amber leather with orange crystal resin accents for a warm, enveloping cockpit. Expression II sets white leather against the same orange crystal resin, creating a gallery-like contrast where every amber element reads as a jewel against snow.</p>
+    <p>The exterior in silver with orange accents (or inverted: orange with silver accents) speaks the same language of precision and fire. H-pattern embossed seats connect to the geometric tradition of Edo Kiriko&rsquo;s cut-glass patterns. Carbon fiber accents reinforce the performance character.</p>
+    <p><strong>Tokyo is light made solid. Precision made visible. The city itself, distilled.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The horological mind. Watch collectors who understand complications. They appreciate the intersection of engineering and beauty. Tech-forward but taste-driven. They own Jacob &amp; Co., Richard Mille, or MB&amp;F &mdash; watches as mechanical sculpture. Age 30&ndash;50. They see a car as a wearable object, an extension of personal precision.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M01</span>
+        <span class="prompt-card-size">Craft &middot; 16:9</span>
+      </div>
+      <h4>Edo Kiriko Glass Cutting &mdash; Fire and Precision</h4>
+      <div class="prompt-purpose">Hero craft image. The origin story &mdash; Tokyo&rsquo;s 190-year tradition of cutting light into crystal.</div>
+      <div class="prompt-text">Subject: Edo Kiriko glass cutter at rotating diamond wheel<br>Scene: Craftsman cutting geometric lattice pattern into crystal glass cylinder. Glass dust sparks catching light. Bare hands - no gloves. Completed amber and clear crystal pieces on wooden shelves in background, backlit by afternoon window light<br>Materials &amp; Colors: Warm amber crystal, clear crystal, dark wood workshop, glass dust particles<br>Lighting: Warm workshop afternoon light from window, backlighting completed pieces on shelves<br>Camera: Workbench level, shallow depth of field focused on cutting point where wheel meets glass<br>Style: Documentary craft photography, editorial quality<br>Aspect ratio: 16:9<br>Important: No car, no logos. Amber-orange crystal tones are essential. Mood is intense concentration. Hands must be bare for precision.</div>
+      <div class="prompt-notes">Key: Edo Kiriko geometry = the origin of the H-pattern and crystal resin language in Tokyo. The amber/orange crystal tones connect directly to the car&rsquo;s resin accents.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M02</span>
+        <span class="prompt-card-size">Material &middot; 1:1</span>
+      </div>
+      <h4>Molten Crystal &mdash; Light Becoming Solid</h4>
+      <div class="prompt-purpose">Abstract material image showing the moment of transformation &mdash; liquid becoming the crystal resin that defines Tokyo&rsquo;s interior.</div>
+      <div class="prompt-text">Subject: Molten amber-orange resin being poured into geometric mould<br>Scene: Transparent amber-orange liquid flowing into mould, thick and controlled. Caustic light patterns on dark surface below. Completed cast crystal resin pieces in amber-orange on black velvet behind - small rectangles, bevelled panels, geometric forms glowing with trapped internal light<br>Materials &amp; Colors: Transparent amber-orange glowing resin, dark workshop surface, black velvet, geometric cast resin forms<br>Lighting: Dark background, single warm directional light from above, maximizing amber glow and internal luminosity<br>Camera: Macro quality, extreme detail on surface tension of liquid, controlled studio environment<br>Style: Fine art product photography, alchemical mood<br>Aspect ratio: 1:1<br>Important: No car parts shown literally. Amber-orange color must match warm amber tone. Background pieces suggest trim shapes without being explicit car components.</div>
+      <div class="prompt-notes">Key: The amber-orange colour must match the Tokyo crystal resin accent. The cast forms in the background should suggest automotive interior trim pieces without being literal car parts.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M03</span>
+        <span class="prompt-card-size">Mood &middot; 16:9</span>
+      </div>
+      <h4>Amber Light Through Cut Crystal &mdash; Trapped Fire</h4>
+      <div class="prompt-purpose">Atmospheric mood image. The feeling of light imprisoned inside solid form &mdash; Tokyo&rsquo;s core concept made visible.</div>
+      <div class="prompt-text">Subject: Large Edo Kiriko crystal piece refracting amber light in darkness<br>Scene: Faceted crystal cylinder on reflective dark surface in complete darkness. Single amber light beam from left hitting cut facets, projecting geometric caustic patterns - lines, diamonds, crosses in warm orange-amber. Crystal glows from within. Reflections in dark surface double the composition<br>Materials &amp; Colors: Cut crystal glass, warm amber-orange light, reflective black surface, geometric caustic projections<br>Lighting: Single beam of warm amber light from left, complete darkness otherwise, long exposure for maximum caustic detail<br>Camera: Large format, long exposure, fine art composition<br>Style: Fine art still life, spiritual and abstract mood<br>Aspect ratio: 16:9<br>Important: No context, no environment - just crystal, light, and darkness. Amber-orange is the dominant color. Caustic patterns should echo geometric H-pattern shapes.</div>
+      <div class="prompt-notes">Key: The caustic light patterns should echo H-pattern geometry. The amber-orange colour IS the Tokyo resin accent colour. This image says: light is the material.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M04</span>
+        <span class="prompt-card-size">Material &middot; 1:1</span>
+      </div>
+      <h4>Material Flat Lay &mdash; Crystal Resin Samples</h4>
+      <div class="prompt-purpose">Material palette image showing the physical components of Tokyo&rsquo;s interior world.</div>
+      <div class="prompt-text">Subject: Material flat lay with crystal resin samples and leather swatches<br>Scene: Clinically arranged on matte black surface - three graduated amber-orange crystal resin pieces (pale honey to deep amber), deep amber leather swatch, white leather swatch, carbon fiber panel with orange stitching, polished silver metal trim, H-pattern embossed leather sample. Steel ruler and jeweller loupe at edge<br>Materials &amp; Colors: Translucent amber-orange crystal resin, deep amber leather, white leather, black carbon fiber with orange stitch, polished silver metal, matte black background<br>Lighting: Soft even overhead light plus warm side accent to activate resin translucency, faint warm shadows<br>Camera: Overhead flat lay, product photography, clinical precision arrangement<br>Style: Horological component flat lay, workshop still life quality<br>Aspect ratio: 1:1<br>Important: Crystal resin pieces are heroes - must appear translucent and glowing. No brand logos. No car shown.</div>
+      <div class="prompt-notes">Key: Crystal resin is the hero material. Carbon fiber and metal are supporting. The white leather + amber resin and amber leather + amber resin represent the two interior expressions.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M05</span>
+        <span class="prompt-card-size">Craft &middot; 16:9</span>
+      </div>
+      <h4>Haute Horlogerie &mdash; Watchmaking Meets Automotive</h4>
+      <div class="prompt-purpose">Connects the crystal resin concept to its watchmaking inspiration. Jacob &amp; Co., Richard Mille territory.</div>
+      <div class="prompt-text">Subject: Watchmaker workbench with amber crystal case and precision tools<br>Scene: Workbench from above at slight angle. Watch movement visible through transparent amber-tinted crystal case. Precision tools surround it - tweezers, loupe on stand, tiny screwdrivers by size. Small matching amber crystal resin trim piece on microfiber cloth beside the watch<br>Materials &amp; Colors: Transparent amber-orange crystal case, mechanical watch components, precision steel tools, microfiber cloth, minimal workshop surface<br>Lighting: Warm focused workshop lighting on workbench, minimal environment<br>Camera: Tight overhead at slight angle, macro quality on crystal elements<br>Style: Horological craft documentary, surgical precision aesthetic<br>Aspect ratio: 16:9<br>Important: No brand logos on watch. Amber crystal case is the hero material. Mood is obsessive precision. The crystal case and resin trim piece should match in color.</div>
+      <div class="prompt-notes">Key: The transparent amber crystal case = the Tokyo crystal resin language. This bridges haute horlogerie and automotive craft. Do NOT show any specific watch brand logos.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>H-Pattern Detail &mdash; Geometric Precision</h4>
+      <div class="prompt-purpose">Close-up of the H-pattern motif that runs through Tokyo&rsquo;s interior &mdash; seats, trim, details.</div>
+      <div class="prompt-text">Subject: H-pattern embossed in leather meeting same pattern in crystal resin<br>Scene: Extreme close-up at raking angle - H-pattern embossed in deep amber-brown leather, shadows in recessed channels. Partially overlapping, same H-pattern cut into transparent amber crystal resin panel. Transition between opaque leather and transparent luminous resin is the composition<br>Materials &amp; Colors: Deep amber-brown premium leather, transparent amber crystal resin, precise geometric H-pattern in both materials<br>Lighting: Single directional studio source from upper left, raking angle to emphasize embossing depth<br>Camera: Macro lens, critical sharpness, extreme close-up<br>Style: Material photography, luxury detail study<br>Aspect ratio: 1:1<br>Important: H-pattern geometry must be precise - perfectly parallel lines, perfectly square intersections. Same pattern in two materials is the concept. No car shown.</div>
+      <div class="prompt-notes">Key: The H-pattern is HOF&rsquo;s signature geometric motif. Showing it in both leather and crystal resin demonstrates how the pattern language moves across materials.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M07</span>
+        <span class="prompt-card-size">Landscape &middot; 16:9</span>
+      </div>
+      <h4>Orange Canyon &mdash; Landscape Inspiration</h4>
+      <div class="prompt-purpose">Environmental mood image. The natural world that inspired Tokyo&rsquo;s orange-amber-silver palette.</div>
+      <div class="prompt-text">Subject: Narrow slot canyon with amber-orange sandstone walls lit from above<br>Scene: Elevated view of slot canyon, beam of sunlight penetrating from above hitting floor and bouncing upward. Curved sandstone walls glowing amber. Geometric light-shadow patterns from natural folds. Thin ribbon of silver-grey sky at top. Scale ambiguous<br>Materials &amp; Colors: Deep amber-orange sandstone, burnt sienna in shadows, incandescent orange-gold in light, silver-grey sky at top<br>Lighting: Single sunbeam from above penetrating canyon, bouncing upward off floor, natural dramatic illumination<br>Camera: Aerial or elevated view looking down into canyon, landscape format<br>Style: Abstract landscape photography, color-saturated, jewel-like<br>Aspect ratio: 16:9<br>Important: No people, no scale references. Feeling of being inside a glowing jewel. Orange-amber walls and silver sky create the color palette contrast.</div>
+      <div class="prompt-notes">Key: The orange/amber canyon walls = the crystal resin colour. The silver sky = the exterior paint. This is nature speaking the same colour language as Tokyo. Antelope Canyon aesthetic.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-M08</span>
+        <span class="prompt-card-size">Mood &middot; 16:9</span>
+      </div>
+      <h4>Tokyo Nightscape &mdash; The City as Light Grid</h4>
+      <div class="prompt-purpose">Urban mood image connecting the collection to its namesake city &mdash; Tokyo as a living circuit of amber light.</div>
+      <div class="prompt-text">Subject: Tokyo nightscape with long-exposure traffic light trails<br>Scene: Elevated view of Shibuya or Shinjuku at night, long exposure turning traffic into rivers of amber-orange light through silver-grey glass and steel towers. Geometric grid of streets intersecting at precise angles. Rain-wet streets doubling reflections. Building facades reflecting amber glow<br>Materials &amp; Colors: Amber-orange traffic light trails, silver-grey glass and steel buildings, deep indigo-to-black sky, rain-wet reflective streets<br>Lighting: Long exposure night shot, amber city glow reflecting off silver facades, rain amplifying all reflections<br>Camera: Tripod, 30-second exposure, medium telephoto compression, elevated vantage point<br>Style: Urban landscape photography, nocturnal city density study<br>Aspect ratio: 16:9<br>Important: No car visible. Amber-orange light plus silver architecture create the color palette. Grid pattern of streets echoes geometric H-pattern motif. Deep indigo sky at top.</div>
+      <div class="prompt-notes">Key: The orange/amber traffic light + silver architecture = Tokyo&rsquo;s colour palette. The grid pattern = the H-pattern motif at urban scale. The city IS the car.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 3. NOTAN                                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Expression Model &middot; SS26</span>
+    <h2>Notan &mdash; &#28611;&#28129; &middot; Light-Dark Harmony</h2>
+    <div class="model-sub">Sport Silhouette &middot; Standard Doors &middot; Two-Tone Exterior &middot; Karbonium Accents</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Notan (&#28611;&#28129;)</strong> &mdash; the Japanese art principle of light-dark interplay, where dark and light are equally important, and neither dominates. In sumi-e ink wash painting, the blank paper IS the composition as much as the brushstroke. In Notan, what is absent defines what is present.</p>
+    <p>Every Notan expression is inherently two-tone. The exterior pairs contrasting colours in permanent dialogue: dark blue with lighter blue, orange with green, champagne with black, white cabin over Schwarzwald Green body. The colour compositions are not decorative &mdash; they are philosophical. Two forces in balance.</p>
+    <p>The hero material is Karbonium &mdash; a premium carbon fiber that can be dyed and coloured, creating unique coloured carbon patterns. This is not standard black carbon fiber. Karbonium takes the accent colour of each composition: blue carbon, green carbon, copper carbon. It transforms the most technical material into an expressive one.</p>
+    <p>Inside, white leather provides the canvas &mdash; the blank space of the Notan principle. Against this, coloured leather accents (piping, steering wheel wrapping, seat edges) and copper or bronze hardware create the &ldquo;ink strokes&rdquo; of the composition. H-pattern appears on decorative trim elements, connecting to the broader HOF language.</p>
+    <p><strong>Notan is the art of seeing both sides at once. Dark needs light. Light needs dark. Neither is the subject. The conversation is.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The design thinker. Architects, creative directors, gallery owners. They understand negative space and compositional tension. They own furniture by Tadao Ando or John Pawson. They see beauty in duality, not decoration. Age 35&ndash;55. They gravitate toward objects that contain an idea, not just a surface.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M01</span>
+        <span class="prompt-card-size">Art &middot; 16:9</span>
+      </div>
+      <h4>Sumi-e Ink Wash &mdash; The Notan Principle</h4>
+      <div class="prompt-purpose">Opening philosophical image. Establishes the Notan concept before any material or car is shown.</div>
+      <div class="prompt-text">Subject: Sumi-e ink wash stroke on large washi paper sheet<br>Scene: Overhead view of large handmade washi paper on wooden floor. Single sweeping black ink stroke across center, bleeding softly at edges into warm cream paper. Gradient from pure black through grey to untouched white. Vast intentional white space. Stone ink grinding block (suzuri) with half-ground ink stick in upper corner. A few ink droplets on paper<br>Materials &amp; Colors: Dense black sumi ink, warm cream washi paper, grey ink washes, wooden studio floor, stone suzuri<br>Lighting: Soft even light from north-facing window, no harsh shadows<br>Camera: Directly overhead, full sheet visible, fine art composition<br>Style: Fine art photography, raw gestural energy with precision<br>Aspect ratio: 16:9<br>Important: No car. White space is equally important as the ink stroke - this IS the Notan principle. Moment just after the stroke. The emptiness is composed, not accidental.</div>
+      <div class="prompt-notes">Key: Notan = dark and light in equal dialogue. The white paper is NOT background &mdash; it is composition. This establishes that the two-tone philosophy begins in art, not automotive design.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M02</span>
+        <span class="prompt-card-size">Mood &middot; 16:9</span>
+      </div>
+      <h4>Light-Shadow Photography &mdash; Architectural Duality</h4>
+      <div class="prompt-purpose">Abstract mood image showing the Notan principle in the built environment &mdash; where architecture becomes a study in contrast.</div>
+      <div class="prompt-text">Subject: Minimal Japanese interior with geometric light-shadow split<br>Scene: Spare architectural interior, strong afternoon sunlight through single rectangular opening. Sharp geometric shadow composition on white plaster wall and pale wooden floor. Light and shadow areas approximately equal. Single copper door handle at boundary line glowing against shadow side<br>Materials &amp; Colors: White plaster walls, pale warm wooden floor with subtle grain, copper-finished door handle, warm gold light, cool grey shadow<br>Lighting: Strong afternoon sunlight from rectangular opening, razor-sharp light-shadow boundary, true 50/50 balance<br>Camera: Straight-on, symmetrical, light-shadow split centered<br>Style: Reductive architectural interior photography<br>Aspect ratio: 16:9<br>Important: No furniture, no ornament, no car. Equal balance of light and shadow IS the Notan concept. Copper accent is the only color detail. Architecture is spare planes and geometry only.</div>
+      <div class="prompt-notes">Key: The equal balance of light and shadow IS Notan. The copper hardware accent connects to the interior copper/bronze speaker surrounds and hardware. The white surfaces = the white leather base.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M03</span>
+        <span class="prompt-card-size">Material &middot; 1:1</span>
+      </div>
+      <h4>Two-Tone Material Study &mdash; Colour Pairs in Dialogue</h4>
+      <div class="prompt-purpose">Material palette showing Notan&rsquo;s colour composition principle &mdash; two materials meeting, neither dominating.</div>
+      <div class="prompt-text">Subject: Four two-tone leather swatch pairs with colored Karbonium samples<br>Scene: Overhead grid on neutral grey surface. Four leather pairs touching at edges - dark navy meets pale blue, burnt orange meets forest green, warm champagne meets matte black, white meets deep Schwarzwald Green with copper edge stitching. Each pair equal area. Between pairs, small colored Karbonium carbon fiber samples in blue, green, copper tones<br>Materials &amp; Colors: Dark navy, pale blue, burnt orange, forest green, champagne, matte black, white, Schwarzwald Green leather. Blue, green, copper-tinted carbon fiber. Copper stitching detail<br>Lighting: Perfectly even studio lighting, no directional shadows<br>Camera: Overhead flat lay, geometric intentional arrangement, design maquette quality<br>Style: Product material photography, textile catalogue aesthetic<br>Aspect ratio: 1:1<br>Important: No car. Each swatch pair must be equal area - neither color dominates (Notan balance). Karbonium samples must show colored carbon fiber weave, NOT standard black carbon.</div>
+      <div class="prompt-notes">Key: Each colour pair represents a real Notan exterior/interior composition. The Karbonium samples should show coloured carbon fiber weave pattern &mdash; NOT standard black carbon. Equal area = Notan balance.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M04</span>
+        <span class="prompt-card-size">Craft &middot; 16:9</span>
+      </div>
+      <h4>Coloured Carbon Fiber &mdash; Karbonium Craft Process</h4>
+      <div class="prompt-purpose">Material innovation image. Shows Karbonium being made &mdash; carbon fiber transformed from technical to expressive through colour.</div>
+      <div class="prompt-text">Subject: Colored carbon fiber (Karbonium) sheets being prepared for layup<br>Scene: Stainless steel work surface with several colored carbon fiber pre-preg sheets spread out - deep teal-green, rich copper-bronze, dark blue. Carbon twill pattern visible in each. Gloved hands positioning one sheet over mould form. Resin bottles, precision cutting tools, vacuum bag setup in background out of focus<br>Materials &amp; Colors: Deep teal-green carbon fiber, rich copper-bronze carbon fiber, dark blue carbon fiber, stainless steel surface, visible carbon twill weave pattern<br>Lighting: Clinical bright workshop lighting, composite workshop aesthetic<br>Camera: Detail shot at workbench level, shallow depth of field on foreground sheets<br>Style: Technical craft documentary, aerospace workshop meets editorial quality<br>Aspect ratio: 16:9<br>Important: NOT standard black carbon fiber - each sheet carries a different color woven into the weave. Carbon twill pattern must be visible. Show green, blue, and copper tones. No car shown.</div>
+      <div class="prompt-notes">Key: Karbonium is COLOURED carbon fiber &mdash; this is what makes it special. The carbon twill weave pattern must be visible. Show green, blue, and copper tones &mdash; these match the various Notan compositions.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M05</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Copper Metalwork &mdash; The Warm Accent</h4>
+      <div class="prompt-purpose">Detail image of the copper/bronze hardware that provides Notan&rsquo;s warm metallic accent across all compositions.</div>
+      <div class="prompt-text">Subject: Japanese coppersmith hand-finishing a circular bezel in brushed copper<br>Scene: Close-up of craftsman using fine abrasive cloth to create directional brushing patterns on circular copper form (speaker surround shape). Bevelled edges, precisely machined then hand-finished. Copper filings on dark leather apron. Completed copper bezels, trim rings, button surrounds on wooden shelf behind<br>Materials &amp; Colors: Warm rose-gold Japanese copper (akagane), satin brushed finish with linear striations, dark leather apron, copper filings, warm wood shelf<br>Lighting: Warm workshop light catching linear brushing patterns on copper surface<br>Camera: Workbench level, shallow depth of field on finishing point<br>Style: Craft documentary photography, patient refinement mood<br>Aspect ratio: 1:1<br>Important: No car. Copper tone must be warm rose-gold (Japanese akagane), warmer than Western copper. Circular form suggests speaker surround. Mood is patient, meditative refinement.</div>
+      <div class="prompt-notes">Key: Copper/bronze is the consistent metallic accent across all Notan compositions. The circular form should suggest a speaker surround. Japanese copper (akagane) has a specific warm tone &mdash; warmer than Western copper.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M06</span>
+        <span class="prompt-card-size">Architecture &middot; 16:9</span>
+      </div>
+      <h4>Architectural Duality &mdash; Traditional Japanese Building</h4>
+      <div class="prompt-purpose">Environmental metaphor for the two-tone principle. Architecture where two materials or colours coexist in designed tension.</div>
+      <div class="prompt-text">Subject: Traditional Japanese two-tone building facade - white plaster over dark wood<br>Scene: Machiya townhouse or temple entrance, white-plastered upper wall (shikkui) over dark-stained wood lower portion (yakisugi). Precise horizontal division. Copper rain chains (kusari-doi) hanging from eaves with green-brown patina. Dark weathered wood grain visible. Narrow gravel border, mossy stone path<br>Materials &amp; Colors: White pristine plaster (shikkui), dark-stained aged wood (yakisugi), patinated copper rain chains with green-brown surface, grey gravel, mossy stone<br>Lighting: Overcast sky, even shadowless light, tonal contrast purely about material not illumination<br>Camera: Frontal, symmetrical, meditative composition<br>Style: Architectural photography, meditative and precise<br>Aspect ratio: 16:9<br>Important: No people, no signage, no car. Two-tone building IS the concept - white above, dark below. Copper rain chains are the metallic accent. Even light so contrast comes from materials only.</div>
+      <div class="prompt-notes">Key: The two-tone building = the two-tone car. White above, dark below (or the reverse). Copper rain chains = the copper hardware accents. This is architectural Notan &mdash; balance through contrast.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-M07</span>
+        <span class="prompt-card-size">Mood &middot; 16:9</span>
+      </div>
+      <h4>Ink on Paper &mdash; The First Stroke</h4>
+      <div class="prompt-purpose">Closing mood image. Returns to the calligraphic origin of Notan &mdash; the mark and the space it creates.</div>
+      <div class="prompt-text">Subject: Calligrapher hand holding ink-loaded brush poised above white washi paper<br>Scene: Large brush one centimeter above pristine white washi paper, moment before stroke. Single drop of sumi ink fallen from brush tip creating small perfect circle on paper. Brush loaded with dense black ink showing faint sheen. Hand relaxed, wrist elevated in traditional position. Paper stretches to frame edges. Ink stone, water dropper, paper weight at far edge barely in focus<br>Materials &amp; Colors: Dense black sumi ink with faint sheen, pristine white washi paper, traditional brush, stone ink grinding tools<br>Lighting: Soft even illumination, subtle shadows only<br>Camera: Slightly above and to the side, hand entering from left edge, shallow depth of field<br>Style: Fine art photography, decisive moment tension applied to contemplative calligraphy<br>Aspect ratio: 16:9<br>Important: No car. This is the moment BEFORE the stroke - potential energy. White space is charged, not empty. The blank paper has equal compositional weight to the coming ink. Vast white space essential.</div>
+      <div class="prompt-notes">Key: The moment BEFORE the stroke = Notan in its purest state. The blank paper has equal compositional weight to the coming ink. This image is about potential, balance, and intention.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 4. MA                                             -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Essence Model &middot; SS26</span>
+    <h2>Ma &mdash; &#38291; &middot; Negative Space</h2>
+    <div class="model-sub">Salon Silhouette &middot; Cleaned &middot; Standard Doors &middot; All Silver &middot; Boucl&eacute; &amp; Metallic Leather</div>
+  </div>
+
+  <div class="story-block">
+    <h3>The Story</h3>
+    <p><strong>Ma (&#38291;)</strong> &mdash; the Japanese philosophy of negative space, the interval, the pause that gives meaning. In architecture, Ma is the empty room that feels complete. In music, it is the silence between notes that creates the melody. In design, it is the restraint that takes more courage than addition.</p>
+    <p>Ma is the most minimal HOF expression. A single composition: all silver exterior, no options, no customisation. One way. The right way. The exterior is a silver monolith &mdash; reflective, shifting, alive with the light around it. It takes its colour from the world, not from a paint code.</p>
+    <p>Inside, reduction meets warmth. The hero material is boucl&eacute; woven textile &mdash; a high-pile, tactile fabric drawn from the world of luxury furniture and sofa upholstery. It covers seats, dashboard surfaces, door panels &mdash; creating a living-room-on-wheels feeling. Warm despite its minimalism, like a perfectly empty room that still feels like home.</p>
+    <p>Metallic leather &mdash; leather that looks and feels like brushed metal but IS leather &mdash; bridges the silver exterior with the warm interior. When you touch the dashboard, you expect cold metal. Instead, you find warmth. This surprise is Ma&rsquo;s quiet rebellion: things are not what they seem, and that is the point.</p>
+    <p>H-pattern appears in decorative trim elements, the only geometric gesture in an otherwise fluid interior. The palette is sand, cream, olive &mdash; the colours of a Zen garden in autumn light.</p>
+    <p><strong>Ma is the luxury of nothing. The space between things, where meaning lives.</strong></p>
+  </div>
+
+  <div class="target-block">
+    <h4>Target Connoisseur</h4>
+    <p>The reductionist. They have edited their life to essentials. Their wardrobe is Jil Sander, The Row, Lemaire. Their home is John Pawson or Claudio Silvestrin. They find more luxury in a single perfect object than in a room full of things. Age 40&ndash;60. They have moved beyond accumulation into curation of absence. They understand that the most expensive thing in Tokyo real estate is empty space.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M01</span>
+        <span class="prompt-card-size">Mood &middot; 16:9</span>
+      </div>
+      <h4>Zen Garden Raking &mdash; The Art of Emptiness</h4>
+      <div class="prompt-purpose">Opening philosophical image. The raked gravel of a Zen garden is the purest expression of Ma &mdash; empty space as composition.</div>
+      <div class="prompt-text">Subject: Zen garden (karesansui) with raked gravel and single dark stone<br>Scene: Pale silver-grey gravel raked in precise parallel lines stretching to frame edges. Single dark stone placed off-center, rake lines flowing around it like water around rock. Fresh crisp raking, each furrow equidistant. Low dark wooden border barely visible. Scale ambiguous - could be tabletop or courtyard<br>Materials &amp; Colors: Pale silver-grey gravel, silver-white ridges, warm grey troughs, single dark stone, dark wood border<br>Lighting: Soft overcast light, subtle tonal variation in raked furrows<br>Camera: Above at gentle angle, large format, maximum depth of field<br>Style: Fine art minimalist landscape photography<br>Aspect ratio: 16:9<br>Important: No trees, no people, no car, no context. Only gravel, stone, and pattern. Absolute stillness that feels full not empty. Silver-grey gravel represents the silver exterior.</div>
+      <div class="prompt-notes">Key: The silver-grey gravel = the silver exterior. The raked lines = the H-pattern trim. The single stone = the one deliberate gesture in a field of restraint. Ma = the empty space IS the design.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M02</span>
+        <span class="prompt-card-size">Atmosphere &middot; 16:9</span>
+      </div>
+      <h4>Empty Tatami Room &mdash; Warm Minimalism</h4>
+      <div class="prompt-purpose">Interior mood image. Explains Ma&rsquo;s interior feeling: minimal but warm, reduced but inviting &mdash; a room you want to inhabit.</div>
+      <div class="prompt-text">Subject: Completely empty Japanese tatami room<br>Scene: Fresh tatami mats in warm sand-cream tones. Pale plaster walls (sakan finish) in warm off-white. Empty recessed alcove (tokonoma). Sliding shoji screens partially open, casting gentle geometric lattice shadows onto tatami. Low ceiling with exposed pale wood beams in simple grid. No furniture, no objects, no decoration<br>Materials &amp; Colors: Warm sand-cream tatami, warm off-white plaster, pale wood beams, shoji paper screens, wooden lattice grid<br>Lighting: Soft diffused afternoon light through shoji screens, warm sand color temperature<br>Camera: Low seated position (seiza height), looking across room, architectural interior<br>Style: Residential architectural interior photography, warm minimalism<br>Aspect ratio: 16:9<br>Important: No car. Room must be completely empty but feel warm and welcoming, not cold or abandoned. Tatami texture, plaster imperfection, and wood grain provide richness without ornament. Emptied with intention.</div>
+      <div class="prompt-notes">Key: Sand/cream/warm wood palette = Ma&rsquo;s interior colours. The tatami weave texture = the boucl&eacute; textile. The room is empty but WARM &mdash; this is not cold minimalism, it&rsquo;s Ma&rsquo;s specific brand of warm reduction.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M03</span>
+        <span class="prompt-card-size">Material &middot; 1:1</span>
+      </div>
+      <h4>Raw Textile Weaving &mdash; Boucl&eacute; on the Loom</h4>
+      <div class="prompt-purpose">Craft image showing the boucl&eacute; textile being made. The hero material of Ma, shown at its origin.</div>
+      <div class="prompt-text">Subject: Boucle textile being woven on hand loom<br>Scene: Close-up of thick textured yarn creating characteristic boucle loops on hand loom. Weaver hands partially visible at top guiding shuttle. Warp threads vertical under tension, weft creating looped pile. Natural undyed wool fibers visible in some loops. Simple wooden traditional loom<br>Materials &amp; Colors: Cream, sand, and pale olive yarn blend, natural undyed wool fibers, wooden loom, characteristic boucle loops and nubbly surface<br>Lighting: Side light raking across textile surface to emphasize three-dimensional loop texture<br>Camera: Close range, macro quality on fiber detail<br>Style: Textile craft photography, material exploration aesthetic<br>Aspect ratio: 1:1<br>Important: No car. Warm cream-sand-olive palette is essential. Texture must look warm and soft - this is a sofa material. Boucle loops must be clearly visible and three-dimensional.</div>
+      <div class="prompt-notes">Key: Boucl&eacute; = Ma&rsquo;s interior soul. The warm cream/sand/olive palette is essential. The texture should feel WARM and SOFT &mdash; this is a sofa material going into a car. The loops should be clearly visible.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M04</span>
+        <span class="prompt-card-size">Material &middot; 1:1</span>
+      </div>
+      <h4>Metallic Surfaces Meeting Fabric &mdash; The Ma Transition</h4>
+      <div class="prompt-purpose">Key material contrast image. Shows the moment where silver metallic leather meets warm boucl&eacute; textile &mdash; Ma&rsquo;s defining material dialogue.</div>
+      <div class="prompt-text">Subject: Brushed silver metallic leather meeting warm cream boucle textile<br>Scene: Two materials meeting at precise diagonal line across frame. Left - brushed silver metallic leather with fine directional grain lines. Right - warm cream-sand boucle textile with looped pile creating shadow and dimension. Single thin copper-toned thread at seam line. Materials fill entire frame, no background<br>Materials &amp; Colors: Brushed silver metallic leather (looks like brushed aluminum but is leather), warm cream-sand boucle textile, single copper thread accent at seam<br>Lighting: Soft directional studio light emphasizing textural contrast between flat metallic surface and dimensional textile<br>Camera: Overhead, macro quality, reductive composition<br>Style: Reductive material photography, design study aesthetic<br>Aspect ratio: 1:1<br>Important: No car. Metallic leather must look like brushed metal but subtly show leather softness at edges. Materials fill entire frame - no background visible. Copper thread is the only color accent.</div>
+      <div class="prompt-notes">Key: Metallic leather = exterior silver made interior. Boucl&eacute; = warmth. The transition between them IS the Ma interior experience. The metallic leather should look like brushed metal but have the subtle softness of leather at the edges.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M05</span>
+        <span class="prompt-card-size">Mood &middot; 1:1</span>
+      </div>
+      <h4>Silver Object Against Warm Textile &mdash; Exterior Meets Interior</h4>
+      <div class="prompt-purpose">Conceptual mood image showing the relationship between Ma&rsquo;s silver exterior presence and its warm textile interior world.</div>
+      <div class="prompt-text">Subject: Polished silver mirror sphere resting on warm sand boucle textile<br>Scene: Single mirror-finished silver sphere (grapefruit size) centered on draped boucle textile in warm sand tones. Sphere reflects textile, studio, and warm light creating distorted warm world inside cold surface. Fabric dimples under weight showing softness. Textile extends to frame edges<br>Materials &amp; Colors: Mirror-polished silver sphere, warm sand-toned boucle textile, one side pure white highlight, other side warm sand-gold reflection<br>Lighting: Studio light catching one side bright white, warm tones reflecting from textile on other side<br>Camera: Slightly above, shallow depth of field, sphere in critical focus, intimate close composition<br>Style: Conceptual still life, meeting of unlike materials<br>Aspect ratio: 1:1<br>Important: No car. Silver sphere represents silver exterior, boucle represents warm interior. Contrast between hard-cold-reflective and soft-warm-absorptive is the entire concept. Simple and irreducible.</div>
+      <div class="prompt-notes">Key: Silver sphere = the car&rsquo;s all-silver exterior. Boucl&eacute; = the warm interior. The sphere reflecting warm tones = how the metallic leather bridges these worlds. Minimal, conceptual, Ma.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Wabi-Sabi Ceramic &mdash; Beauty in Imperfection</h4>
+      <div class="prompt-purpose">Philosophical detail image. Wabi-sabi and Ma share DNA &mdash; both find completeness in less.</div>
+      <div class="prompt-text">Subject: Handmade wabi-sabi ceramic vessel in warm grey-olive glaze<br>Scene: Single chawan or simple vase with visible kiln marks, uneven surface, deliberate asymmetry. Glaze pooled and run in places. Sits on pale sand-colored surface (stone or raw linen). Finger impressions and tool marks visible. Interior glaze warmer, more amber. Vessel off-center with generous empty space to one side<br>Materials &amp; Colors: Warm grey-olive glaze, kiln marks, pale sand surface, warmer amber interior glaze<br>Lighting: Natural light from one side creating gentle shadow<br>Camera: Object level, medium telephoto, shallow depth of field on surface texture<br>Style: Museum-quality wabi-sabi still life, reverence for imperfection<br>Aspect ratio: 1:1<br>Important: No car. Vessel is NOT centered - sits to one side with generous empty breathing space (the Ma principle). Warm grey-olive-sand palette. Handmade imperfection is the point - not cold perfection.</div>
+      <div class="prompt-notes">Key: The warm grey-olive-sand palette = Ma&rsquo;s interior colours. The handmade imperfection = warm minimalism (not cold perfection). The empty space around the object IS the Ma principle at work in the composition itself.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M07</span>
+        <span class="prompt-card-size">Craft &middot; 16:9</span>
+      </div>
+      <h4>Japanese Carpentry Joinery &mdash; No Nails, No Excess</h4>
+      <div class="prompt-purpose">Closing craft image. Japanese joinery uses no nails, no screws, no excess &mdash; the structural philosophy of Ma made physical.</div>
+      <div class="prompt-text">Subject: Japanese master carpenter fitting complex interlocking wood joint<br>Scene: Close-up of hands bringing two pale hinoki cypress pieces together in three-dimensional joint puzzle - tenons, mortises, wedge slots, no metal fasteners. Surgical precision, fractions of a millimeter. Translucent paper-thin wood shavings curling on workbench. Spare workshop - hand planes (kanna) on rack, sharpening stone, marking gauge<br>Materials &amp; Colors: Pale warm cream hinoki cypress, fine-grained almost luminous wood, translucent shavings, wooden tool rack<br>Lighting: Natural workshop light, warm and even<br>Camera: Close range at workbench level, shallow depth of field on joint point<br>Style: Documentary craft photography, Japanese woodworking tradition<br>Aspect ratio: 16:9<br>Important: No car. No nails, no metal fasteners - joint locks by precision alone. Pale hinoki wood color is warm cream. Workshop is spare - everything has its place, nothing excess. The joint complexity is hidden beneath simple surfaces.</div>
+      <div class="prompt-notes">Key: No nails = no excess = Ma. The pale hinoki wood = the warm cream interior palette. The precision without ornament = Ma&rsquo;s design philosophy. The joint&rsquo;s complexity is hidden &mdash; the surface appears simple. This is the structural metaphor for the entire car.</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-M08</span>
+        <span class="prompt-card-size">Mood &middot; 16:9</span>
+      </div>
+      <h4>Morning Fog &mdash; Silver Atmosphere</h4>
+      <div class="prompt-purpose">Landscape mood image. The silver exterior colour shown as a natural phenomenon &mdash; silver is not a paint, it is a condition of light.</div>
+      <div class="prompt-text">Subject: Minimalist dawn landscape - still water reflecting silver-grey sky<br>Scene: Still lake or flooded rice field reflecting silver-grey sky. Horizon line perfectly centered dividing frame into two equal silver fields. Morning fog softening to near-abstraction. Single distant tree or wooden post breaking horizon. Water almost perfectly still with slightest micro-ripples<br>Materials &amp; Colors: Silver-grey sky, silver water reflection, pearl tones, faintest warm dawn blush at bottom of sky<br>Lighting: Dawn light, morning fog diffusing everything, soft and meditative<br>Camera: Large format, maximum depth of field, long exposure to smooth water surface<br>Style: Meditative minimalist landscape photography, silver gelatin print aesthetic<br>Aspect ratio: 16:9<br>Important: No car, no color, no drama. Just light, water, and space between. Silver palette only. Centered horizon divides frame into two equal halves. Fog creates negative space made visible.</div>
+      <div class="prompt-notes">Key: The silver palette = the car&rsquo;s all-silver exterior. The centred horizon = the Notan balance principle. The fog = negative space made visible. This image answers the question: what does the colour silver FEEL like?</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

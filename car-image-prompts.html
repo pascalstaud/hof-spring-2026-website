@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF SS26 — Car Image Prompts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark: #1A1918;
+      --white: #FFFFFF;
+      --light: #F7F7F7;
+      --accent: #C4A265;
+      --gray-100: #F0F0F0;
+      --gray-200: #E0E0E0;
+      --gray-400: #A0A0A0;
+      --gray-500: #6B6B6B;
+      --gray-700: #3A3A3A;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-sans); color: var(--dark); background: var(--white); }
+
+    .page-header {
+      padding: 80px 48px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 2px solid var(--dark);
+    }
+    .page-header .label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .page-header h1 {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--gray-500);
+      line-height: 1.7;
+      max-width: 680px;
+    }
+
+    .model-section {
+      padding: 60px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .model-section:last-of-type { border-bottom: none; }
+
+    .model-header {
+      margin-bottom: 40px;
+    }
+    .model-header .model-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .model-header h2 {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+    .model-header .model-sub {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-500);
+      font-style: italic;
+    }
+
+    .story-block {
+      background: var(--light);
+      padding: 32px;
+      margin-bottom: 40px;
+      border-left: 3px solid var(--accent);
+    }
+    .story-block h3 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+    .story-block p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+    .story-block p:last-child { margin-bottom: 0; }
+
+    .target-block {
+      background: var(--dark);
+      color: var(--white);
+      padding: 24px 32px;
+      margin-bottom: 40px;
+    }
+    .target-block h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .target-block p {
+      font-size: 14px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+    }
+
+    .prompt-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .prompt-card {
+      border: 1px solid var(--gray-200);
+      padding: 28px;
+      transition: border-color 0.3s ease;
+    }
+    .prompt-card:hover { border-color: var(--dark); }
+    .prompt-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .prompt-card-id {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .prompt-card-size {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-400);
+    }
+    .prompt-card h4 {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+    .prompt-card .prompt-purpose {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+    .prompt-card .prompt-text {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gray-700);
+      line-height: 1.8;
+      background: var(--light);
+      padding: 16px;
+      border-left: 2px solid var(--accent);
+      font-style: italic;
+    }
+    .prompt-card .prompt-notes {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--gray-500);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .section-divider {
+      padding: 40px 48px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-divider h3 {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 300;
+      color: var(--dark);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- PAGE HEADER                                       -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="page-header">
+  <span class="label">Internal Creative Brief</span>
+  <h1>HOF SS26 &mdash; Car Image Prompts</h1>
+  <p>3D Reference Rework &mdash; Upload reference image to Gemini with these prompts. These prompts rework the atmosphere, lighting, and environment of existing car reference images while keeping the vehicle 100% intact. Upload the reference image alongside the prompt. Generate at 16:9 unless noted otherwise.</p>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 1. TOKYO                                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Performance Model &middot; SS26</span>
+    <h2>Tokyo &mdash; &#26481;&#20140; &middot; Eastern Capital</h2>
+    <div class="model-sub">Sport Silhouette &middot; Standard Doors &middot; Silver + Orange Accents</div>
+  </div>
+
+  <div class="story-block">
+    <h3>Reference &amp; Method</h3>
+    <p>Upload the existing Kins&omacr; car reference images to Gemini alongside each prompt below. The vendor will later create proper 3D renders &mdash; these prompts help visualize the target atmosphere, lighting, and environment while keeping the car design completely untouched.</p>
+    <p><strong>Critical constraint:</strong> Keep the vehicle design, proportions, body kit, wheels, and all architectural details 100% exactly as in the reference image. Do not alter the car&rsquo;s shape, lines, grille, lights, or any design elements.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <!-- TKY-C01 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C01</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; Urban Tokyo Night</h4>
+      <div class="prompt-purpose">Silver Sport Silhouette in a cinematic urban Tokyo night setting with orange neon reflections.</div>
+      <div class="prompt-text">Subject: Silver Sport Silhouette car, side profile view<br>Scene: Urban Tokyo street at night, wet asphalt reflecting neon signage, narrow alley with overhead cables and glowing shopfronts in background<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: Night, orange neon reflections playing across the silver body panels, wet road creating mirror-like reflections beneath the car, warm amber glow from surrounding signage<br>Colors: Silver body catching orange and amber neon reflections, wet black asphalt, warm Tokyo night tones<br>Camera: Side profile, low angle at wheel height, cinematic wide shot<br>Style: Cinematic automotive photography, editorial night shoot<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. No logos, no text overlays. Neon reflections are environmental only &mdash; they tint the silver but do not change the car&rsquo;s actual color.</div>
+      <div class="prompt-notes">Upload: Silver Sport Silhouette side profile reference. The wet asphalt doubles the light sources and creates depth.</div>
+    </div>
+
+    <!-- TKY-C02 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C02</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Front 3/4 &mdash; Dramatic Low Angle</h4>
+      <div class="prompt-purpose">Silver body with orange wheel accents, dramatic low-angle hero shot with orange ambient glow.</div>
+      <div class="prompt-text">Subject: Silver Sport Silhouette car with orange wheel accents, front three-quarter view<br>Scene: Clean dark environment, polished concrete floor, minimal architectural backdrop, dramatic stage-like setting<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: Dramatic low-angle lighting, orange ambient glow emanating from below the car as if from ground-level strip lighting, creating warm undercarriage reflections on the polished floor<br>Colors: Silver body, orange wheel accents catching the ambient glow, warm orange ground reflection, dark moody surrounds<br>Camera: Low angle, front three-quarter, camera near ground level looking up at the car, wide aperture<br>Style: High-end automotive studio photography, dramatic editorial<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. No logos, no text. The orange glow is environmental lighting only &mdash; it does not change the car&rsquo;s paint color.</div>
+      <div class="prompt-notes">Upload: Silver Sport Silhouette front 3/4 reference. The low angle emphasizes the wide Sport Silhouette stance.</div>
+    </div>
+
+    <!-- TKY-C03 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C03</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior Dashboard &mdash; White Leather + Crystal Resin</h4>
+      <div class="prompt-purpose">Expression II dashboard: white leather with orange crystal resin accents glowing across dashboard strip, door panels, steering wheel.</div>
+      <div class="prompt-text">Subject: Interior dashboard view, white leather with orange crystal resin accents<br>Scene: Driver&rsquo;s perspective of the dashboard and steering wheel, door panel visible at left edge, windscreen showing dark evening exterior<br>Car: Keep 100% as reference &mdash; dashboard layout, instrument cluster, steering wheel shape, air vents, controls, and all interior architectural details exactly as uploaded. Do not alter any interior design elements<br>Atmosphere: Warm amber ambient lighting throughout the cabin, orange crystal resin accents on dashboard strip, door panel inserts, and steering wheel inlays glowing with internal warmth as if backlit<br>Colors: White leather surfaces, orange-amber crystal resin accents glowing warmly, warm ambient cabin lighting, dark evening visible through windscreen<br>Camera: Driver&rsquo;s seat perspective, slightly angled toward passenger side, medium focal length<br>Style: Luxury automotive interior photography, warm and inviting<br>Aspect ratio: 16:9<br>Important: Keep interior layout 100% intact from reference. Crystal resin accents glow like captured amber light. No logos, no aftermarket additions.</div>
+      <div class="prompt-notes">Upload: Interior dashboard reference. The crystal resin elements should glow as if lit from within &mdash; think haute horlogerie watchcase transparency.</div>
+    </div>
+
+    <!-- TKY-C04 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C04</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior Cabin &mdash; Deep Amber Leather (Expression I)</h4>
+      <div class="prompt-purpose">Expression I full cabin: deep amber leather with orange crystal resin on door panels, warm cockpit feeling.</div>
+      <div class="prompt-text">Subject: Interior cabin overview, deep amber leather with orange crystal resin accents<br>Scene: Wide interior view showing both front seats, center console, dashboard, and door panels. Cabin feels warm, enveloping, cockpit-like<br>Car: Keep 100% as reference &mdash; seat shapes, dashboard layout, console design, door panel architecture, and all interior details exactly as uploaded. Do not alter any interior design elements<br>Atmosphere: Warm, enveloping cockpit feeling, orange crystal resin accents on door panels glowing with internal light, deep amber leather catching warm ambient illumination, intimate and cocooning mood<br>Colors: Deep amber-cognac leather throughout, orange crystal resin accents glowing on door panels and console trim, warm amber ambient light<br>Camera: Rear-seat perspective looking forward, or high angle from above center console, wide angle to capture full cabin width<br>Style: Luxury automotive interior photography, warm and intimate<br>Aspect ratio: 16:9<br>Important: Keep interior layout 100% intact from reference. Deep amber leather variant &mdash; all leather surfaces are rich cognac-amber, not white. Crystal resin accents glow warmly.</div>
+      <div class="prompt-notes">Upload: Interior cabin reference. Expression I uses deep amber leather everywhere &mdash; the cabin should feel like warm amber light solidified.</div>
+    </div>
+
+    <!-- TKY-C05 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C05</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Rear Bench &mdash; Deep Amber Leather with H-Pattern</h4>
+      <div class="prompt-purpose">Standard rear bench in deep amber leather showing H-pattern embossed seats.</div>
+      <div class="prompt-text">Subject: Rear bench seat in deep amber leather with H-pattern embossing<br>Scene: Rear cabin view focused on the bench seat, showing seat surface texture, backrest, and lower door panel edges. Seatbelts and rear headrests visible<br>Car: Keep 100% as reference &mdash; seat proportions, bench shape, headrest design, and all rear cabin architectural details exactly as uploaded. Do not alter any design elements<br>Atmosphere: Warm ambient lighting, soft and inviting, the H-pattern embossing on the leather catching directional light to reveal its geometric texture<br>Colors: Deep amber-cognac leather, H-pattern embossing visible in raking light, warm cabin ambient tones<br>Camera: Facing rear bench from front cabin, or from open rear door angle, medium focal length capturing seat detail<br>Style: Luxury automotive detail photography, material-focused<br>Aspect ratio: 16:9<br>Important: Keep seat design 100% intact from reference. H-pattern embossing must be clearly visible on seat leather. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Rear bench reference. The H-pattern embossing connects to Edo Kiriko geometric cutting traditions.</div>
+    </div>
+
+    <!-- TKY-C06 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Detail &mdash; H-Pattern Leather + Crystal Resin Trim</h4>
+      <div class="prompt-purpose">Extreme close-up of H-pattern embossed leather meeting a crystal resin trim piece, amber glow.</div>
+      <div class="prompt-text">Subject: Close-up detail of H-pattern embossed leather beside crystal resin trim piece<br>Scene: Macro-level view where the H-pattern leather seat surface meets a cast crystal resin trim element. The transition between leather texture and transparent amber resin is the focal point<br>Car: Keep 100% as reference &mdash; material textures, trim piece shape, and all design details exactly as uploaded. Do not alter any elements<br>Atmosphere: Warm amber glow emanating from within the crystal resin trim, raking light across the H-pattern leather revealing geometric embossing depth, intimate and tactile<br>Colors: Deep amber leather with H-pattern shadows, orange-amber crystal resin glowing from within, warm highlight on leather grain<br>Camera: Macro lens, very shallow depth of field, tight crop on the material meeting point<br>Style: Fine art automotive detail photography, material study<br>Aspect ratio: 1:1<br>Important: Keep all material details 100% intact from reference. Crystal resin glows like captured amber. H-pattern embossing is geometric and precise. No logos.</div>
+      <div class="prompt-notes">Upload: Interior detail reference showing seat leather and trim. The material dialogue between embossed leather and transparent resin is the story.</div>
+    </div>
+
+    <!-- TKY-C07 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C07</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; Orange Body Variant (Composition II)</h4>
+      <div class="prompt-purpose">Composition II: orange body with silver accents in the same urban Tokyo night setting.</div>
+      <div class="prompt-text">Subject: Orange Sport Silhouette car with silver accents, side profile view<br>Scene: Urban Tokyo street at night, same cinematic setting as TKY-C01 &mdash; wet asphalt, neon-lit alley, overhead cables, glowing shopfronts<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements. Body color is orange with silver accent elements<br>Atmosphere: Night, urban neon reflections on wet asphalt, the orange body absorbing and reflecting warm city light, silver accents catching cool highlights<br>Colors: Orange body paint, silver accent elements (mirrors, trim), wet black asphalt reflections, warm Tokyo night neon tones<br>Camera: Side profile, low angle at wheel height, cinematic wide shot<br>Style: Cinematic automotive photography, editorial night shoot<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. This is the inverted colorway &mdash; orange body, silver accents. Same atmosphere as TKY-C01. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Sport Silhouette side profile reference. Composition II inverts the silver/orange relationship &mdash; orange becomes the dominant body color.</div>
+    </div>
+
+    <!-- TKY-C08 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">TKY-C08</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Exterior Dusk &mdash; 3/4 Rear, Sunset Reflections</h4>
+      <div class="prompt-purpose">Silver body catching sunset amber reflections at dusk, cinematic three-quarter rear angle.</div>
+      <div class="prompt-text">Subject: Silver Sport Silhouette car, three-quarter rear view at dusk<br>Scene: Open rooftop or elevated urban platform overlooking a city skyline at sunset, warm sky gradient from deep blue above to amber-orange at horizon<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, rear light design, diffuser, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: Golden hour transitioning to blue hour, warm sunset amber light reflecting across the silver body panels, long shadows stretching forward, cinematic depth with city silhouette behind<br>Colors: Silver body catching warm amber-gold sunset reflections, sky gradient from deep blue to amber-orange, dark urban silhouette, warm dusk tones<br>Camera: Three-quarter rear angle, slightly elevated, cinematic wide lens with shallow depth on background<br>Style: Cinematic automotive photography, golden hour editorial<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. Sunset light tints the silver warm but does not change the actual body color. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Sport Silhouette rear 3/4 reference. The dusk light transforms silver into liquid gold without altering the car itself.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 2. NOTAN                                          -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Performance Model &middot; SS26</span>
+    <h2>Notan &mdash; &#28611;&#28129; &middot; Light &amp; Dark</h2>
+    <div class="model-sub">Sport Silhouette &middot; Standard Doors &middot; Two-Tone Exterior &middot; Karbonium Accents</div>
+  </div>
+
+  <div class="story-block">
+    <h3>Reference &amp; Method</h3>
+    <p>Upload existing car reference images to Gemini alongside each prompt below. These prompts define the target atmosphere and color specification for the Notan collection&rsquo;s two-tone Sport Silhouette with colored Karbonium accents.</p>
+    <p><strong>Critical constraint:</strong> Keep the vehicle design, proportions, body kit, wheels, and all architectural details 100% exactly as in the reference image. Do not alter the car&rsquo;s shape, lines, grille, lights, or any design elements.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <!-- NTN-C01 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C01</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; White + Schwarzwald Green, Studio</h4>
+      <div class="prompt-purpose">Hero two-tone: white cabin roof and greenhouse over Schwarzwald Green lower body, copper disc wheels, clean studio.</div>
+      <div class="prompt-text">Subject: Two-tone Sport Silhouette car, side profile &mdash; white cabin/greenhouse over Schwarzwald Green lower body<br>Scene: Clean white studio environment, seamless backdrop, even lighting, no distractions. Pure product photography setting<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements. Copper disc wheels<br>Atmosphere: Clean, calm, precise. Even studio lighting with soft shadows beneath the car, no dramatic effects &mdash; letting the two-tone color split and proportions speak for themselves<br>Colors: White upper cabin and greenhouse, deep Schwarzwald Green (dark forest green) lower body and panels, copper-bronze disc wheels, green Karbonium accents on front splitter<br>Camera: Pure side profile, car perfectly level, medium height, large format precision<br>Style: Clean automotive studio photography, product-focused<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. Two-tone split at beltline &mdash; white above, Schwarzwald Green below. Copper disc wheels. No logos, no text, no background elements.</div>
+      <div class="prompt-notes">Upload: Sport Silhouette side profile reference. The two-tone split should be crisp and precise at the beltline.</div>
+    </div>
+
+    <!-- NTN-C02 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C02</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Front 3/4 &mdash; Two-Tone with Green Karbonium Splitter</h4>
+      <div class="prompt-purpose">Front three-quarter showing the Sport Silhouette wide body with green Karbonium accents visible on the front splitter.</div>
+      <div class="prompt-text">Subject: Two-tone Sport Silhouette car, front three-quarter view &mdash; white cabin over Schwarzwald Green body<br>Scene: Clean studio or minimal architectural setting, soft directional lighting from above-right, subtle shadow play on body panels<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, front splitter, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: Controlled studio lighting revealing the wide-body Sport Silhouette stance, directional light emphasizing the fender flares and aggressive front end, green Karbonium weave texture visible on the front splitter element<br>Colors: White upper cabin, deep Schwarzwald Green lower body, green-tinted Karbonium (carbon fiber with green weave) visible on front splitter, copper disc wheels<br>Camera: Front three-quarter, slightly below eye level to emphasize width and stance, medium-wide focal length<br>Style: High-end automotive studio photography, stance-focused<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. Green Karbonium accent on front splitter must show carbon fiber weave pattern tinted green. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Sport Silhouette front 3/4 reference. The green Karbonium weave on the splitter is a signature Notan detail.</div>
+    </div>
+
+    <!-- NTN-C03 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C03</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior Dashboard &mdash; White Leather, Green Accents, Copper Hardware</h4>
+      <div class="prompt-purpose">Dashboard view: white leather base with green leather accents (piping, steering wheel), copper speaker surround, green Karbonium trim.</div>
+      <div class="prompt-text">Subject: Interior dashboard view, white leather with green leather accents and copper hardware<br>Scene: Driver&rsquo;s perspective of dashboard, steering wheel, and door panel edge. Natural light entering through windscreen<br>Car: Keep 100% as reference &mdash; dashboard layout, instrument cluster, steering wheel shape, air vents, controls, and all interior architectural details exactly as uploaded. Do not alter any interior design elements<br>Atmosphere: Clean and refined, natural daylight filling the cabin, green leather accents on steering wheel grip and piping creating contrast against white leather, copper speaker surround catching light, green Karbonium trim strip across the dashboard<br>Colors: White leather dashboard and seat surfaces, Schwarzwald Green leather accents (steering wheel wrap, piping on seats and panels), copper-bronze speaker surround and hardware details, green Karbonium (carbon weave) trim on dashboard strip<br>Camera: Driver&rsquo;s seat perspective, angled slightly toward center console, natural light<br>Style: Luxury automotive interior photography, clean and bright<br>Aspect ratio: 16:9<br>Important: Keep interior layout 100% intact from reference. Green accents are leather piping and Karbonium trim only &mdash; base leather remains white. Copper hardware is subtle accent. No logos.</div>
+      <div class="prompt-notes">Upload: Interior dashboard reference. The material palette is white + green + copper &mdash; three-tone interior harmony.</div>
+    </div>
+
+    <!-- NTN-C04 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C04</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior Cabin &mdash; White Seats, Green Piping, Karbonium Door Panels</h4>
+      <div class="prompt-purpose">Full cabin view: white seats with green piping, copper hardware, Karbonium door panel inserts.</div>
+      <div class="prompt-text">Subject: Interior cabin overview, white leather seats with green contrast piping and Karbonium door panels<br>Scene: Wide cabin view showing front seats, center console, and door panels. Bright, airy cabin with natural light<br>Car: Keep 100% as reference &mdash; seat shapes, dashboard layout, console design, door panel architecture, and all interior details exactly as uploaded. Do not alter any interior design elements<br>Atmosphere: Bright, airy, gallery-like interior. Natural light flooding the white leather cabin, green leather piping on seats creating precise contrast lines, Karbonium inserts on door panels showing green carbon weave, copper hardware details catching light<br>Colors: White leather seats and surfaces, Schwarzwald Green leather piping and accent stitching, green Karbonium (carbon weave) door panel inserts, copper-bronze hardware accents<br>Camera: High angle from above center console or rear-seat perspective looking forward, wide angle<br>Style: Luxury automotive interior photography, bright and material-focused<br>Aspect ratio: 16:9<br>Important: Keep interior layout 100% intact from reference. White is dominant &mdash; green appears only as piping, stitching, and Karbonium inserts. Copper is hardware only. No logos.</div>
+      <div class="prompt-notes">Upload: Interior cabin reference. The Notan interior is a dialogue between dominant white and precise green accents.</div>
+    </div>
+
+    <!-- NTN-C05 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C05</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Rear Bench &mdash; White Leather, Green Contrast Stitching</h4>
+      <div class="prompt-purpose">White leather rear bench with green contrast stitching and H-pattern on trim elements.</div>
+      <div class="prompt-text">Subject: Rear bench seat in white leather with green contrast stitching<br>Scene: Rear cabin view focused on the bench seat, showing seat surface, backrest, and adjacent trim elements with H-pattern detail<br>Car: Keep 100% as reference &mdash; seat proportions, bench shape, headrest design, and all rear cabin architectural details exactly as uploaded. Do not alter any design elements<br>Atmosphere: Clean and bright, natural daylight revealing the precision of green contrast stitching against white leather, H-pattern detail visible on trim elements adjacent to the seat<br>Colors: White leather bench seat, Schwarzwald Green contrast stitching creating geometric accent lines, H-pattern on trim elements, subtle copper hardware accents<br>Camera: Facing rear bench from front cabin or open rear door, medium focal length capturing stitching detail<br>Style: Luxury automotive detail photography, stitching and material focused<br>Aspect ratio: 16:9<br>Important: Keep seat design 100% intact from reference. Green appears as stitching only on white leather. H-pattern visible on trim elements. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Rear bench reference. The contrast stitching should read as precise craft &mdash; every stitch intentional.</div>
+    </div>
+
+    <!-- NTN-C06 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Detail &mdash; Colored Karbonium Close-Up</h4>
+      <div class="prompt-purpose">Extreme close-up of green Karbonium (carbon weave pattern tinted green) against white leather.</div>
+      <div class="prompt-text">Subject: Macro close-up of green colored Karbonium panel beside white leather<br>Scene: Tight crop on the junction where green Karbonium trim meets white leather surface. The carbon fiber weave pattern is clearly visible, tinted in Schwarzwald Green<br>Car: Keep 100% as reference &mdash; material textures, trim piece shape, and all design details exactly as uploaded. Do not alter any elements<br>Atmosphere: Controlled studio lighting to reveal the carbon fiber weave structure within the Karbonium, directional light catching individual fiber strands tinted green, white leather providing clean contrast<br>Colors: Schwarzwald Green Karbonium showing distinct carbon fiber weave pattern in green tones, white leather with fine grain texture, subtle transition between materials<br>Camera: Macro lens, very shallow depth of field, tight crop on material transition<br>Style: Fine art material photography, textile-level detail<br>Aspect ratio: 1:1<br>Important: Keep all material details 100% intact from reference. Karbonium must clearly read as carbon fiber weave tinted green, not painted green surface. No logos.</div>
+      <div class="prompt-notes">Upload: Interior detail reference showing Karbonium trim. Colored Karbonium is HOF&rsquo;s signature &mdash; the carbon weave pattern itself carries the color.</div>
+    </div>
+
+    <!-- NTN-C07 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C07</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; Dark Blue + Light Blue Variant</h4>
+      <div class="prompt-purpose">Alternate two-tone: dark blue lower body with light blue cabin, blue Karbonium accents, same Sport Silhouette.</div>
+      <div class="prompt-text">Subject: Two-tone Sport Silhouette car, side profile &mdash; light blue cabin/greenhouse over dark blue lower body<br>Scene: Clean studio environment or minimal concrete backdrop, even lighting, letting the blue two-tone speak<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: Clean, cool, precise. Even studio lighting, the two-tone blue split creating a tonal conversation between light and dark, blue Karbonium accents on splitter and side skirts<br>Colors: Light sky blue upper cabin and greenhouse, deep dark navy blue lower body, blue-tinted Karbonium accent elements, silver or dark wheels<br>Camera: Pure side profile, car perfectly level, medium height, clean composition<br>Style: Clean automotive studio photography, color-study focused<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. Two-tone split at beltline &mdash; light blue above, dark navy below. Blue Karbonium accents. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Sport Silhouette side profile reference. This is the blue Notan variant &mdash; same silhouette, different color dialogue.</div>
+    </div>
+
+    <!-- NTN-C08 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">NTN-C08</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; Orange + Green Variant, Dramatic Split</h4>
+      <div class="prompt-purpose">Bold two-tone: orange upper with green lower, copper accents, dramatic beltline split.</div>
+      <div class="prompt-text">Subject: Two-tone Sport Silhouette car, side profile &mdash; orange cabin/greenhouse over Schwarzwald Green lower body<br>Scene: Clean studio or minimal setting, directional lighting to emphasize the dramatic two-tone color split at the beltline<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, body kit, wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: Dramatic and bold, directional studio lighting creating sharp contrast between the orange upper and green lower body, copper accent elements catching warm highlights, the beltline division reading as a sharp, intentional design statement<br>Colors: Vibrant orange upper cabin and greenhouse, deep Schwarzwald Green lower body, copper-bronze accent wheels and trim, green Karbonium elements on splitter<br>Camera: Pure side profile, car perfectly level, medium height, dramatic studio lighting<br>Style: High-contrast automotive studio photography, color-forward<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. Two-tone split at beltline &mdash; orange above, Schwarzwald Green below. Copper accents. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Sport Silhouette side profile reference. This is the boldest Notan expression &mdash; orange + green is maximum contrast.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════ -->
+<!-- 3. MA                                             -->
+<!-- ══════════════════════════════════════════════════ -->
+<div class="model-section">
+  <div class="model-header">
+    <span class="model-label">Philosophical Model &middot; SS26</span>
+    <h2>Ma &mdash; &#38291; &middot; Negative Space</h2>
+    <div class="model-sub">Salon Silhouette &middot; Cleaned &middot; Standard Doors &middot; All Silver</div>
+  </div>
+
+  <div class="story-block">
+    <h3>Reference &amp; Method</h3>
+    <p>Upload existing car reference images to Gemini alongside each prompt below. Ma is defined by absence and restraint &mdash; the prompts emphasize clean studio light, minimal environment, and the beauty of unadorned surfaces.</p>
+    <p><strong>Critical constraint:</strong> Keep the vehicle design, proportions, body kit, wheels, and all architectural details 100% exactly as in the reference image. Do not alter the car&rsquo;s shape, lines, grille, lights, or any design elements.</p>
+  </div>
+
+  <div class="prompt-grid">
+
+    <!-- MA-C01 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-C01</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Side Profile &mdash; All Silver, Pure Clean Studio</h4>
+      <div class="prompt-purpose">Salon Silhouette cleaned (no bumpers), all silver, understated wheels, pure minimalism.</div>
+      <div class="prompt-text">Subject: All-silver Salon Silhouette car (cleaned variant, no bumpers), side profile<br>Scene: Pure white studio, seamless infinity cove, absolutely no props, no environment, no distraction. The car exists in a void of white<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, cleaned body (no bumpers), wheels, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements. Understated, minimal wheel design<br>Atmosphere: Profound minimalism. Soft, even, shadowless studio light. The car is a silver monolith in empty white space. No drama, no mood lighting &mdash; just form and surface<br>Colors: All silver body, no accent colors, no two-tone, monochromatic silver-on-white, subtle shadow beneath car<br>Camera: Pure side profile, car perfectly level, generous negative space above and around the car, large format precision<br>Style: Minimal product photography, Hiroshi Sugimoto-level restraint<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. No bumpers (cleaned variant). All silver, no accent colors. Maximum negative space. No logos, no text, no background elements whatsoever.</div>
+      <div class="prompt-notes">Upload: Salon Silhouette cleaned side profile reference. Ma is about what is NOT there &mdash; the negative space is the design.</div>
+    </div>
+
+    <!-- MA-C02 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-C02</span>
+        <span class="prompt-card-size">Exterior &middot; 16:9</span>
+      </div>
+      <h4>Front 3/4 &mdash; Silver Monolith, Beauty of Absence</h4>
+      <div class="prompt-purpose">No ornament, no accent &mdash; the beauty of absence. Soft even studio light revealing pure form.</div>
+      <div class="prompt-text">Subject: All-silver Salon Silhouette car (cleaned variant), front three-quarter view<br>Scene: Pure white studio, seamless backdrop, soft even illumination from all directions, no harsh shadows, no contrast &mdash; the car floats in light<br>Car: Keep 100% as reference &mdash; vehicle design, proportions, cleaned body (no bumpers), wheels, front face, grille, lights, and all architectural details exactly as uploaded. Do not alter shape, lines, or any design elements<br>Atmosphere: The beauty of absence. No ornament, no graphic elements, no accent color. Soft even studio light revealing every subtle surface curve and reflection, the silver body acting as a mirror to the white void around it<br>Colors: All silver, monochromatic, the silver body picking up soft white studio reflections, no accent colors, no contrast<br>Camera: Front three-quarter, eye level, medium focal length, generous framing with negative space<br>Style: Minimal product photography, meditative, gallery-quality<br>Aspect ratio: 16:9<br>Important: Keep vehicle 100% intact from reference. No bumpers (cleaned variant). All silver. No ornament, no accent. The absence IS the design statement. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Salon Silhouette cleaned front 3/4 reference. The silver body in white void should feel like a sculpture in a gallery &mdash; nothing competes.</div>
+    </div>
+
+    <!-- MA-C03 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-C03</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior Dashboard &mdash; Boucl&eacute; + Metallic Leather</h4>
+      <div class="prompt-purpose">Dashboard covered in warm sand-cream boucl&eacute; textile with metallic leather accents that resemble brushed aluminum but are leather. H-pattern on trim.</div>
+      <div class="prompt-text">Subject: Interior dashboard view, boucl&eacute; textile covering dashboard and seats with metallic leather accents<br>Scene: Driver&rsquo;s perspective of dashboard and steering wheel, soft natural light entering through windscreen, calm and domestic atmosphere<br>Car: Keep 100% as reference &mdash; dashboard layout, instrument cluster, steering wheel shape, air vents, controls, and all interior architectural details exactly as uploaded. Do not alter any interior design elements<br>Atmosphere: Warm and domestic, like a living room rather than a cockpit. Soft natural light illuminating the boucl&eacute; textile surface on the dashboard, revealing its woven texture. Metallic leather accents on trim strips that look exactly like brushed aluminum but are actually leather. H-pattern visible on trim elements<br>Colors: Warm sand-cream boucl&eacute; textile on dashboard and seats, metallic silver leather accents (resembling brushed aluminum), H-pattern trim detail, soft cream ambient tones<br>Camera: Driver&rsquo;s seat perspective, slightly angled, natural soft light, medium focal length<br>Style: Luxury interior photography with residential warmth, material-focused<br>Aspect ratio: 16:9<br>Important: Keep interior layout 100% intact from reference. Boucl&eacute; covers dashboard surfaces. Metallic leather must look like brushed metal but is leather. H-pattern on trim. No logos.</div>
+      <div class="prompt-notes">Upload: Interior dashboard reference. The material twist is metallic leather that deceives the eye &mdash; it looks like aluminum but feels like leather.</div>
+    </div>
+
+    <!-- MA-C04 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-C04</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Interior Cabin &mdash; Full Boucl&eacute;, Living-Room Feel</h4>
+      <div class="prompt-purpose">Full boucl&eacute; interior with warm living-room ambiance in sand, cream, and olive tones. Natural light.</div>
+      <div class="prompt-text">Subject: Interior cabin overview, full boucl&eacute; textile interior<br>Scene: Wide cabin view showing both front seats, center console, dashboard, and door panels. Soft natural light creating a warm, residential atmosphere<br>Car: Keep 100% as reference &mdash; seat shapes, dashboard layout, console design, door panel architecture, and all interior details exactly as uploaded. Do not alter any interior design elements<br>Atmosphere: Warm living-room feeling, not automotive. The entire cabin wrapped in boucl&eacute; textile creates a domestic, inviting space. Natural light flooding through windows, soft shadows, the feeling of being in a well-designed Scandinavian living room<br>Colors: Sand-cream boucl&eacute; on seats and surfaces, olive-green accent tones on cushions or piping, cream carpet, warm natural light tones, metallic leather trim accents<br>Camera: Rear-seat perspective looking forward, or wide overhead angle, natural light, wide angle<br>Style: Residential interior photography aesthetic applied to automotive, warm and inviting<br>Aspect ratio: 16:9<br>Important: Keep interior layout 100% intact from reference. Full boucl&eacute; everywhere. Sand/cream/olive palette. The cabin should feel like a room, not a car. No logos.</div>
+      <div class="prompt-notes">Upload: Interior cabin reference. Ma&rsquo;s interior rejects automotive convention &mdash; it feels like sitting in a Finn Juhl chair, not a car seat.</div>
+    </div>
+
+    <!-- MA-C05 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-C05</span>
+        <span class="prompt-card-size">Interior &middot; 16:9</span>
+      </div>
+      <h4>Rear Bench &mdash; Sand Boucl&eacute; with Olive Cushion Accents</h4>
+      <div class="prompt-purpose">Rear bench in sand boucl&eacute; with olive cushion accents, cream carpet, minimal and warm.</div>
+      <div class="prompt-text">Subject: Rear bench seat in sand boucl&eacute; textile with olive accent cushions<br>Scene: Rear cabin view focused on the bench, soft natural light, cream carpet visible at foot level, minimal and serene<br>Car: Keep 100% as reference &mdash; seat proportions, bench shape, headrest design, and all rear cabin architectural details exactly as uploaded. Do not alter any design elements<br>Atmosphere: Serene and minimal, natural light revealing the boucl&eacute; textile weave on the seat surfaces, olive-toned accent cushions adding a single note of color, cream carpet creating a seamless warm floor, the feeling of profound comfort without ostentation<br>Colors: Sand-cream boucl&eacute; bench seat, olive-green accent cushions or bolsters, cream wool carpet, warm natural light, no metallic elements in rear<br>Camera: Facing rear bench from front cabin or open rear door, natural light, medium focal length<br>Style: Quiet luxury interior photography, textile-focused<br>Aspect ratio: 16:9<br>Important: Keep seat design 100% intact from reference. Sand boucl&eacute; is dominant, olive is accent only. Cream carpet. Minimal &mdash; no unnecessary detail. No logos, no text.</div>
+      <div class="prompt-notes">Upload: Rear bench reference. The Ma rear cabin is the most restrained space in the entire SS26 range &mdash; pure comfort, zero performance posturing.</div>
+    </div>
+
+    <!-- MA-C06 -->
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span class="prompt-card-id">MA-C06</span>
+        <span class="prompt-card-size">Detail &middot; 1:1</span>
+      </div>
+      <h4>Detail &mdash; Metallic Leather Meets Boucl&eacute;, Material Dialogue</h4>
+      <div class="prompt-purpose">Extreme close-up of the diagonal transition where metallic leather meets boucl&eacute; textile &mdash; the Ma material dialogue.</div>
+      <div class="prompt-text">Subject: Macro close-up of metallic leather meeting boucl&eacute; textile at a diagonal transition<br>Scene: Tight crop on the junction where brushed-aluminum-look metallic leather meets warm sand boucl&eacute; textile. The diagonal material transition line is the focal point<br>Car: Keep 100% as reference &mdash; material textures, trim piece shapes, and all design details exactly as uploaded. Do not alter any elements<br>Atmosphere: Controlled studio lighting revealing the textural contrast &mdash; smooth metallic leather sheen against the soft, looped boucl&eacute; weave. Directional light catching the metallic leather&rsquo;s silver sheen and the boucl&eacute;&rsquo;s dimensional loops<br>Colors: Metallic silver leather (brushed aluminum appearance) meeting warm sand-cream boucl&eacute; textile, soft warm undertone to the overall image<br>Camera: Macro lens, very shallow depth of field, tight crop on the diagonal material meeting point<br>Style: Fine art material photography, the dialogue between industrial and domestic<br>Aspect ratio: 1:1<br>Important: Keep all material details 100% intact from reference. Metallic leather must convincingly look like brushed metal while being leather. Boucl&eacute; must show individual loops. The diagonal transition is precise. No logos.</div>
+      <div class="prompt-notes">Upload: Interior detail reference showing trim transition. This image captures Ma&rsquo;s core philosophy: where two opposing materials meet with mutual respect.</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF SS26 — 3D Render Briefing</title>
+  <style>
+    :root {
+      --bg: #FAFAF8;
+      --card-bg: #FFFFFF;
+      --border: #E5E2DC;
+      --text: #1A1A1A;
+      --text-muted: #6B6B6B;
+      --accent: #B8926A;
+      --cream: #D4CFC4;
+      --indigo: #2C3E6B;
+      --silk-gold: #D4CFC4;
+      --aizome: #2C3E6B;
+      --orange: #E87A2E;
+      --silver: #C0C0C0;
+      --charcoal: #3A3A3A;
+      --dark-green: #2D4A3A;
+      --black: #1A1A1A;
+      --sand: #D4C9A8;
+      /* Model accent colors */
+      --kinso-color: #2C3E6B;
+      --kinso-bg: #E8EBF2;
+      --tokyo-color: #E87A2E;
+      --tokyo-bg: #FDF0E6;
+      --notan-color: #3A3A3A;
+      --notan-bg: #ECECEC;
+      --ma-color: #C0C0C0;
+      --ma-bg: #F5F5F2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 60px 40px;
+    }
+
+    /* ── Header ── */
+    .doc-header {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .doc-header h1 {
+      font-size: 2.4rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .doc-header .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+    }
+
+    .doc-header .meta {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Summary Box ── */
+    .summary-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 40px;
+      margin-bottom: 60px;
+    }
+
+    .summary-box h2 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .summary-card {
+      background: var(--bg);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .summary-card .model-name {
+      font-size: 1.3rem;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .summary-card .model-silhouette {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .summary-card .model-count {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--accent);
+    }
+
+    .summary-card .model-count-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .total-count {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .total-count .number {
+      font-size: 3rem;
+      font-weight: 300;
+      color: var(--accent);
+    }
+
+    .total-count .label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Perspectives Reference ── */
+    .perspectives-section {
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+
+    .perspective-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .perspective-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .perspective-card .p-number {
+      font-size: 2rem;
+      font-weight: 200;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .perspective-card .p-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .perspective-card .p-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .perspective-card img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      margin-bottom: 12px;
+      border-radius: 4px;
+    }
+
+    /* ── Geometry Section ── */
+    .geometry-section {
+      margin-bottom: 60px;
+    }
+
+    .geometry-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .geometry-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 30px;
+    }
+
+    .geometry-card h3 {
+      font-size: 1.1rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .geometry-card .geo-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .geometry-variants {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .geometry-variant {
+      text-align: center;
+    }
+
+    .geometry-variant img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 8px;
+    }
+
+    .geometry-variant .variant-name {
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 2px;
+    }
+
+    .geometry-variant .variant-desc {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .geometry-front {
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .geometry-front img {
+      max-width: 200px;
+      height: auto;
+    }
+
+    /* ── Model-Silhouette Mapping ── */
+    .mapping-section {
+      margin-bottom: 60px;
+    }
+
+    .mapping-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .mapping-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .mapping-card.kinso { border-color: var(--kinso-color); background: var(--kinso-bg); }
+    .mapping-card.tokyo { border-color: var(--tokyo-color); background: var(--tokyo-bg); }
+    .mapping-card.notan { border-color: var(--notan-color); background: var(--notan-bg); }
+    .mapping-card.ma { border-color: var(--ma-color); background: var(--ma-bg); }
+
+    .mapping-card .map-model {
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .mapping-card .map-silhouette {
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .mapping-card .map-silhouette.salon { color: var(--accent); }
+    .mapping-card .map-silhouette.sport { color: #555; }
+
+    .mapping-card img {
+      width: 100%;
+      max-width: 180px;
+      height: auto;
+      margin: 8px auto;
+      display: block;
+    }
+
+    .mapping-card .map-details {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-top: 8px;
+      text-align: left;
+    }
+
+    .mapping-card .map-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 3px;
+      margin-top: 6px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .map-tag.coach { background: #E8D5B8; color: #7A5B30; }
+    .map-tag.standard { background: #E5E5E5; color: #666; }
+
+    /* ── Color-coded model headers ── */
+    .model-section.kinso .model-header h2 { color: var(--kinso-color); }
+    .model-section.kinso .bento-table th.comp-header { background: var(--kinso-bg); }
+    .model-section.kinso .image-count-bar { background: var(--kinso-bg); border-left: 4px solid var(--kinso-color); }
+    .model-section.kinso .image-slot { border-left-color: var(--kinso-color); }
+
+    .model-section.tokyo .model-header h2 { color: var(--tokyo-color); }
+    .model-section.tokyo .bento-table th.comp-header { background: var(--tokyo-bg); }
+    .model-section.tokyo .image-count-bar { background: var(--tokyo-bg); border-left: 4px solid var(--tokyo-color); }
+    .model-section.tokyo .image-slot { border-left-color: var(--tokyo-color); }
+
+    .model-section.notan .model-header h2 { color: var(--notan-color); }
+    .model-section.notan .bento-table th.comp-header { background: var(--notan-bg); }
+    .model-section.notan .image-count-bar { background: var(--notan-bg); border-left: 4px solid var(--notan-color); }
+    .model-section.notan .image-slot { border-left-color: var(--notan-color); }
+
+    .model-section.ma .model-header h2 { color: #888; }
+    .model-section.ma .bento-table th.comp-header { background: var(--ma-bg); }
+    .model-section.ma .image-count-bar { background: var(--ma-bg); border-left: 4px solid var(--ma-color); }
+    .model-section.ma .image-slot { border-left-color: var(--ma-color); }
+
+    /* ── Model Sections ── */
+    .model-section {
+      margin-bottom: 80px;
+    }
+
+    .model-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .model-header h2 {
+      font-size: 2rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+    }
+
+    .model-header .model-tag {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .model-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Bento Grid ── */
+    .bento-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .bento-table th {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 16px 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+      vertical-align: top;
+    }
+
+    .bento-table th.row-header {
+      background: #F5F4F0;
+      text-align: left;
+      width: 160px;
+      vertical-align: middle;
+    }
+
+    .bento-table th.comp-header {
+      min-width: 200px;
+    }
+
+    .bento-table th .comp-color {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      margin-top: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .bento-table th .comp-desc {
+      font-weight: 400;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .bento-table td {
+      border: 1px solid var(--border);
+      padding: 12px;
+      vertical-align: top;
+      font-size: 0.8rem;
+      background: var(--card-bg);
+    }
+
+    .bento-cell {
+      min-height: 100px;
+    }
+
+    .bento-cell .image-slot {
+      background: #F0EEE8;
+      padding: 10px 12px;
+      margin-bottom: 6px;
+      font-size: 0.75rem;
+      line-height: 1.4;
+      border-left: 3px solid var(--accent);
+    }
+
+    .bento-cell .image-slot:last-child {
+      margin-bottom: 0;
+    }
+
+    .bento-cell .slot-id {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+
+    .bento-cell .slot-desc {
+      color: var(--text-muted);
+    }
+
+    .bento-cell .slot-note {
+      color: var(--accent);
+      font-style: italic;
+      font-size: 0.7rem;
+      margin-top: 2px;
+    }
+
+    .bento-cell.same-as {
+      background: #F8F7F4;
+      color: var(--text-muted);
+      font-style: italic;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    /* ── Color Swatches ── */
+    .swatch {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 4px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .swatch-duo {
+      display: inline-block;
+      width: 20px;
+      height: 14px;
+      border-radius: 7px;
+      vertical-align: middle;
+      margin-right: 4px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* ── Technical Specs ── */
+    .tech-notes {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    .tech-notes h3 {
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+
+    .tech-notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tech-notes li {
+      padding: 6px 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid #F0EEE8;
+    }
+
+    .tech-notes li:last-child {
+      border-bottom: none;
+    }
+
+    .tech-notes li strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* ── Model Image Count ── */
+    .image-count-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 12px 16px;
+      background: #F5F4F0;
+    }
+
+    .image-count-bar .count-num {
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--accent);
+    }
+
+    .image-count-bar .count-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── Print ── */
+    @media print {
+      body { font-size: 11px; }
+      .container { padding: 20px; }
+      .model-section { page-break-before: auto; }
+    }
+
+    @media (max-width: 1200px) {
+      .summary-grid { grid-template-columns: repeat(2, 1fr); }
+      .perspective-grid { grid-template-columns: repeat(3, 1fr); }
+      .bento-table { font-size: 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- HEADER -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="doc-header">
+      <h1>3D Render Briefing</h1>
+      <div class="subtitle">HOF &middot; Spring/Summer 2026 Collection</div>
+      <div class="meta">
+        Prepared: March 2026 &middot; Document Version 1.0<br>
+        Platform: Mercedes-AMG G63 W465 &middot; All models share the same base vehicle
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- SUMMARY -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="summary-box">
+      <h2>Image Overview</h2>
+      <div class="summary-grid">
+        <div class="summary-card" style="border-left: 4px solid var(--kinso-color);">
+          <div class="model-name">Kinsō</div>
+          <div class="model-silhouette">Salon &middot; Cleaned &middot; Coach Doors</div>
+          <div class="model-count">22</div>
+          <div class="model-count-label">unique renders</div>
+        </div>
+        <div class="summary-card" style="border-left: 4px solid var(--tokyo-color);">
+          <div class="model-name">Tokyo</div>
+          <div class="model-silhouette">Sport &middot; Standard Doors</div>
+          <div class="model-count">20</div>
+          <div class="model-count-label">unique renders</div>
+        </div>
+        <div class="summary-card" style="border-left: 4px solid var(--notan-color);">
+          <div class="model-name">Notan</div>
+          <div class="model-silhouette">Sport &middot; Standard Doors</div>
+          <div class="model-count">17</div>
+          <div class="model-count-label">unique renders</div>
+        </div>
+        <div class="summary-card" style="border-left: 4px solid var(--ma-color);">
+          <div class="model-name">Ma</div>
+          <div class="model-silhouette">Salon &middot; Cleaned &middot; Standard Doors</div>
+          <div class="model-count">12</div>
+          <div class="model-count-label">unique renders</div>
+        </div>
+      </div>
+      <div class="total-count">
+        <div class="number">71</div>
+        <div class="label">Total unique renders required</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- 6 STANDARD PERSPECTIVES -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="perspectives-section">
+      <div class="section-title">6 Standard Perspectives</div>
+      <div class="section-subtitle">Every composition requires these 6 camera angles. All shots on clean studio background (light grey/white cyclorama).</div>
+
+      <div class="perspective-grid">
+        <div class="perspective-card">
+          <img src="images/briefing/perspectives/p1-front-34.jpg" alt="P1 Front 3/4 reference">
+          <div class="p-number">P1</div>
+          <div class="p-name">Front 3/4</div>
+          <div class="p-desc">Hero angle. Camera slightly above, showing grille, headlights, wheel arches, silhouette lines.</div>
+        </div>
+        <div class="perspective-card">
+          <img src="images/briefing/perspectives/p2-rear-34.jpg" alt="P2 Rear 3/4 reference">
+          <div class="p-number">P2</div>
+          <div class="p-name">Rear 3/4</div>
+          <div class="p-desc">Rear hero. Showing taillights, exhaust, rear silhouette, wheel arches.</div>
+        </div>
+        <div class="perspective-card">
+          <img src="images/briefing/perspectives/p3-side-profile.jpg" alt="P3 Side Profile reference">
+          <div class="p-number">P3</div>
+          <div class="p-name">Side Profile</div>
+          <div class="p-desc">Clean side view. Full vehicle length, both axles. Silhouette proportions, door lines, wheels.</div>
+        </div>
+        <div class="perspective-card">
+          <img src="images/briefing/perspectives/p4-interior-cabin.jpg" alt="P4 Interior Cabin reference">
+          <div class="p-number">P4</div>
+          <div class="p-name">Interior Cabin</div>
+          <div class="p-desc">View from passenger side. Front and rear seats, door panels, headliner.</div>
+        </div>
+        <div class="perspective-card">
+          <img src="images/briefing/perspectives/p5-interior-dashboard.jpg" alt="P5 Interior Dashboard reference">
+          <div class="p-number">P5</div>
+          <div class="p-name">Interior Dashboard</div>
+          <div class="p-desc">View from rear looking forward. Steering wheel, screens, console, ambient lighting.</div>
+        </div>
+        <div class="perspective-card">
+          <img src="images/briefing/perspectives/p6-rear-seats.jpg" alt="P6 Rear Seats reference">
+          <div class="p-number">P6</div>
+          <div class="p-name">Rear Seats</div>
+          <div class="p-desc">Rear seating area. Lounge Seats (individual) or standard bench.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- GEOMETRY: SILHOUETTE TYPES -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="geometry-section">
+      <div class="section-title">Silhouette Geometry</div>
+      <div class="section-subtitle">Two base silhouettes, each available in three door configurations. The silhouette defines the exterior body language.</div>
+
+      <div class="geometry-grid">
+        <!-- Salon / Luxury -->
+        <div class="geometry-card">
+          <h3>Salon Silhouette</h3>
+          <div class="geo-subtitle">Clean, elegant surfaces. Standard G-Class proportions. Pure luxury.</div>
+          <div class="geometry-variants">
+            <div class="geometry-variant">
+              <img src="images/briefing/pictograms/salon-regular.jpg" alt="Salon Regular">
+              <div class="variant-name">Regular</div>
+              <div class="variant-desc">Factory bumpers, standard doors</div>
+            </div>
+            <div class="geometry-variant">
+              <img src="images/briefing/pictograms/salon-cleaned.jpg" alt="Salon Cleaned">
+              <div class="variant-name">Cleaned</div>
+              <div class="variant-desc">Bumpers removed, pure surface</div>
+            </div>
+            <div class="geometry-variant">
+              <img src="images/briefing/pictograms/salon-cleaned-coach-doors.jpg" alt="Salon Cleaned + Coach Doors">
+              <div class="variant-name">Cleaned &amp; Coach Doors</div>
+              <div class="variant-desc">Rear-hinged doors, ceremonial entry</div>
+            </div>
+          </div>
+          <div class="geometry-front">
+            <img src="images/briefing/pictograms/salon-front.jpg" alt="Salon front view">
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Front view — HOF grille with integrated H pattern</div>
+          </div>
+        </div>
+
+        <!-- Sport -->
+        <div class="geometry-card">
+          <h3>Sport Silhouette</h3>
+          <div class="geo-subtitle">Widened fenders, sculpted surfaces, aggressive stance. Performance-oriented.</div>
+          <div class="geometry-variants">
+            <div class="geometry-variant">
+              <img src="images/briefing/pictograms/sport-regular.jpg" alt="Sport Regular">
+              <div class="variant-name">Regular</div>
+              <div class="variant-desc">Wide body, standard doors</div>
+            </div>
+            <div class="geometry-variant">
+              <img src="images/briefing/pictograms/sport-cleaned.jpg" alt="Sport Cleaned">
+              <div class="variant-name">Cleaned</div>
+              <div class="variant-desc">Bumpers removed, sculpted surface</div>
+            </div>
+            <div class="geometry-variant">
+              <img src="images/briefing/pictograms/sport-cleaned-coach-doors.jpg" alt="Sport Cleaned + Coach Doors">
+              <div class="variant-name">Cleaned &amp; Coach Doors</div>
+              <div class="variant-desc">Wide body + rear-hinged doors</div>
+            </div>
+          </div>
+          <div class="geometry-front">
+            <img src="images/briefing/pictograms/sport-front.jpg" alt="Sport front view">
+            <div style="font-size:0.7rem; color:var(--text-muted); margin-top:4px;">Front view — aggressive grille with H emblem</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- MODEL → SILHOUETTE MAPPING -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="mapping-section">
+      <div class="section-title">Model &rarr; Silhouette Assignment</div>
+      <div class="section-subtitle">Each SS26 expression uses a specific silhouette and door configuration.</div>
+
+      <div class="mapping-grid">
+        <div class="mapping-card kinso">
+          <div class="map-model">Kinsō</div>
+          <div class="map-silhouette salon">Salon Silhouette</div>
+          <img src="images/briefing/pictograms/salon-cleaned-coach-doors.jpg" alt="Kinsō silhouette">
+          <span class="map-tag coach">Coach Doors</span>
+          <div class="map-details">
+            &bull; Cleaned body (bumpers removed)<br>
+            &bull; Coach Doors standard<br>
+            &bull; Pure Surface language<br>
+            &bull; Gold disc wheels
+          </div>
+        </div>
+        <div class="mapping-card tokyo">
+          <div class="map-model">Tokyo</div>
+          <div class="map-silhouette sport">Sport Silhouette</div>
+          <img src="images/briefing/pictograms/sport-regular.jpg" alt="Tokyo silhouette">
+          <span class="map-tag standard">Standard Doors</span>
+          <div class="map-details">
+            &bull; Wide body, sculpted fenders<br>
+            &bull; Standard front-hinged doors<br>
+            &bull; Sculpted Surface language<br>
+            &bull; Sport multi-spoke wheels
+          </div>
+        </div>
+        <div class="mapping-card notan">
+          <div class="map-model">Notan</div>
+          <div class="map-silhouette sport">Sport Silhouette</div>
+          <img src="images/briefing/pictograms/sport-regular.jpg" alt="Notan silhouette">
+          <span class="map-tag standard">Standard Doors</span>
+          <div class="map-details">
+            &bull; Wide body, sculpted fenders<br>
+            &bull; Standard front-hinged doors<br>
+            &bull; Sculpted Surface language<br>
+            &bull; Karbonium colored carbon accents<br>
+            &bull; Dark sport wheels
+          </div>
+        </div>
+        <div class="mapping-card ma">
+          <div class="map-model">Ma</div>
+          <div class="map-silhouette salon">Salon Silhouette</div>
+          <img src="images/briefing/pictograms/salon-cleaned.jpg" alt="Ma silhouette">
+          <span class="map-tag standard">Standard Doors</span>
+          <div class="map-details">
+            &bull; Cleaned body (bumpers removed)<br>
+            &bull; Standard front-hinged doors<br>
+            &bull; Minimal, reductive surface<br>
+            &bull; Understated wheels
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- MODEL 1: KINSŌ -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="model-section kinso">
+      <div class="model-header">
+        <h2>Kinsō</h2>
+        <span class="model-tag">金装 &middot; Adornment &middot; Salon Silhouette &middot; Pure Surface &middot; Coach Doors Standard</span>
+      </div>
+      <div class="model-info">
+        3 exterior compositions &middot; 1 interior expression (same across all 3) &middot; Botanical jacquard textile inserts &middot; Gold-accented disc wheels &middot; Bass speaker with gold surround
+      </div>
+
+      <table class="bento-table">
+        <thead>
+          <tr>
+            <th class="row-header">Category</th>
+            <th class="comp-header">
+              Composition I<br>
+              <span class="comp-desc">Two-tone</span><br>
+              <span class="swatch-duo" style="background: linear-gradient(135deg, var(--silk-gold) 50%, var(--aizome) 50%);"></span>
+              <span class="comp-desc">Silk Gold (cabin) &amp; Aizome Blue (body)</span>
+            </th>
+            <th class="comp-header">
+              Composition II<br>
+              <span class="comp-desc">Mono</span><br>
+              <span class="swatch" style="background: var(--aizome);"></span>
+              <span class="comp-desc">All Aizome Blue</span>
+            </th>
+            <th class="comp-header">
+              Composition III<br>
+              <span class="comp-desc">Mono</span><br>
+              <span class="swatch" style="background: var(--silk-gold);"></span>
+              <span class="comp-desc">All Silk Gold</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EXTERIOR -->
+          <tr>
+            <th class="row-header">Exterior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-I-P1</div>
+                <div class="slot-desc">Front 3/4. Two-tone: Silk Gold cabin (above beltline) + Aizome Blue body (below). Gold disc wheels, cream fender arches.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-P2</div>
+                <div class="slot-desc">Rear 3/4. Two-tone split visible. Gold HOF badge.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-P3</div>
+                <div class="slot-desc">Side profile. Full two-tone visible. Coach Door line. Gold disc wheels with cream rim ring.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-II-P1</div>
+                <div class="slot-desc">Front 3/4. All Aizome Blue body and cabin. Same gold disc wheels, cream fender arches.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-II-P2</div>
+                <div class="slot-desc">Rear 3/4. All Aizome Blue.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-II-P3</div>
+                <div class="slot-desc">Side profile. All Aizome Blue.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-III-P1</div>
+                <div class="slot-desc">Front 3/4. All Silk Gold (warm cream). Same gold disc wheels.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-III-P2</div>
+                <div class="slot-desc">Rear 3/4. All Silk Gold.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-III-P3</div>
+                <div class="slot-desc">Side profile. All Silk Gold.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- INTERIOR -->
+          <tr>
+            <th class="row-header">Interior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-I-P4</div>
+                <div class="slot-desc">Interior cabin. Cream leather front seats, Aizome Blue rear. Botanical jacquard inserts on seat shoulders &amp; door panels. Warm ambient light.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-P5</div>
+                <div class="slot-desc">Dashboard. Cream leather, gold bass speaker surround, botanical jacquard on dash trim and door inserts. Cream steering wheel.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-P6</div>
+                <div class="slot-desc">Rear lounge. Aizome Blue Lounge Seats (individual S-Class), dual screens, botanical jacquard on door panels and headrests.</div>
+              </div>
+            </td>
+            <td class="bento-cell same-as" colspan="2">
+              <p>Same interior for all 3 compositions</p>
+              <p style="font-size:0.7rem; margin-top:4px;">Cream front / Aizome Blue rear / Botanical jacquard</p>
+              <p style="font-size:0.7rem;">→ Re-use K-I-P4, K-I-P5, K-I-P6</p>
+            </td>
+          </tr>
+          <!-- DETAILS -->
+          <tr>
+            <th class="row-header">Details<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Rims, trim, textures</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-I-D1</div>
+                <div class="slot-desc">Wheel close-up. Gold disc wheel with cream rim ring against two-tone body.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-D2</div>
+                <div class="slot-desc">Bass speaker close-up. Gold surround, botanical jacquard speaker grille mesh.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-D3</div>
+                <div class="slot-desc">Botanical jacquard texture. Close-up of textile insert (door panel or seat shoulder). Indigo on cream ground, floral motif.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-II-D1</div>
+                <div class="slot-desc">Wheel close-up against all-Aizome Blue body.</div>
+              </div>
+              <div class="image-slot slot-note">D2 &amp; D3: same as Comp I</div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-III-D1</div>
+                <div class="slot-desc">Wheel close-up against all-Silk Gold body.</div>
+              </div>
+              <div class="image-slot slot-note">D2 &amp; D3: same as Comp I</div>
+            </td>
+          </tr>
+          <!-- SPECIALS -->
+          <tr>
+            <th class="row-header">Specials<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Unique features</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-I-S1</div>
+                <div class="slot-desc">Coach Doors open. Both doors open, warm light flooding interior. Full side view showing ceremonial entry.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-S2</div>
+                <div class="slot-desc">Rear trunk/tailgate open. Showing boot space, carpet, illuminated HOF logo.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">K-I-S3</div>
+                <div class="slot-desc">HOF badge close-up on body. Gold "HOF" lettering on Aizome Blue surface.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-II-S1</div>
+                <div class="slot-desc">Coach Doors open. All Aizome Blue exterior.</div>
+              </div>
+              <div class="image-slot slot-note">S2, S3: adjust body color only</div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">K-III-S1</div>
+                <div class="slot-desc">Coach Doors open. All Silk Gold exterior.</div>
+              </div>
+              <div class="image-slot slot-note">S2, S3: adjust body color only</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="image-count-bar">
+        <div class="count-num">42</div>
+        <div class="count-label">Total Kinsō images (3 comps &times; 12 slots, with 6 re-usable interior/detail shots = 42 unique renders)</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- MODEL 2: TOKYO -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="model-section tokyo">
+      <div class="model-header">
+        <h2>Tokyo</h2>
+        <span class="model-tag">東京 &middot; Eastern Capital &middot; Sport Silhouette &middot; Sculpted Surface</span>
+      </div>
+      <div class="model-info">
+        2 exterior compositions &middot; 2 interior expressions &middot; Cast crystal resin accents (amber-orange) on dashboard, door panels, steering wheel, speaker, headliner &middot; H-pattern embossed seats &middot; Sport wheels &middot; No Coach Doors
+      </div>
+
+      <table class="bento-table">
+        <thead>
+          <tr>
+            <th class="row-header">Category</th>
+            <th class="comp-header">
+              Composition I<br>
+              <span class="comp-desc">Silver + Orange accents</span><br>
+              <span class="swatch-duo" style="background: linear-gradient(135deg, var(--silver) 50%, var(--orange) 50%);"></span>
+              <span class="comp-desc">Interior: Deep Amber</span>
+            </th>
+            <th class="comp-header">
+              Composition II<br>
+              <span class="comp-desc">Orange + Silver accents</span><br>
+              <span class="swatch-duo" style="background: linear-gradient(135deg, var(--orange) 50%, var(--silver) 50%);"></span>
+              <span class="comp-desc">Interior: White &amp; Amber</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EXTERIOR -->
+          <tr>
+            <th class="row-header">Exterior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-I-P1</div>
+                <div class="slot-desc">Front 3/4. Silver body, orange wheel accents, carbon splitter. Sport Silhouette wide body. Sculpted fender flares.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-P2</div>
+                <div class="slot-desc">Rear 3/4. Silver body, orange accents, carbon diffuser, quad exhaust.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-P3</div>
+                <div class="slot-desc">Side profile. Sport Silhouette proportions. Silver body, orange rim lips, carbon side skirts.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-II-P1</div>
+                <div class="slot-desc">Front 3/4. Orange body, silver accents, carbon splitter. Same Sport Silhouette.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-II-P2</div>
+                <div class="slot-desc">Rear 3/4. Orange body, silver accents.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-II-P3</div>
+                <div class="slot-desc">Side profile. Orange body.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- INTERIOR -->
+          <tr>
+            <th class="row-header">Interior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-I-P4</div>
+                <div class="slot-desc">Interior cabin. Deep amber leather throughout, carbon trim, sport seats. Standard rear bench.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-P5</div>
+                <div class="slot-desc">Dashboard. Deep amber leather, carbon console, sport steering wheel, orange ambient lighting.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-P6</div>
+                <div class="slot-desc">Rear bench. Deep amber leather, matching door panels, floor mats.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-II-P4</div>
+                <div class="slot-desc">Interior cabin. White &amp; amber two-tone leather, carbon trim.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-II-P5</div>
+                <div class="slot-desc">Dashboard. White leather, amber accents, carbon console.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-II-P6</div>
+                <div class="slot-desc">Rear bench. White &amp; amber leather.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- DETAILS -->
+          <tr>
+            <th class="row-header">Details<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Rims, trim, textures</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-I-D1</div>
+                <div class="slot-desc">Sport wheel close-up. Multi-spoke design, orange rim lip against silver body.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-D2</div>
+                <div class="slot-desc">Carbon fiber detail. Splitter or side skirt close-up showing weave texture.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-D3</div>
+                <div class="slot-desc">Sculpted fender flare detail. Showing Sport Silhouette body line language.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-II-D1</div>
+                <div class="slot-desc">Sport wheel close-up against orange body.</div>
+              </div>
+              <div class="image-slot slot-note">D2, D3: adjust body color only</div>
+            </td>
+          </tr>
+          <!-- SPECIALS -->
+          <tr>
+            <th class="row-header">Specials<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Unique features</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-I-S1</div>
+                <div class="slot-desc">Sport exhaust quad tips. Close-up from rear, showing diffuser and exhaust layout.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-S2</div>
+                <div class="slot-desc">Hood vents / bonnet detail. Showing sculpted surface language from above.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">T-I-S3</div>
+                <div class="slot-desc">HOF badge close-up on silver body.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">T-II-S1</div>
+                <div class="slot-desc">Same exhaust, orange body context.</div>
+              </div>
+              <div class="image-slot slot-note">S2, S3: adjust body color only</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="image-count-bar">
+        <div class="count-num">36</div>
+        <div class="count-label">Total Tokyo images (2 comps &times; 12 slots, different interiors per comp = 36 unique renders)</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- MODEL 3: TSUI -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="model-section notan">
+      <div class="model-header">
+        <h2>Notan</h2>
+        <span class="model-tag">濃淡 &middot; Light-Dark Harmony &middot; Sport Silhouette &middot; Sculpted Surface</span>
+      </div>
+      <div class="model-info">
+        2 exterior compositions &middot; 1 interior expression (full dark, same for both) &middot; Karbonium (colored carbon fiber) &middot; Sport wheels &middot; No Coach Doors
+      </div>
+
+      <table class="bento-table">
+        <thead>
+          <tr>
+            <th class="row-header">Category</th>
+            <th class="comp-header">
+              Composition I<br>
+              <span class="comp-desc">Mono</span><br>
+              <span class="swatch" style="background: var(--charcoal);"></span>
+              <span class="comp-desc">Charcoal / Black</span>
+            </th>
+            <th class="comp-header">
+              Composition II<br>
+              <span class="comp-desc">Mono</span><br>
+              <span class="swatch" style="background: var(--dark-green);"></span>
+              <span class="comp-desc">Dark Green</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EXTERIOR -->
+          <tr>
+            <th class="row-header">Exterior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-I-P1</div>
+                <div class="slot-desc">Front 3/4. Charcoal/Black body. Sport Silhouette, sculpted fenders, carbon accents, dark wheels.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-P2</div>
+                <div class="slot-desc">Rear 3/4. Black body, carbon diffuser, dark exhaust tips.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-P3</div>
+                <div class="slot-desc">Side profile. All black, stealth presence. Dark wheels, carbon side skirts.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-II-P1</div>
+                <div class="slot-desc">Front 3/4. Dark green body. Same Sport Silhouette, carbon accents.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-II-P2</div>
+                <div class="slot-desc">Rear 3/4. Dark green body.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-II-P3</div>
+                <div class="slot-desc">Side profile. Dark green.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- INTERIOR -->
+          <tr>
+            <th class="row-header">Interior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-I-P4</div>
+                <div class="slot-desc">Interior cabin. Full dark single palette. Black leather/Alcantara, carbon trim, dark chrome details.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-P5</div>
+                <div class="slot-desc">Dashboard. All black, carbon console, dark ambient lighting.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-P6</div>
+                <div class="slot-desc">Rear bench. Full dark leather, matching dark floor mats.</div>
+              </div>
+            </td>
+            <td class="bento-cell same-as">
+              <p>Same interior for both compositions</p>
+              <p style="font-size:0.7rem; margin-top:4px;">Full dark, single palette</p>
+              <p style="font-size:0.7rem;">→ Re-use C-I-P4, C-I-P5, C-I-P6</p>
+            </td>
+          </tr>
+          <!-- DETAILS -->
+          <tr>
+            <th class="row-header">Details<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Rims, trim, textures</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-I-D1</div>
+                <div class="slot-desc">Dark wheel close-up against charcoal body. Sport rim design.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-D2</div>
+                <div class="slot-desc">Carbon fiber body panel close-up. Showing sculpted surface texture.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-D3</div>
+                <div class="slot-desc">Dark chrome detail. Door handle or badge close-up.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-II-D1</div>
+                <div class="slot-desc">Dark wheel close-up against dark green body.</div>
+              </div>
+              <div class="image-slot slot-note">D2, D3: adjust body color only</div>
+            </td>
+          </tr>
+          <!-- SPECIALS -->
+          <tr>
+            <th class="row-header">Specials<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Unique features</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-I-S1</div>
+                <div class="slot-desc">Stealth presence shot. Low angle, dramatic lighting on charcoal body, emphasizing dark-on-dark contrast.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-S2</div>
+                <div class="slot-desc">Carbon body kit detail. Close-up of sculpted fender meeting body line.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">C-I-S3</div>
+                <div class="slot-desc">HOF badge on black body. Subtle dark chrome.</div>
+              </div>
+            </td>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">C-II-S1</div>
+                <div class="slot-desc">Same stealth shot. Dark green body.</div>
+              </div>
+              <div class="image-slot slot-note">S2, S3: adjust body color only</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="image-count-bar">
+        <div class="count-num">24</div>
+        <div class="count-label">Total Notan images (2 comps &times; 12 slots, with re-usable interior = 24 unique renders)</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- MODEL 4: MA -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="model-section ma">
+      <div class="model-header">
+        <h2>Ma</h2>
+        <span class="model-tag">間 &middot; Negative Space &middot; Salon Silhouette</span>
+      </div>
+      <div class="model-info">
+        1 singular composition &middot; 1 interior expression &middot; Minimalist, reductive design &middot; Boucl&eacute; woven textile &middot; Metallic leather &middot; H-pattern trim &middot; No Coach Doors &middot; Standard rear bench
+      </div>
+
+      <table class="bento-table">
+        <thead>
+          <tr>
+            <th class="row-header">Category</th>
+            <th class="comp-header" style="min-width:400px;">
+              Singular Composition<br>
+              <span class="comp-desc">Mono</span><br>
+              <span class="swatch" style="background: var(--silver);"></span>
+              <span class="comp-desc">All Silver &middot; Interior: Warm Sand, Cream, Olive</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- EXTERIOR -->
+          <tr>
+            <th class="row-header">Exterior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">M-I-P1</div>
+                <div class="slot-desc">Front 3/4. All silver. Salon Silhouette — clean, unadorned surfaces. Minimal chrome. Understated wheel design.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-P2</div>
+                <div class="slot-desc">Rear 3/4. Silver body. Clean rear, minimal badging. The beauty of absence.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-P3</div>
+                <div class="slot-desc">Side profile. All silver, Salon proportions. Emphasis on clean body lines, absence of ornament.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- INTERIOR -->
+          <tr>
+            <th class="row-header">Interior<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">3 perspectives</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">M-I-P4</div>
+                <div class="slot-desc">Interior cabin. Warm sand leather, cream headliner, olive green accents. Natural, calm. Standard rear bench.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-P5</div>
+                <div class="slot-desc">Dashboard. Sand leather, minimal trim, natural wood or stone console insert. Warm, earth-tone ambient lighting.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-P6</div>
+                <div class="slot-desc">Rear bench. Sand leather bench seating, olive cushions, cream carpet.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- DETAILS -->
+          <tr>
+            <th class="row-header">Details<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Rims, trim, textures</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">M-I-D1</div>
+                <div class="slot-desc">Wheel close-up. Understated design, silver finish, flush with body.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-D2</div>
+                <div class="slot-desc">Interior material close-up. Sand leather grain, showing natural texture and warmth.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-D3</div>
+                <div class="slot-desc">Console detail. Natural wood or stone insert, minimalist controls.</div>
+              </div>
+            </td>
+          </tr>
+          <!-- SPECIALS -->
+          <tr>
+            <th class="row-header">Specials<br><span style="font-weight:300; font-size:0.7rem; text-transform:none;">Unique features</span></th>
+            <td class="bento-cell">
+              <div class="image-slot">
+                <div class="slot-id">M-I-S1</div>
+                <div class="slot-desc">Clean body panel. Close-up showing the deliberate absence of design — smooth silver surface, no badge, no ornament. The philosophy of Ma.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-S2</div>
+                <div class="slot-desc">Minimalist door handle. Flush, integrated, disappearing into the surface.</div>
+              </div>
+              <div class="image-slot">
+                <div class="slot-id">M-I-S3</div>
+                <div class="slot-desc">HOF badge — smallest, most understated placement across all models.</div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="image-count-bar">
+        <div class="count-num">12</div>
+        <div class="count-label">Total Ma images (1 composition &times; 12 slots = 12 unique renders)</div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- TECHNICAL SPECIFICATIONS -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="tech-notes">
+      <h3>Technical Requirements</h3>
+      <ul>
+        <li><strong>Resolution:</strong> Minimum 4000 &times; 2600 px (landscape). Retina-ready for web.</li>
+        <li><strong>Format:</strong> PNG with transparent background (preferred) + JPEG on studio background.</li>
+        <li><strong>Studio Background:</strong> Clean light grey/white cyclorama. Soft, even lighting. Subtle ground reflection.</li>
+        <li><strong>Lighting:</strong> Three-point studio lighting. Warm neutral tone. No harsh shadows. Soft gradient on floor.</li>
+        <li><strong>Base Vehicle:</strong> Mercedes-AMG G63 W465. All models share the same platform architecture.</li>
+        <li><strong>Silhouette Types:</strong> Salon Silhouette = standard G-Class proportions, pure/clean surfaces. Sport Silhouette = widened fenders, sculpted surfaces, aggressive stance.</li>
+        <li><strong>Coach Doors:</strong> Only Kinsō has Coach Doors (reverse-opening rear-hinged doors). All other models use standard front-hinged doors.</li>
+        <li><strong>Lounge Seats:</strong> Only Kinsō has individual S-Class rear seats replacing the bench. Tokyo, Notan, Ma use standard rear bench.</li>
+        <li><strong>File Naming:</strong> Use the image IDs from this document (e.g., K-I-P1.png, T-II-P5.png, M-I-D2.png).</li>
+        <li><strong>Color Accuracy:</strong> Color hex values are indicative. Final color matching from physical samples to be provided separately.</li>
+      </ul>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- TOTAL SUMMARY -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="summary-box" style="margin-top:40px;">
+      <h2>Complete Image Manifest</h2>
+      <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);">
+            <th style="text-align:left; padding:12px 8px;">Model</th>
+            <th style="text-align:center; padding:12px 8px;">Compositions</th>
+            <th style="text-align:center; padding:12px 8px;">Exterior (P1-P3)</th>
+            <th style="text-align:center; padding:12px 8px;">Interior (P4-P6)</th>
+            <th style="text-align:center; padding:12px 8px;">Details (D1-D3)</th>
+            <th style="text-align:center; padding:12px 8px;">Specials (S1-S3)</th>
+            <th style="text-align:center; padding:12px 8px; font-weight:600;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:12px 8px; font-weight:500;">Kinsō</td>
+            <td style="text-align:center; padding:12px 8px;">3</td>
+            <td style="text-align:center; padding:12px 8px;">9</td>
+            <td style="text-align:center; padding:12px 8px;">3 <span style="color:var(--text-muted); font-size:0.75rem;">(shared)</span></td>
+            <td style="text-align:center; padding:12px 8px;">5 <span style="color:var(--text-muted); font-size:0.75rem;">(3 wheels + 2 shared)</span></td>
+            <td style="text-align:center; padding:12px 8px;">5 <span style="color:var(--text-muted); font-size:0.75rem;">(3 doors + 2 shared)</span></td>
+            <td style="text-align:center; padding:12px 8px; font-weight:600;">22</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:12px 8px; font-weight:500;">Tokyo</td>
+            <td style="text-align:center; padding:12px 8px;">2</td>
+            <td style="text-align:center; padding:12px 8px;">6</td>
+            <td style="text-align:center; padding:12px 8px;">6</td>
+            <td style="text-align:center; padding:12px 8px;">4 <span style="color:var(--text-muted); font-size:0.75rem;">(2 wheels + 2 shared)</span></td>
+            <td style="text-align:center; padding:12px 8px;">4 <span style="color:var(--text-muted); font-size:0.75rem;">(2 + 2 shared)</span></td>
+            <td style="text-align:center; padding:12px 8px; font-weight:600;">20</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:12px 8px; font-weight:500;">Notan</td>
+            <td style="text-align:center; padding:12px 8px;">2</td>
+            <td style="text-align:center; padding:12px 8px;">6</td>
+            <td style="text-align:center; padding:12px 8px;">3 <span style="color:var(--text-muted); font-size:0.75rem;">(shared)</span></td>
+            <td style="text-align:center; padding:12px 8px;">4</td>
+            <td style="text-align:center; padding:12px 8px;">4</td>
+            <td style="text-align:center; padding:12px 8px; font-weight:600;">17</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:12px 8px; font-weight:500;">Ma</td>
+            <td style="text-align:center; padding:12px 8px;">1</td>
+            <td style="text-align:center; padding:12px 8px;">3</td>
+            <td style="text-align:center; padding:12px 8px;">3</td>
+            <td style="text-align:center; padding:12px 8px;">3</td>
+            <td style="text-align:center; padding:12px 8px;">3</td>
+            <td style="text-align:center; padding:12px 8px; font-weight:600;">12</td>
+          </tr>
+          <tr style="border-top:2px solid var(--border);">
+            <td style="padding:12px 8px; font-weight:600;" colspan="6">Grand Total</td>
+            <td style="text-align:center; padding:12px 8px; font-weight:600; font-size:1.2rem; color:var(--accent);">71</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:16px; font-size:0.8rem; color:var(--text-muted);">Note: Where interior or detail shots are shared across compositions of the same model, they are counted once. Actual render count reflects unique images only.</p>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Notan · The Story · Spring Summer 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .story-section { padding: 100px 0; }
+  .story-section.dark { background: var(--dark); color: var(--white); }
+  .story-section.cream { background: #F8F6F1; }
+
+  .story-text { max-width: 680px; margin: 0 auto; padding: 0 48px; }
+  .story-text h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 32px;
+    letter-spacing: -0.5px;
+  }
+  .story-text .chapter-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 16px;
+    display: block;
+  }
+  .story-section.dark .chapter-label { color: var(--gray-300); }
+  .story-text p {
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--gray-700);
+    margin-bottom: 20px;
+  }
+  .story-section.dark .story-text p { color: var(--gray-300); }
+  .story-text p.pull-quote {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 3vw, 30px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--accent);
+    margin: 48px 0;
+    padding-left: 24px;
+    border-left: 2px solid var(--accent);
+  }
+  .story-section.dark .story-text p.pull-quote { color: #C8B898; border-color: #C8B898; }
+
+  .story-image {
+    width: 100%;
+    overflow: hidden;
+  }
+  .story-image img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  .story-image.contained {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-image.contained img {
+    border-radius: 2px;
+  }
+
+  .story-duo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .story-duo img, .story-duo .placeholder-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 2px;
+  }
+
+  .image-caption {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 48px 0;
+  }
+  .image-caption p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+  }
+
+  /* Placeholder for missing images */
+  .placeholder-image {
+    background: var(--gray-100);
+    border: 2px dashed var(--gray-300);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 32px;
+    min-height: 500px;
+  }
+  .placeholder-image .placeholder-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 24px;
+  }
+  .placeholder-image .placeholder-prompt {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--gray-500);
+    max-width: 560px;
+    font-style: italic;
+  }
+  .placeholder-image .placeholder-ref {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 20px;
+  }
+  .story-section.dark .placeholder-image {
+    background: var(--gray-900);
+    border-color: var(--gray-700);
+  }
+  .story-section.dark .placeholder-image .placeholder-label { color: var(--gray-400); }
+  .story-section.dark .placeholder-image .placeholder-prompt { color: var(--gray-500); }
+  .story-section.dark .placeholder-image .placeholder-ref { color: #C8B898; }
+
+  @media (max-width: 768px) {
+    .story-section { padding: 64px 0; }
+    .story-text { padding: 0 24px; }
+    .story-duo { grid-template-columns: 1fr; padding: 0 24px; }
+    .story-duo img, .story-duo .placeholder-image { height: 280px; }
+    .story-image.contained { padding: 0 24px; }
+    .image-caption { padding: 12px 24px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white">
+    <img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- ACT I — HERO -->
+<header class="hero">
+  <div class="hero-bg">
+    <img src="images/notan-collection/HOF_SS26_026.jpg" alt="Light-shadow architectural — dark and light wall split with copper handle, the duality that inspired Notan" class="hero-img">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-label">Expression Model &middot; Spring Summer 2026</p>
+    <h1 class="hero-title">Notan.</h1>
+    <p class="hero-sub">Light-dark harmony. Where two tones compose a single truth.</p>
+  </div>
+</header>
+
+<!-- ACT I — THE PRINCIPLE -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act I &middot; The Principle</span>
+    <h2>The blank paper is the<br>composition.</h2>
+    <p>In sumi-e ink wash painting, the blank paper IS the composition as much as the brushstroke. What remains untouched carries the same weight as what is marked. The empty space is not absence. It is presence, withheld.</p>
+    <p>Notan is the art of seeing both sides at once — dark needs light, light needs dark. Neither is the subject. The conversation is.</p>
+    <p class="pull-quote">"Neither is the subject. The conversation is."</p>
+  </div>
+</section>
+
+<!-- IMAGE 1 — Sumi-e Ink Wash -->
+<section class="story-section cream fade-in">
+  <div class="story-image contained">
+    <img src="images/notan-collection/HOF_SS26_022.jpg" alt="Sumi-e ink wash — single brushstroke on white paper, the essence of Notan">
+  </div>
+  <div class="image-caption">
+    <p>Sumi-e — where the brushstroke and the emptiness are equal.</p>
+  </div>
+</section>
+
+<!-- IMAGE 2 — Two-Tone Facade -->
+<div class="story-image fade-in">
+  <img src="images/notan-collection/HOF_SS26_025.jpg" alt="Japanese two-tone facade — white plaster above, dark wood below, copper rain chains">
+</div>
+<div class="image-caption">
+  <p>Two-tone facade — white plaster above, dark wood below. The beltline of architecture.</p>
+</div>
+
+<!-- ACT II — THE MATERIAL -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act II &middot; The Material</span>
+    <h2>Carbon that has been<br>given color.</h2>
+    <p>Karbonium. Not standard black carbon fiber. This is carbon that has been given color — deep teal-green, copper-bronze, midnight blue. The carbon twill weave pattern remains visible, but the material transforms from technical to expressive.</p>
+    <p>Against white leather, these colored Karbonium accents create the interior's ink strokes. Each panel a mark on the page. Each surface a decision between presence and restraint.</p>
+    <p>Copper and bronze hardware — speaker surrounds, door handles, vent rings — provide the warm metallic third voice. The mediator between dark and light.</p>
+  </div>
+</section>
+
+<!-- IMAGE 3 — Calligrapher's Hand -->
+<div class="story-image fade-in">
+  <img src="images/notan-collection/HOF_SS26_023.jpg" alt="Calligrapher's hand — brush poised above paper, ink drop suspended">
+</div>
+<div class="image-caption">
+  <p>The moment before the stroke — intention, not impulse.</p>
+</div>
+
+<!-- ACT II continued — THE INTERIOR -->
+<section class="story-section fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act II &middot; The Interior</span>
+    <h2>White leather.<br>Colored ink strokes.</h2>
+    <p>The interior begins with white leather — the blank page. Against this, colored Karbonium accents appear like calligraphic marks: deliberate, irreversible, alive. A teal-green carbon weave on the console. A copper-bronze panel framing the instrument binnacle.</p>
+    <p>The hardware speaks in warm metallics. Copper speaker surrounds. Bronze door handles. Every metal element is a bridge between the dark accents and the white ground — the third voice in the Notan dialogue.</p>
+    <p class="pull-quote">"The blank page is not empty. It is waiting."</p>
+  </div>
+</section>
+
+<!-- IMAGE 4 — Karbonium Material -->
+<section class="story-section cream fade-in">
+  <div class="story-image contained">
+    <img src="images/notan-collection/HOF_SS26_027.jpg" alt="Karbonium colored carbon fiber sheets — green, copper, blue on workshop table">
+  </div>
+  <div class="image-caption">
+    <p>Karbonium — carbon fiber, given color. Green, copper, blue on the workshop table.</p>
+  </div>
+</section>
+
+<!-- IMAGE DUO 5 — Architecture -->
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/notan-collection/HOF_SS26_020.jpg" alt="Bauhaus-Japan diptych — modern grid meets shoji screen">
+    <img src="images/notan-collection/HOF_SS26_019.jpg" alt="Empty tatami room — monochrome, the beauty of emptiness">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>Bauhaus meets shoji — where Western grid finds Eastern breath.</p>
+      <p>Empty tatami — the room that is complete without furniture.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CAR IMAGES (Placeholder — Kinsō reference, to be replaced with Notan 3D renders) -->
+<div class="story-image fade-in">
+  <img src="images/notan-collection/car-side-profile-placeholder.jpg" alt="[PLACEHOLDER] Notan side profile — to be replaced with two-tone Sport Silhouette 3D render">
+</div>
+<div class="image-caption">
+  <p>[Placeholder] HOF G &middot; V — Notan &middot; White &amp; Schwarzwald Green &middot; Side Profile</p>
+</div>
+
+<section class="story-section cream fade-in">
+  <div class="story-duo">
+    <img src="images/notan-collection/car-interior-placeholder.jpg" alt="[PLACEHOLDER] Notan interior — white leather + Karbonium">
+    <img src="images/notan-collection/car-exterior-placeholder.jpg" alt="[PLACEHOLDER] Notan exterior — two-tone Sport Silhouette">
+  </div>
+  <div class="image-caption" style="max-width:1400px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px;">
+      <p>[Placeholder] Interior — white leather, green Karbonium, copper hardware.</p>
+      <p>[Placeholder] Exterior — two-tone beltline, Sport Silhouette.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ACT III — THE COMPOSITION -->
+<section class="story-section dark fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Act III &middot; The Composition</span>
+    <h2>The beltline divides<br>like a brushstroke.</h2>
+    <p>Every Notan exterior is two-tone by principle. The beltline divides the car like a calligrapher's stroke divides the paper — intentional, irreversible, alive.</p>
+    <p>White cabin over dark green body. Champagne meeting black. Orange against forest. Dark blue dissolving into light blue. Each pair a dialogue, each dialogue complete.</p>
+    <p>This is not a color scheme. It is a composition. The way a sumi-e master does not choose where to paint — they choose where to leave the paper bare. What you see and what you don't see carry equal weight.</p>
+    <p class="pull-quote">"Each pair a dialogue. Each dialogue complete."</p>
+  </div>
+</section>
+
+<!-- IMAGE 6 — Silver Fog Landscape -->
+<div class="story-image fade-in">
+  <img src="images/notan-collection/HOF_SS26_013.jpg" alt="Silver fog — single post in still water, the silence between tones">
+</div>
+<div class="image-caption">
+  <p>Silver fog — where form dissolves into atmosphere.</p>
+</div>
+
+<!-- IMAGE 7 — Zen Garden -->
+<section class="story-section cream fade-in">
+  <div class="story-image contained">
+    <img src="images/notan-collection/HOF_SS26_014.jpg" alt="Zen garden — raked gravel with single stone, composition through reduction">
+  </div>
+  <div class="image-caption">
+    <p>Zen garden — the art of composing with what you remove.</p>
+  </div>
+</section>
+
+<!-- IMAGE 8 — Japanese Carpentry -->
+<div class="story-image fade-in">
+  <img src="images/notan-collection/HOF_SS26_018.jpg" alt="Japanese carpentry — fitting wood joint, hinoki, shavings curling from the plane">
+</div>
+<div class="image-caption">
+  <p>Japanese joinery — where two halves become one without compromise.</p>
+</div>
+
+<!-- EPILOGUE -->
+<section class="story-section dark fade-in">
+  <div class="story-text">
+    <span class="chapter-label">Epilogue</span>
+    <h2>Notan.</h2>
+    <p>The art of seeing both sides at once. Dark needs light. Light needs dark. The conversation is the composition.</p>
+    <p>Sport Silhouette. Standard Doors. Karbonium. Every surface a decision between mark and space, between presence and restraint. Four two-tone compositions, each one a complete thought.</p>
+    <p>Spring Summer 2026. The moment where two tones compose a single truth.</p>
+    <p class="pull-quote">"Curated, Not Made."</p>
+  </div>
+</section>
+
+<!-- CTA — Explore the Collection -->
+<section class="consultation fade-in">
+  <div class="consultation-inner">
+    <div class="consultation-img">
+      <img src="images/notan-collection/HOF_SS26_027.jpg" alt="Notan — Karbonium Material Palette">
+    </div>
+    <div class="consultation-text">
+      <h2>Explore the Notan compositions</h2>
+      <p>Four two-tone dialogues, one principle of harmony. Discover the full Spring Summer 2026 collection — or begin your personal consultation.</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <a href="kinso-collection.html" class="btn btn-dark">The Collection</a>
+        <a href="contact.html" class="btn btn-dark" style="background:transparent; border:1px solid var(--dark);">Book a Consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kinsō</a>
+        <a href="sir-class.html">Sir Class</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

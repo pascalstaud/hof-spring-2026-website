@@ -128,12 +128,14 @@
       <tr>
         <td class="pos-num">5</td>
         <td>
-          <strong>Configurable Grouped Elements</strong><br>
-          All exterior and interior components must be grouped and individually colour/material-assignable:<br>
-          &bull; Exterior: bonnet, doors, fenders, bumpers, side cladding, roof, spare wheel cover<br>
-          &bull; Interior: seats (front/rear), dashboard, console, door cards, headliner, carpet, steering wheel<br>
-          &bull; Wheels: multiple rim designs, switchable<br>
-          &bull; Steering wheel: standard AMG + F1-style variant
+          <strong>Configurable Grouped Elements (81 components)</strong><br>
+          All components listed in the Configuration Element Appendix (Section 5) must be modelled as individually grouped, switchable elements. Each element must accept independent colour/material assignment. The full element list is structured as follows:<br><br>
+          <strong>A. Type (2 elements)</strong> &mdash; Salon (Luxury) vs. Sport base vehicle geometry<br>
+          <strong>B. Exterior (24 elements)</strong> &mdash; Upper/lower body colour, roof, hood (standard + sport), front grille (luxury + sport), front bumper grill, bumper strips, inserts (turn signals, mirrors, side skirts, air vents), exhaust tips, H-logos (side/rear/front), model badge, step boards, rear lights, doors, door handles<br>
+          <strong>C. Interior (48 elements)</strong> &mdash; Front seats (standard + sport), rear seats (bench + individual lounge), seat zones 1+2, seat upholstery pattern, stitching colour, headrest (stitching + pillow), seatbelt, front seat backs + storage pockets, floor mat + stitching + floor carpet, steering wheel, trim elements, decorative elements, ambient light, sound system cover, door sill plates, dashboard (top + bottom), side door (insert + surround + handle + armrest + cup holder + lower section + plastic trim), sunroof, headliner + options (starry sky), window frame, ABCD pillar covers, grab handle mount, sun visors, rearview mirror cover, centre console (side wall + insert + cover), door pin, trunk (rear wall + lower wall + door insert + floor)<br>
+          <strong>D. Gadgets (1 element)</strong> &mdash; Sound system<br>
+          <strong>E. Wheels (9 elements)</strong> &mdash; Sport spokes, sport disc add-on, luxury disc, luxury spokes, luxury surround, hub cap colour, hub cap logo colour, brake caliper, brake caliper logo<br><br>
+          <em>See Section 5 for the complete element-by-element specification.</em>
         </td>
         <td>Core</td>
       </tr>
@@ -245,12 +247,211 @@
     </tbody>
   </table>
 
+  <!-- CONFIGURATION ELEMENT APPENDIX -->
+  <h2>5. Configuration Element Appendix</h2>
+  <p class="note" style="margin-bottom:16px;">Complete list of all 81 configurable elements. Each element must be modelled as an independently grouped, switchable component in the Blender file. Codes reference the HOF Configuration Element System.</p>
+
+  <h3>A. Type &mdash; Base Vehicle Geometry (2 elements)</h3>
+  <table>
+    <thead><tr><th style="width:60px;">Code</th><th>Component</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>A.1</td><td>Base Vehicle &mdash; Salon (Luxury)</td><td>5-door, standard G-Class proportions, clean surfaces</td></tr>
+      <tr><td>A.2</td><td>Base Vehicle &mdash; Sport</td><td>5-door, widened fenders, sculpted surfaces, modified bonnet</td></tr>
+    </tbody>
+  </table>
+
+  <h3>B. Exterior (24 elements)</h3>
+  <table>
+    <thead><tr><th style="width:60px;">Code</th><th>Component</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>B.1.1</td><td>Upper Exterior Colour</td><td>Body above beltline &mdash; individual colour assignment</td></tr>
+      <tr><td>B.1.2</td><td>Lower Exterior Colour</td><td>Body below beltline &mdash; individual colour assignment</td></tr>
+      <tr><td>B.2</td><td>Roof Colour</td><td>Separate from body &mdash; independent colour</td></tr>
+      <tr><td>B.3.1</td><td>Hood Standard</td><td>Salon silhouette hood geometry</td></tr>
+      <tr><td>B.3.2</td><td>Hood Sport</td><td>Sport silhouette hood geometry (different shape)</td></tr>
+      <tr><td>B.4.1</td><td>Front Grille Luxury</td><td>Salon-specific grille design</td></tr>
+      <tr><td>B.4.2</td><td>Front Grille Sport</td><td>Sport-specific grille design</td></tr>
+      <tr><td>B.4.3.1</td><td>Front Bumper Grill &mdash; Luxury</td><td>Salon-specific bumper inserts</td></tr>
+      <tr><td>B.4.3.2</td><td>Front &amp; Side Air Vents &mdash; Sport</td><td>Sport-specific air vent inserts</td></tr>
+      <tr><td>B.5.1</td><td>Luxury Inserts</td><td>Turn signal, mirror, side skirt (Salon variant)</td></tr>
+      <tr><td>B.5.2</td><td>Sport Inserts</td><td>Turn signal, mirror, side skirt, air vent (Sport variant)</td></tr>
+      <tr><td>B.6</td><td>Bumper Strips</td><td>Side cladding &mdash; present in Regular, removed in Cleaned</td></tr>
+      <tr><td>B.7</td><td>Exhaust Tip (variant 1)</td><td>Exhaust tip design option</td></tr>
+      <tr><td>B.8</td><td>Exhaust Tip (variant 2)</td><td>Exhaust tip design option</td></tr>
+      <tr><td>B.10.1</td><td>H-Logo Side (left/right)</td><td>Optional side logo placement</td></tr>
+      <tr><td>B.10.2</td><td>H-Logo Rear</td><td>Rear logo</td></tr>
+      <tr><td>B.10.3</td><td>H-Logo Front</td><td>Front logo</td></tr>
+      <tr><td>B.10.4</td><td>Model Badge</td><td>Model designation badge</td></tr>
+      <tr><td>B.11</td><td>Step Boards</td><td>HOF Sidestep (extendable)</td></tr>
+      <tr><td>B.12</td><td>Rear Light</td><td>Factory or custom rear light</td></tr>
+      <tr><td>B.13.1</td><td>Doors</td><td>Regular / Coach Doors / Cleaned &amp; Coach Doors</td></tr>
+      <tr><td>B.13.2</td><td>Door Handles</td><td>Original or custom</td></tr>
+      <tr><td>B.14</td><td>Door Opener</td><td>Door opener mechanism</td></tr>
+    </tbody>
+  </table>
+
+  <h3>C. Interior (48 elements)</h3>
+  <table>
+    <thead><tr><th style="width:60px;">Code</th><th>Component</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr style="background:#FAFAF8;"><td colspan="3"><strong>Seating</strong></td></tr>
+      <tr><td>C.1.0.1</td><td>Front Seating &mdash; Standard</td><td>2 standard seats</td></tr>
+      <tr><td>C.1.0.2</td><td>Front Seating &mdash; Sport</td><td>2 sport seats</td></tr>
+      <tr><td>C.1.0.3</td><td>Rear Seating &mdash; Standard</td><td>Standard rear bench</td></tr>
+      <tr><td>C.1.0.4</td><td>Rear Seating &mdash; Individual (Lounge)</td><td>2 individual seats (new geometry &mdash; not in CAD)</td></tr>
+      <tr><td>C.1.1.1</td><td>Seat Zone 1</td><td>Primary seat surface &mdash; colour/material</td></tr>
+      <tr><td>C.1.1.2</td><td>Seat Zone 2</td><td>Secondary seat surface &mdash; colour/material</td></tr>
+      <tr><td>C.1.1.3</td><td>Seat Upholstery Pattern</td><td>Embossing / quilting pattern</td></tr>
+      <tr><td>C.1.1.4</td><td>Stitching Colour</td><td>Contrast or matching stitching</td></tr>
+      <tr><td>C.1.1.5</td><td>Headrest Stitching</td><td>Logo / no logo</td></tr>
+      <tr><td>C.1.1.6</td><td>Headrest Pillow</td><td>With / without comfort pillow</td></tr>
+      <tr><td>C.1.1.7</td><td>Seatbelt Colour</td><td>Custom seatbelt colour</td></tr>
+      <tr><td>C.1.1.8</td><td>Front Seat Backs</td><td>Rear-facing surface of front seats</td></tr>
+      <tr style="background:#FAFAF8;"><td colspan="3"><strong>Dashboard &amp; Centre</strong></td></tr>
+      <tr><td>C.2.1.1</td><td>Floor Mat</td><td>Material / colour</td></tr>
+      <tr><td>C.2.1.2</td><td>Floor Mat Stitching</td><td>Contrast stitching</td></tr>
+      <tr><td>C.2.1.3</td><td>Floor Carpet</td><td>Full floor covering</td></tr>
+      <tr><td>C.2.2</td><td>Steering Wheel</td><td>Standard AMG / F1-style</td></tr>
+      <tr><td>C.2.3</td><td>Trim Elements</td><td>Interior trim strips / inserts</td></tr>
+      <tr><td>C.2.4</td><td>Decorative Elements</td><td>Accent pieces / inlays</td></tr>
+      <tr><td>C.2.5.1</td><td>Ambient Light</td><td>Colour theme</td></tr>
+      <tr><td>C.2.5.2</td><td>Sound System Cover</td><td>Speaker grille design / finish</td></tr>
+      <tr><td>C.2.6</td><td>Door Sill Plates</td><td>Entry sill plates (new geometry)</td></tr>
+      <tr><td>C.2.7.1</td><td>Dashboard Top</td><td>Upper dashboard surface</td></tr>
+      <tr><td>C.2.7.2</td><td>Dashboard Bottom</td><td>Lower dashboard surface</td></tr>
+      <tr style="background:#FAFAF8;"><td colspan="3"><strong>Doors</strong></td></tr>
+      <tr><td>C.2.8.1</td><td>Side Door Insert</td><td>Door panel main surface</td></tr>
+      <tr><td>C.2.8.2</td><td>Side Door Surround</td><td>Door panel frame</td></tr>
+      <tr><td>C.2.8.3</td><td>Door Handle (front/rear)</td><td>Interior door handle</td></tr>
+      <tr><td>C.2.8.4</td><td>Door Armrest Top (front/rear)</td><td>Upper armrest surface</td></tr>
+      <tr><td>C.2.8.5</td><td>Seat Adjustment Trim</td><td>Plastic surround at seat rail</td></tr>
+      <tr><td>C.2.8.6</td><td>Door Cup Holder</td><td>In-door drink holder</td></tr>
+      <tr><td>C.2.8.7</td><td>Door Lower Section</td><td>Lower door panel</td></tr>
+      <tr style="background:#FAFAF8;"><td colspan="3"><strong>Ceiling &amp; Pillars</strong></td></tr>
+      <tr><td>C.3.1</td><td>Sunroof</td><td>With / without</td></tr>
+      <tr><td>C.3.2.1</td><td>Headliner</td><td>Ceiling material / colour</td></tr>
+      <tr><td>C.3.2.2</td><td>Headliner Options</td><td>Starry sky option</td></tr>
+      <tr><td>C.3.3</td><td>Window Frame (front/rear)</td><td>Interior window surround</td></tr>
+      <tr><td>C.3.4</td><td>ABCD Pillar Covers</td><td>All pillar trim surfaces</td></tr>
+      <tr><td>C.3.5</td><td>Grab Handle Mount</td><td>Ceiling grab handle</td></tr>
+      <tr><td>C.3.6</td><td>Sun Visors</td><td>Visor material / colour</td></tr>
+      <tr><td>C.3.7</td><td>Rearview Mirror Mount Cover</td><td>Mirror housing trim</td></tr>
+      <tr style="background:#FAFAF8;"><td colspan="3"><strong>Centre Console</strong></td></tr>
+      <tr><td>C.3.8.1</td><td>Centre Console Side Wall Insert</td><td>Accent insert</td></tr>
+      <tr><td>C.3.8.2</td><td>Centre Console Side Wall</td><td>Main surface</td></tr>
+      <tr><td>C.3.8.3</td><td>Centre Console Cover</td><td>Top lid surface</td></tr>
+      <tr><td>C.3.8.4</td><td>Storage Pocket (Front Seat Backs)</td><td>Rear pocket on seatbacks</td></tr>
+      <tr><td>C.3.9</td><td>Door Pin</td><td>Interior door lock pin</td></tr>
+      <tr style="background:#FAFAF8;"><td colspan="3"><strong>Trunk</strong></td></tr>
+      <tr><td>C.4.1</td><td>Rear Wall (behind rear seats)</td><td>Trunk-facing rear seat wall</td></tr>
+      <tr><td>C.4.2</td><td>Lower Trunk Wall Section</td><td>Lower side walls</td></tr>
+      <tr><td>C.4.3</td><td>Lower Trunk Door Insert</td><td>Tailgate interior trim</td></tr>
+      <tr><td>C.4.4</td><td>Trunk Floor</td><td>Boot floor covering</td></tr>
+    </tbody>
+  </table>
+
+  <h3>D. Gadgets (1 element)</h3>
+  <table>
+    <thead><tr><th style="width:60px;">Code</th><th>Component</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>D.1.1</td><td>Sound System</td><td>Factory / HOF upgrade</td></tr>
+    </tbody>
+  </table>
+
+  <h3>E. Wheels (9 elements)</h3>
+  <table>
+    <thead><tr><th style="width:60px;">Code</th><th>Component</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>E.1.1</td><td>Sport Wheel &mdash; Spokes Only</td><td>23" multi-spoke design</td></tr>
+      <tr><td>E.2.1</td><td>Sport Wheel &mdash; Disc Add-on</td><td>23" with disc cover</td></tr>
+      <tr><td>E.3.1</td><td>Luxury Wheel &mdash; Disc</td><td>23" full disc (Salon models)</td></tr>
+      <tr><td>E.3.2</td><td>Luxury Wheel &mdash; Spokes</td><td>Alternative spoke design</td></tr>
+      <tr><td>E.3.3</td><td>Luxury Wheel &mdash; Surround</td><td>Rim edge / lip finish</td></tr>
+      <tr><td>E.4.1</td><td>Hub Cap Colour</td><td>Centre cap colour</td></tr>
+      <tr><td>E.4.2</td><td>Hub Cap Logo Colour</td><td>H-logo colour on cap</td></tr>
+      <tr><td>E.5.1</td><td>Brake Caliper</td><td>Caliper colour</td></tr>
+      <tr><td>E.5.2</td><td>Brake Caliper Logo</td><td>Caliper branding</td></tr>
+    </tbody>
+  </table>
+
+  <!-- BENTO BOX CONFIGURATIONS -->
+  <h2>6. Required Launch Configurations (Bento Box)</h2>
+  <p class="note" style="margin-bottom:16px;">The following four vehicle configurations must be rendered from the 3D model for the SS26 collection launch. Each is a pre-defined &ldquo;Bento Box&rdquo; composition &mdash; a closed palette of elements, fully specified.</p>
+
+  <div class="card">
+    <h3>Kins&#333; &mdash; Collector Model</h3>
+    <table>
+      <tbody>
+        <tr><td style="width:180px;"><strong>Silhouette</strong></td><td>Salon (A.1)</td></tr>
+        <tr><td><strong>Door/Body Config</strong></td><td>Cleaned &amp; Coach Doors (B.6 removed, B.13.1 Coach Doors)</td></tr>
+        <tr><td><strong>Exterior</strong></td><td>Two-tone: Silk Gold (upper, B.1.1) + Aizome Blue (lower, B.1.2). Roof: Silk Gold (B.2)</td></tr>
+        <tr><td><strong>Wheels</strong></td><td>23" HOF Luxury Disc (E.3.1) &mdash; Gold finish</td></tr>
+        <tr><td><strong>Front Seats</strong></td><td>Standard (C.1.0.1) &mdash; Cream leather</td></tr>
+        <tr><td><strong>Rear Seats</strong></td><td>Lounge Seats / Individual (C.1.0.4) &mdash; Aizome Blue leather</td></tr>
+        <tr><td><strong>Interior Material</strong></td><td>Botanical jacquard textile inserts (seats, door panels, headliner)</td></tr>
+        <tr><td><strong>Steering Wheel</strong></td><td>Standard AMG (C.2.2)</td></tr>
+        <tr><td><strong>Trim</strong></td><td>Gold accents, H-pattern throughout</td></tr>
+        <tr><td><strong>Compositions to Render</strong></td><td>3 (Two-tone, All Aizome Blue, All Silk Gold)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Tokyo &mdash; Performance Model</h3>
+    <table>
+      <tbody>
+        <tr><td style="width:180px;"><strong>Silhouette</strong></td><td>Sport (A.2)</td></tr>
+        <tr><td><strong>Door/Body Config</strong></td><td>Regular (standard bumpers, standard doors)</td></tr>
+        <tr><td><strong>Exterior</strong></td><td>Comp I: Silver + Orange accents. Comp II: All Orange + Silver accents</td></tr>
+        <tr><td><strong>Wheels</strong></td><td>23" HOF Forged (E.1.1) &mdash; Sport spokes</td></tr>
+        <tr><td><strong>Front Seats</strong></td><td>Sport Seats (C.1.0.2) &mdash; H-pattern embossed</td></tr>
+        <tr><td><strong>Rear Seats</strong></td><td>Standard Bench (C.1.0.3)</td></tr>
+        <tr><td><strong>Interior Material</strong></td><td>Expr. I: Deep amber leather + crystal resin. Expr. II: White leather + amber crystal resin</td></tr>
+        <tr><td><strong>Steering Wheel</strong></td><td>Standard AMG (C.2.2)</td></tr>
+        <tr><td><strong>Trim</strong></td><td>Cast crystal resin accents (amber-orange), carbon elements</td></tr>
+        <tr><td><strong>Compositions to Render</strong></td><td>2 exteriors &times; 2 interiors = 4 combinations</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Notan &mdash; Seasonal Model <span style="color:#856404; font-size:0.75rem;">(GEOMETRY TBD)</span></h3>
+    <table>
+      <tbody>
+        <tr><td style="width:180px;"><strong>Silhouette</strong></td><td>To be defined</td></tr>
+        <tr><td><strong>Door/Body Config</strong></td><td>To be defined</td></tr>
+        <tr><td><strong>Exterior</strong></td><td>Two-tone compositions: White/Green, Dark Blue/Light Blue, Orange/Green, Black/Grey</td></tr>
+        <tr><td><strong>Wheels</strong></td><td>23" HOF Forged &mdash; Dark sport wheels</td></tr>
+        <tr><td><strong>Interior Material</strong></td><td>Full dark palette, Karbonium (coloured carbon fibre) trim</td></tr>
+        <tr><td><strong>Compositions to Render</strong></td><td>4 two-tone exterior options, 1 shared interior</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Ma &mdash; Essence Model</h3>
+    <table>
+      <tbody>
+        <tr><td style="width:180px;"><strong>Silhouette</strong></td><td>Salon (A.1)</td></tr>
+        <tr><td><strong>Door/Body Config</strong></td><td>Regular (standard bumpers, standard doors)</td></tr>
+        <tr><td><strong>Exterior</strong></td><td>All Silver (single composition)</td></tr>
+        <tr><td><strong>Wheels</strong></td><td>23" HOF Luxury Disc (E.3.1)</td></tr>
+        <tr><td><strong>Front Seats</strong></td><td>Standard (C.1.0.1) &mdash; Boucl&eacute; textile</td></tr>
+        <tr><td><strong>Rear Seats</strong></td><td>Lounge Seats / Individual (C.1.0.4) &mdash; Boucl&eacute; textile</td></tr>
+        <tr><td><strong>Interior Material</strong></td><td>Boucl&eacute; woven textile (cream) + Metallic leather (silver-tone) &mdash; all surfaces</td></tr>
+        <tr><td><strong>Steering Wheel</strong></td><td>Standard AMG (C.2.2)</td></tr>
+        <tr><td><strong>Trim</strong></td><td>H-pattern embossed into metallic leather elements</td></tr>
+        <tr><td><strong>Compositions to Render</strong></td><td>1 (singular composition, no options)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <!-- TIMELINE -->
-  <h2>5. Timeline &amp; Priority</h2>
+  <h2>7. Timeline &amp; Priority</h2>
   <p>The website is being built in parallel and requires 3D renderings for final integration. Turnaround as fast as possible. Please include estimated timeline in your quotation.</p>
 
   <!-- TERMS -->
-  <h2>6. Commercial Terms</h2>
+  <h2>8. Commercial Terms</h2>
   <div class="card">
     <ul>
       <li><strong>Working Environment:</strong> Blender (open-source, no licence cost)</li>
@@ -261,7 +462,7 @@
   </div>
 
   <!-- CONTACT -->
-  <h2>7. Contact</h2>
+  <h2>9. Contact</h2>
   <div class="card">
     <p><strong>HOF Manufaktur GmbH</strong><br>
     Atelier Sindelfingen<br><br>

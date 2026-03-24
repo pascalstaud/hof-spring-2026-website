@@ -706,7 +706,7 @@
     <!-- ══════════════════════════════════════════ -->
     <div class="geometry-section">
       <div class="section-title">Silhouette Geometry</div>
-      <div class="section-subtitle">Two base silhouettes, each available in three door configurations. The silhouette defines the exterior body language.</div>
+      <div class="section-subtitle">Two base silhouettes, each available in three door/body configurations. The silhouette defines the exterior body language.</div>
 
       <div class="geometry-grid">
         <!-- Salon / Luxury -->
@@ -720,14 +720,14 @@
               <div class="variant-desc">Factory bumpers, standard doors</div>
             </div>
             <div class="geometry-variant">
-              <img src="images/briefing/pictograms/salon-cleaned.jpg" alt="Salon Cleaned">
-              <div class="variant-name">Cleaned</div>
-              <div class="variant-desc">Bumpers removed, pure surface</div>
+              <img src="images/briefing/pictograms/salon-cleaned-coach-doors.jpg" alt="Salon Coach Doors">
+              <div class="variant-name">Coach Doors</div>
+              <div class="variant-desc">Rear-hinged doors, standard bumpers</div>
             </div>
             <div class="geometry-variant">
               <img src="images/briefing/pictograms/salon-cleaned-coach-doors.jpg" alt="Salon Cleaned + Coach Doors">
               <div class="variant-name">Cleaned &amp; Coach Doors</div>
-              <div class="variant-desc">Rear-hinged doors, ceremonial entry</div>
+              <div class="variant-desc">Bumpers removed + rear-hinged doors, ceremonial entry</div>
             </div>
           </div>
           <div class="geometry-front">
@@ -747,14 +747,14 @@
               <div class="variant-desc">Wide body, standard doors</div>
             </div>
             <div class="geometry-variant">
-              <img src="images/briefing/pictograms/sport-cleaned.jpg" alt="Sport Cleaned">
-              <div class="variant-name">Cleaned</div>
-              <div class="variant-desc">Bumpers removed, sculpted surface</div>
+              <img src="images/briefing/pictograms/sport-cleaned-coach-doors.jpg" alt="Sport Coach Doors">
+              <div class="variant-name">Coach Doors</div>
+              <div class="variant-desc">Wide body + rear-hinged doors</div>
             </div>
             <div class="geometry-variant">
               <img src="images/briefing/pictograms/sport-cleaned-coach-doors.jpg" alt="Sport Cleaned + Coach Doors">
               <div class="variant-name">Cleaned &amp; Coach Doors</div>
-              <div class="variant-desc">Wide body + rear-hinged doors</div>
+              <div class="variant-desc">Bumpers removed + wide body + rear-hinged doors</div>
             </div>
           </div>
           <div class="geometry-front">
@@ -799,27 +799,26 @@
         </div>
         <div class="mapping-card notan">
           <div class="map-model">Notan</div>
-          <div class="map-silhouette sport">Sport Silhouette</div>
+          <div class="map-silhouette" style="background:#f0f0f0; color:var(--text-muted);">To Be Defined</div>
           <img src="images/briefing/pictograms/sport-regular.jpg" alt="Notan silhouette">
-          <span class="map-tag standard">Standard Doors</span>
+          <span class="map-tag" style="background:#FFF3CD; color:#856404;">TBD</span>
           <div class="map-details">
-            &bull; Wide body, sculpted fenders<br>
-            &bull; Standard front-hinged doors<br>
-            &bull; Sculpted Surface language<br>
+            &bull; Silhouette &amp; door config pending<br>
             &bull; Karbonium colored carbon accents<br>
+            &bull; Two-tone exterior compositions<br>
             &bull; Dark sport wheels
           </div>
         </div>
         <div class="mapping-card ma">
           <div class="map-model">Ma</div>
           <div class="map-silhouette salon">Salon Silhouette</div>
-          <img src="images/briefing/pictograms/salon-cleaned.jpg" alt="Ma silhouette">
-          <span class="map-tag standard">Standard Doors</span>
+          <img src="images/briefing/pictograms/salon-regular.jpg" alt="Ma silhouette">
+          <span class="map-tag standard">Regular &middot; Standard Doors</span>
           <div class="map-details">
-            &bull; Cleaned body (bumpers removed)<br>
+            &bull; Regular body (factory bumpers)<br>
             &bull; Standard front-hinged doors<br>
             &bull; Minimal, reductive surface<br>
-            &bull; Understated wheels
+            &bull; 23&quot; HOF Disk Wheels
           </div>
         </div>
       </div>
@@ -1489,6 +1488,110 @@
         </tbody>
       </table>
       <p style="margin-top:16px; font-size:0.8rem; color:var(--text-muted);">Note: Where interior or detail shots are shared across compositions of the same model, they are counted once. Actual render count reflects unique images only.</p>
+    </div>
+
+    <!-- ══════════════════════════════════════════ -->
+    <!-- 3D MODEL PREPARATION — VENDOR BRIEFING    -->
+    <!-- ══════════════════════════════════════════ -->
+    <div class="tech-notes" style="margin-top:60px; border-top:2px solid var(--text); padding-top:40px;">
+      <h3 style="font-size:1.4rem; margin-bottom:24px;">3D-Aufbereitung &mdash; Anforderungen</h3>
+      <p style="color:var(--text-muted); margin-bottom:32px; font-size:0.9rem; line-height:1.7;">Anforderungsbeschreibung f&uuml;r die Erstellung eines konfigurierbaren 3D-Basismodells auf Basis des Mercedes-AMG G63 (W465). Das Modell dient als Grundlage f&uuml;r Renderings, AI-basierte Konfigurationen und zuk&uuml;nftige Kundenvisualisierungen.</p>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:40px;">
+        <!-- LEFT: Scope -->
+        <div style="background:var(--card-bg); border:1px solid var(--border); padding:28px;">
+          <h4 style="font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">Scope &amp; Lieferumfang</h4>
+          <ul style="font-size:0.85rem; line-height:1.8; color:var(--text);">
+            <li><strong>3D-Basismodell</strong> in Blender (.blend), aufgebaut auf CAD-Daten (IGS/Step)</li>
+            <li><strong>Zwei geometrische Varianten:</strong> Salon Silhouette (Standard-Proportionen) und Sport Silhouette (verbreiterte Kotfl&uuml;gel, skulptierte Oberfl&auml;chen)</li>
+            <li><strong>Drei T&uuml;r-/Body-Konfigurationen:</strong> Regular, Coach Doors, Cleaned &amp; Coach Doors</li>
+            <li><strong>Gruppierte Elemente</strong> f&uuml;r einfache Konfigurations&auml;nderungen (Farbe, Felgen, T&uuml;ren, Sitze)</li>
+            <li><strong>Austauschbare Komponenten:</strong> Coach Doors (reverse-opening), Lounge Seats (Einzelsitze), verschiedene Felgendesigns, Lenkrad-Varianten</li>
+            <li><strong>Saubere Hintergrund-Renderings</strong> auf neutralem Studio-Hintergrund</li>
+            <li><strong>R&uuml;ckgabe des finalen 3D-Modells</strong> an HOF zur weiteren Verwendung</li>
+          </ul>
+        </div>
+        <!-- RIGHT: Technical -->
+        <div style="background:var(--card-bg); border:1px solid var(--border); padding:28px;">
+          <h4 style="font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">Technische Anforderungen</h4>
+          <ul style="font-size:0.85rem; line-height:1.8; color:var(--text);">
+            <li><strong>Arbeitsumgebung:</strong> Blender (kostenlos, Team-Expertise vorhanden)</li>
+            <li><strong>Eingangsdaten:</strong> CAD-Daten (IGS/Step-Format) + HOF Design-Pr&auml;sentation in voller Aufl&ouml;sung</li>
+            <li><strong>Texturen:</strong> Teppich, Trimmungen, Materialien (werden von HOF bereitgestellt, soweit vorhanden)</li>
+            <li><strong>Geometrische Unterschiede:</strong> Coach Doors (Suicide-T&uuml;ren), gereinigte Bumper (ohne seitliche G-Klasse-Bumper), verschiedene Sitzkonfigurationen (Standard-Bank vs. Lounge Seats)</li>
+            <li><strong>Extra zu modellierende Komponenten:</strong> Coach Doors, Einstiegsleiste, Sitzgeometrie (Lounge Seats)</li>
+            <li><strong>Optional:</strong> UI-Script in Blender f&uuml;r schnelle Konfigurationswechsel oder mehrere gerenderte Bilder f&uuml;r AI-Training</li>
+            <li><strong>Rendering-Aufl&ouml;sung:</strong> Min. 4000 &times; 2600 px, Retina-ready</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Geometrie-Varianten Matrix -->
+      <div style="background:var(--card-bg); border:1px solid var(--border); padding:28px; margin-bottom:32px;">
+        <h4 style="font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">Geometrie-Varianten &mdash; 3D-Modell muss abbilden</h4>
+        <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border);">
+              <th style="text-align:left; padding:10px 8px;">Silhouette</th>
+              <th style="text-align:left; padding:10px 8px;">Regular</th>
+              <th style="text-align:left; padding:10px 8px;">Coach Doors</th>
+              <th style="text-align:left; padding:10px 8px;">Cleaned &amp; Coach Doors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:10px 8px; font-weight:500;">Salon</td>
+              <td style="padding:10px 8px;">Standard G-Class Proportionen, Factory Bumpers, Standard-T&uuml;ren</td>
+              <td style="padding:10px 8px;">Standard Bumpers + reverse-opening Coach Doors</td>
+              <td style="padding:10px 8px;">Seitliche Bumpers entfernt + Coach Doors &mdash; max. Eleganz</td>
+            </tr>
+            <tr>
+              <td style="padding:10px 8px; font-weight:500;">Sport</td>
+              <td style="padding:10px 8px;">Verbreiterte Kotfl&uuml;gel, skulptierte Oberfl&auml;chen, Standard-T&uuml;ren</td>
+              <td style="padding:10px 8px;">Wide Body + reverse-opening Coach Doors</td>
+              <td style="padding:10px 8px;">Bumpers entfernt + Wide Body + Coach Doors</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Process / Nächste Schritte -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-bottom:32px;">
+        <div style="background:var(--card-bg); border:1px solid var(--border); padding:28px;">
+          <h4 style="font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">Prozess &amp; N&auml;chste Schritte</h4>
+          <ol style="font-size:0.85rem; line-height:2; color:var(--text); padding-left:20px;">
+            <li>NDA unterzeichnen</li>
+            <li>CAD-Daten (IGS/Step) + HOF-Pr&auml;sentation in voller Aufl&ouml;sung teilen</li>
+            <li>Texturen f&uuml;r Materialien bereitstellen (Teppich, Trimmungen, Leder)</li>
+            <li>Datenanalyse durch 3D-Dienstleister &mdash; Modellierungsanforderungen kl&auml;ren</li>
+            <li>Offene Fragen: Detailtiefe, Lenkrad-Modellierung, Aufl&ouml;sung</li>
+            <li>Zeitplan f&uuml;r 3D-Modell-Erstellung vereinbaren</li>
+            <li>3D-Modell erstellen &amp; Renderings liefern</li>
+            <li>Finales 3D-Modell (.blend) an HOF zur&uuml;ckliefern</li>
+          </ol>
+        </div>
+        <div style="background:var(--card-bg); border:1px solid var(--border); padding:28px;">
+          <h4 style="font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">Von HOF bereitzustellen</h4>
+          <ul style="font-size:0.85rem; line-height:2; color:var(--text);">
+            <li>&#9744; CAD-Daten (IGS/Step-Format)</li>
+            <li>&#9744; Design-Pr&auml;sentation in voller Aufl&ouml;sung (alle Konfigurationen)</li>
+            <li>&#9744; Material-Texturen (Teppich, Leder, Trimmungen)</li>
+            <li>&#9744; Farb-Referenzen (Hex-Werte + physische Muster)</li>
+            <li>&#9744; NDA (separat)</li>
+            <li>&#9744; Ansprechpartner f&uuml;r R&uuml;ckfragen zur Geometrie</li>
+          </ul>
+          <div style="margin-top:20px; padding:16px; background:#FFF3CD; border:1px solid #FFECB5; font-size:0.8rem; color:#856404;">
+            <strong>Deadline:</strong> So schnell wie m&ouml;glich &mdash; Website wird parallel gebaut und ben&ouml;tigt 3D-Renderings f&uuml;r finale Integration.
+          </div>
+        </div>
+      </div>
+
+      <!-- Context / Hintergrund -->
+      <div style="background:var(--card-bg); border:1px solid var(--border); padding:28px;">
+        <h4 style="font-size:0.85rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">Hintergrund &amp; Kontext</h4>
+        <p style="font-size:0.85rem; line-height:1.8; color:var(--text); margin-bottom:12px;">HOF (House of Futures) bringt drei G-Klasse-Konfigurationen als saisonale Kollektion (Spring Summer 2026) auf den Markt. Aktuell werden Kunden-Konfigurationen &uuml;ber AI-generierte Bilder erstellt, was bei komplexen Farbkombinationen an Grenzen st&ouml;&szlig;t. Das 3D-Basismodell soll diese L&uuml;cke schlie&szlig;en und sowohl f&uuml;r Studio-Renderings als auch als Grundlage f&uuml;r AI-gest&uuml;tzte Visualisierung dienen.</p>
+        <p style="font-size:0.85rem; line-height:1.8; color:var(--text);">Die Konfigurationskomplexit&auml;t ergibt sich aus der Tatsache, dass jedes einzelne Karosserie-Element (Motorhaube, T&uuml;ren, Kotfl&uuml;gel, Sto&szlig;f&auml;nger, Schweller, Dach) individuell eingef&auml;rbt werden kann &mdash; kombiniert mit unterschiedlichen Innenraum-Varianten, Felgen und T&uuml;r-Konfigurationen.</p>
+      </div>
     </div>
 
   </div>

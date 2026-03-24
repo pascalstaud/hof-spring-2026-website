@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF — 3D Model RFQ</title>
+  <style>
+    :root {
+      --bg: #FAFAF8;
+      --card-bg: #FFFFFF;
+      --border: #E5E2DC;
+      --text: #1A1A1A;
+      --muted: #6B6B6B;
+      --accent: #B8926A;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    .page { max-width: 900px; margin: 0 auto; padding: 60px 48px; }
+
+    .header { text-align: center; margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border); }
+    .header h1 { font-size: 1.8rem; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+    .header .sub { font-size: 0.95rem; color: var(--muted); }
+    .header .meta { margin-top: 16px; font-size: 0.8rem; color: var(--muted); }
+
+    h2 { font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin: 40px 0 16px; }
+    h3 { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin: 28px 0 12px; color: var(--accent); }
+
+    p, li { font-size: 0.9rem; line-height: 1.75; }
+    ul, ol { padding-left: 20px; margin-bottom: 16px; }
+    li { margin-bottom: 6px; }
+
+    .card { background: var(--card-bg); border: 1px solid var(--border); padding: 28px; margin-bottom: 20px; }
+    .card h3 { margin-top: 0; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 20px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+    th { font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; border-bottom: 2px solid var(--border); }
+
+    .pos-num { font-weight: 600; color: var(--accent); min-width: 40px; }
+    .optional { color: var(--muted); font-style: italic; }
+    .note { font-size: 0.8rem; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+    .highlight { background: #FFF8EE; border-left: 3px solid var(--accent); padding: 16px 20px; margin: 20px 0; font-size: 0.85rem; }
+
+    @media print {
+      .page { padding: 40px 32px; }
+      .card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Request for Quotation</h1>
+    <div class="sub">3D Base Model &mdash; Mercedes-AMG G-Class (W465)</div>
+    <div class="meta">HOF Manufaktur GmbH &middot; Confidential &middot; March 2026</div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <h2>1. Project Overview</h2>
+  <p>HOF requires a production-ready 3D base model of the Mercedes-AMG G63 (W465) in Blender, built from CAD data provided by HOF. The model must support multiple geometric variants, configurable components, and studio-quality rendering for website imagery, customer configurator visualisations, and AI-assisted image generation.</p>
+
+  <div class="highlight">
+    <strong>Deliverable:</strong> One Blender file (.blend) containing the complete, fully configurable 3D model with all variants, materials, and grouped elements &mdash; returned to HOF upon project completion.
+  </div>
+
+  <!-- SCOPE -->
+  <h2>2. Scope of Work &mdash; Quotation Positions</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:50px;">Pos.</th>
+        <th>Description</th>
+        <th style="width:100px;">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td class="pos-num">1</td>
+        <td>
+          <strong>3D Base Model Setup</strong><br>
+          Import and preparation of CAD data (IGS/Step format) in Blender. Clean-up, topology optimisation, and establishment of the base 5-door G-Class model as the working foundation.
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">2</td>
+        <td>
+          <strong>Two Exterior Silhouette Variants</strong><br>
+          <em>Salon Silhouette</em> &mdash; standard G-Class proportions, clean elegant surfaces.<br>
+          <em>Sport Silhouette</em> &mdash; widened fenders, sculpted surfaces, modified bonnet, different front/rear bumper geometry.<br>
+          Both silhouettes must be switchable within the same Blender file.
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">3</td>
+        <td>
+          <strong>Three Door/Body Configurations</strong><br>
+          Each silhouette must support three configurations:<br>
+          &bull; <strong>Regular</strong> &mdash; factory bumpers, standard front-hinged doors<br>
+          &bull; <strong>Coach Doors</strong> &mdash; reverse-opening (suicide) rear doors, standard bumpers<br>
+          &bull; <strong>Cleaned &amp; Coach Doors</strong> &mdash; side bumpers/cladding removed + Coach Doors<br>
+          Switchable via grouped elements.
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">4</td>
+        <td>
+          <strong>Interior Soft-Part Modelling</strong><br>
+          Complete interior modelling including:<br>
+          &bull; Standard rear bench seat<br>
+          &bull; Lounge Seats (individual rear seats replacing bench &mdash; new geometry, not in CAD)<br>
+          &bull; Entry sill plates / door step panels (new geometry)<br>
+          &bull; Dashboard, centre console, door panels, headliner<br>
+          All interior surfaces must accept material/texture assignments.
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">5</td>
+        <td>
+          <strong>Configurable Grouped Elements</strong><br>
+          All exterior and interior components must be grouped and individually colour/material-assignable:<br>
+          &bull; Exterior: bonnet, doors, fenders, bumpers, side cladding, roof, spare wheel cover<br>
+          &bull; Interior: seats (front/rear), dashboard, console, door cards, headliner, carpet, steering wheel<br>
+          &bull; Wheels: multiple rim designs, switchable<br>
+          &bull; Steering wheel: standard AMG + F1-style variant
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">6</td>
+        <td>
+          <strong>Material &amp; Texture Setup</strong><br>
+          Application of HOF material library to all surfaces. Textures provided by HOF where available (leather, textile, carpet). Remaining materials to be created/matched from reference imagery.
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">7</td>
+        <td>
+          <strong>Studio Rendering Environment</strong><br>
+          Clean studio setup in Blender for production-quality renders:<br>
+          &bull; Neutral light grey/white cyclorama background<br>
+          &bull; Three-point studio lighting, warm neutral tone<br>
+          &bull; Subtle ground reflection<br>
+          &bull; Minimum resolution: 4000 &times; 2600 px<br>
+          &bull; Output: PNG (transparent bg) + JPEG (studio bg)
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr>
+        <td class="pos-num">8</td>
+        <td>
+          <strong>Model Handover</strong><br>
+          Delivery of the final Blender file (.blend) with all variants, materials, and scene setup to HOF for continued internal use. Includes brief documentation of file structure and element grouping.
+        </td>
+        <td>Core</td>
+      </tr>
+
+      <tr style="background:#FAFAF8;">
+        <td class="pos-num">9</td>
+        <td class="optional">
+          <strong>Optional: 3-Door Variant</strong><br>
+          Extension of the base model to include the 3-door G-Class body variant. Separate geometric adaptation of all relevant panels, doors, and interior.
+        </td>
+        <td>Optional</td>
+      </tr>
+
+      <tr style="background:#FAFAF8;">
+        <td class="pos-num">10</td>
+        <td class="optional">
+          <strong>Optional: Cabriolet Variant</strong><br>
+          Extension of the base model to include the G-Class Cabriolet body variant. Roof mechanism, windscreen frame, roll bars, modified rear section.
+        </td>
+        <td>Optional</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <!-- INPUT DATA -->
+  <h2>3. Input Data &mdash; Provided by HOF</h2>
+  <div class="card">
+    <ul>
+      <li><strong>CAD Data</strong> &mdash; IGS/Step format, provided upon NDA signature</li>
+      <li><strong>Design Presentation</strong> &mdash; Full-resolution reference imagery showing all configurations, colours, and details</li>
+      <li><strong>Textures</strong> &mdash; Where available (leather, textile, carpet). Remaining to be created from reference</li>
+      <li><strong>Colour References</strong> &mdash; Hex values provided in this document; physical samples to follow</li>
+    </ul>
+  </div>
+
+  <!-- CONFIGURATIONS SUMMARY -->
+  <h2>4. Configuration Matrix</h2>
+  <p class="note" style="margin-bottom:16px;">The 3D model must support all combinations below. Each element must be independently switchable.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Silhouette</strong></td>
+        <td>Salon &middot; Sport</td>
+      </tr>
+      <tr>
+        <td><strong>Door/Body Config</strong></td>
+        <td>Regular &middot; Coach Doors &middot; Cleaned &amp; Coach Doors</td>
+      </tr>
+      <tr>
+        <td><strong>Rear Seating</strong></td>
+        <td>Standard Bench &middot; Lounge Seats (individual)</td>
+      </tr>
+      <tr>
+        <td><strong>Steering Wheel</strong></td>
+        <td>Standard AMG &middot; F1-Style</td>
+      </tr>
+      <tr>
+        <td><strong>Wheels</strong></td>
+        <td>Multiple designs (HOF Disk, HOF Forged, etc.) &mdash; switchable</td>
+      </tr>
+      <tr>
+        <td><strong>Exterior Colour</strong></td>
+        <td>All body panels individually colour-assignable</td>
+      </tr>
+      <tr>
+        <td><strong>Interior Materials</strong></td>
+        <td>All surfaces individually material-assignable (leather, textile, Alcantara, carbon, metal)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TIMELINE -->
+  <h2>5. Timeline &amp; Priority</h2>
+  <p>The website is being built in parallel and requires 3D renderings for final integration. Turnaround as fast as possible. Please include estimated timeline in your quotation.</p>
+
+  <!-- TERMS -->
+  <h2>6. Commercial Terms</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Working Environment:</strong> Blender (open-source, no licence cost)</li>
+      <li><strong>IP / Ownership:</strong> Final 3D model (.blend) and all associated assets become property of HOF upon full payment</li>
+      <li><strong>Confidentiality:</strong> NDA required prior to data exchange</li>
+      <li><strong>Quotation Format:</strong> Please quote positions 1&ndash;8 as a fixed price. Positions 9&ndash;10 as separate optional line items.</li>
+    </ul>
+  </div>
+
+  <!-- CONTACT -->
+  <h2>7. Contact</h2>
+  <div class="card">
+    <p><strong>HOF Manufaktur GmbH</strong><br>
+    Atelier Sindelfingen<br><br>
+    Please direct all questions and quotations to the HOF project team.</p>
+  </div>
+
+  <p class="note" style="margin-top:40px; text-align:center; padding-top:20px; border-top:1px solid var(--border);">
+    HOF Manufaktur GmbH &middot; Confidential &middot; This document is intended for the recipient only.
+  </p>
+
+</div>
+</body>
+</html>

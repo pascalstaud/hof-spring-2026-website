@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOF — Model Identity Overview · SS26</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #fff; color: #1A1A1A; }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 48px 60px;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 32px;
+      border-bottom: 2px solid #1A1A1A;
+      margin-bottom: 40px;
+    }
+    .header-logo img { height: 36px; }
+    .header-text { text-align: right; }
+    .header-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+    }
+    .header-sub {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    /* Model Grid */
+    .models {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .model-card {
+      border: 1px solid #E5E2DC;
+      padding: 0;
+      overflow: hidden;
+    }
+    .model-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      background: #F5F4F0;
+    }
+    .model-info {
+      padding: 20px 24px 24px;
+    }
+    .model-category {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #B8926A;
+      margin-bottom: 6px;
+    }
+    .model-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      margin-bottom: 4px;
+    }
+    .model-tagline {
+      font-size: 12px;
+      font-weight: 300;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .model-detail {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-top: 1px solid #F0EEEA;
+      font-size: 11px;
+    }
+    .model-detail-label {
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: #1A1A1A;
+    }
+    .model-detail-value {
+      font-weight: 300;
+      color: #666;
+      text-align: right;
+    }
+    .model-status {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      margin-top: 12px;
+    }
+    .status-available { color: #B8926A; border: 1px solid #B8926A; }
+    .status-sold { color: #C0392B; border: 1px solid #C0392B; }
+
+    /* Bottom Row — 2 wide cards */
+    .models-bottom {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+    .model-card-wide {
+      border: 1px solid #E5E2DC;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      overflow: hidden;
+    }
+    .model-card-wide img {
+      width: 100%;
+      height: 100%;
+      min-height: 180px;
+      object-fit: cover;
+      display: block;
+      background: #F5F4F0;
+    }
+
+    /* Footer */
+    .footer-note {
+      text-align: center;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #AAA;
+      padding-top: 24px;
+      border-top: 1px solid #E5E2DC;
+    }
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .page { padding: 32px; }
+      .models { gap: 20px; }
+      .model-card img { height: 150px; }
+    }
+    @media (max-width: 900px) {
+      .models { grid-template-columns: 1fr 1fr; }
+      .models-bottom { grid-template-columns: 1fr; }
+      .model-card-wide { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-logo">
+      <img src="images/logo/hof-mark-dark.png" alt="HOF">
+    </div>
+    <div class="header-text">
+      <div class="header-title">Model Identity Overview</div>
+      <div class="header-sub">Spring Summer 2026 &middot; Confidential &middot; March 2026</div>
+    </div>
+  </div>
+
+  <!-- SS26 COLLECTION — 4 Models -->
+  <div class="models">
+
+    <!-- KINSŌ -->
+    <div class="model-card">
+      <img src="images/kinso-collection/car-side-profile.jpg" alt="Kinsō">
+      <div class="model-info">
+        <div class="model-category">Collector Model</div>
+        <div class="model-name">Kins&#333;</div>
+        <div class="model-tagline">Precision of line. Patience of observation.</div>
+        <div class="model-detail">
+          <span class="model-detail-label">Collection</span>
+          <span class="model-detail-value">Spring Summer 2026</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Silhouette</span>
+          <span class="model-detail-value">Salon &middot; Cleaned &amp; Coach Doors</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Signature</span>
+          <span class="model-detail-value">Silk Gold &amp; Aizome Blue</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Material</span>
+          <span class="model-detail-value">Botanical Jacquard</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Wheels</span>
+          <span class="model-detail-value">23" HOF Disk</span>
+        </div>
+        <span class="model-status status-available">Available</span>
+      </div>
+    </div>
+
+    <!-- TOKYO -->
+    <div class="model-card">
+      <img src="images/tokyo-collection/car-front-studio.jpg" alt="Tokyo">
+      <div class="model-info">
+        <div class="model-category">Performance Model</div>
+        <div class="model-name">Tokyo</div>
+        <div class="model-tagline">Light made solid. Fire frozen in crystal.</div>
+        <div class="model-detail">
+          <span class="model-detail-label">Collection</span>
+          <span class="model-detail-value">Spring Summer 2026</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Silhouette</span>
+          <span class="model-detail-value">Sport &middot; Regular</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Signature</span>
+          <span class="model-detail-value">Silver &amp; Amber-Orange</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Material</span>
+          <span class="model-detail-value">Cast Crystal Resin (Edo Kiriko)</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Wheels</span>
+          <span class="model-detail-value">23" HOF Forged</span>
+        </div>
+        <span class="model-status status-available">Available</span>
+      </div>
+    </div>
+
+    <!-- NOTAN -->
+    <div class="model-card">
+      <img src="images/notan-collection/HOF_SS26_026.jpg" alt="Notan">
+      <div class="model-info">
+        <div class="model-category">Seasonal Model</div>
+        <div class="model-name">Notan</div>
+        <div class="model-tagline">Two tones. One conversation.</div>
+        <div class="model-detail">
+          <span class="model-detail-label">Collection</span>
+          <span class="model-detail-value">Spring Summer 2026</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Silhouette</span>
+          <span class="model-detail-value">TBD</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Signature</span>
+          <span class="model-detail-value">Two-Tone Compositions</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Material</span>
+          <span class="model-detail-value">Karbonium (Coloured Carbon)</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Wheels</span>
+          <span class="model-detail-value">23" HOF Forged</span>
+        </div>
+        <span class="model-status status-available">Available</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MA — Full Width -->
+  <div class="models" style="grid-template-columns: 1fr 1fr 1fr;">
+    <div class="model-card">
+      <img src="images/ma-collection/car-front-34.jpg" alt="Ma">
+      <div class="model-info">
+        <div class="model-category">Essence Model</div>
+        <div class="model-name">Ma</div>
+        <div class="model-tagline">A room you've always known but never found.</div>
+        <div class="model-detail">
+          <span class="model-detail-label">Collection</span>
+          <span class="model-detail-value">Spring Summer 2026</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Silhouette</span>
+          <span class="model-detail-value">Salon &middot; Regular</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Signature</span>
+          <span class="model-detail-value">All Silver</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Material</span>
+          <span class="model-detail-value">Boucl&eacute; &amp; Metallic Leather</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Wheels</span>
+          <span class="model-detail-value">23" HOF Disk</span>
+        </div>
+        <span class="model-status status-available">Available</span>
+      </div>
+    </div>
+
+    <!-- SIR CLASS -->
+    <div class="model-card">
+      <img src="images/sir-class/hero-34-front-web.jpg" alt="Sir Class">
+      <div class="model-info">
+        <div class="model-category">Permanent Model</div>
+        <div class="model-name">Sir Class</div>
+        <div class="model-tagline">The Legacy Continues.</div>
+        <div class="model-detail">
+          <span class="model-detail-label">Collection</span>
+          <span class="model-detail-value">Permanent Collection</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Silhouette</span>
+          <span class="model-detail-value">Sport</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Signature</span>
+          <span class="model-detail-value">Silver-to-Black Shift</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Power</span>
+          <span class="model-detail-value">800 PS (standard)</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Wheels</span>
+          <span class="model-detail-value">23" HOF Forged</span>
+        </div>
+        <span class="model-status status-available">Available</span>
+      </div>
+    </div>
+
+    <!-- SIR CLASS 1063 -->
+    <div class="model-card">
+      <img src="images/sir-class/hero-front-web.jpg" alt="Sir Class 1063">
+      <div class="model-info">
+        <div class="model-category">Collector Model &middot; AW25</div>
+        <div class="model-name">Sir Class 1063</div>
+        <div class="model-tagline">Born of Victory.</div>
+        <div class="model-detail">
+          <span class="model-detail-label">Base</span>
+          <span class="model-detail-value">W463 (M177)</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Signature</span>
+          <span class="model-detail-value">Racing Green &amp; White</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Power</span>
+          <span class="model-detail-value">1,063 PS</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Steering</span>
+          <span class="model-detail-value">F1 Steering Wheel (standard)</span>
+        </div>
+        <div class="model-detail">
+          <span class="model-detail-label">Wheels</span>
+          <span class="model-detail-value">24" H1063 Forged</span>
+        </div>
+        <span class="model-status status-sold">Sold Out</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAMING REFERENCE -->
+  <div style="margin-top:16px; padding:20px 24px; background:#FAFAF8; border:1px solid #E5E2DC; font-size:12px; line-height:1.8;">
+    <strong style="font-size:10px; letter-spacing:3px; text-transform:uppercase;">Naming Reference</strong><br>
+    <strong>Kins&#333;</strong> (金装) &mdash; Japanese for &ldquo;golden attire.&rdquo; The art of adorning the surface to reveal the soul within.<br>
+    <strong>Tokyo</strong> (東京) &mdash; Eastern Capital. The city that never stops refining.<br>
+    <strong>Notan</strong> (濃淡) &mdash; Japanese for &ldquo;light-dark harmony.&rdquo; The interplay of intensity and restraint.<br>
+    <strong>Ma</strong> (間) &mdash; Japanese for &ldquo;negative space, the pause between.&rdquo;<br>
+    <strong>Sir Class</strong> &mdash; Tribute to Sir Lewis Hamilton. Permanent model, evolved from AW25.<br>
+    <strong>Sir Class 1063</strong> &mdash; 1,063 PS tribute to the 7&times; World Champion. Sold out.
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-note" style="margin-top:32px;">
+    HOF Manufaktur GmbH &middot; Confidential &middot; March 2026
+  </div>
+
+</div>
+</body>
+</html>

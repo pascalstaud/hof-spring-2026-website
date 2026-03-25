@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — KPI Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #FFFFFF;
+    --off-black: #1A1918;
+    --warm-gray: #8A857E;
+    --light-gray: #C4BFB8;
+    --bg-warm: #F8F6F3;
+    --border: #E8E4DF;
+    --border-light: #F0ECE7;
+    --accent: #C4A872;
+    --accent-muted: #D4C4A0;
+    --green: #5A8A5E;
+    --green-light: #E8F0E8;
+    --yellow: #B8A040;
+    --yellow-light: #F5F0E0;
+    --red: #A04040;
+    --red-light: #F5E8E8;
+    --serif: 'Cormorant Garamond', 'Georgia', serif;
+    --sans: 'DM Sans', 'General Sans', -apple-system, sans-serif;
+    --mono: 'SF Mono', 'Fira Code', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--white);
+    color: var(--off-black);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent-muted); color: var(--off-black); }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    padding: 28px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .logo-mark {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--off-black);
+  }
+  .logo-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+  .logo-subtitle {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    font-weight: 500;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .header-date {
+    font-family: var(--sans);
+    font-size: 11px;
+    color: var(--warm-gray);
+    letter-spacing: 0.04em;
+  }
+  .collection-select {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--off-black);
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 8px 32px 8px 14px;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='5' viewBox='0 0 8 5' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L4 4L7 1' stroke='%238A857E' stroke-width='1'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+
+  /* ═══ NAV ═══ */
+  .nav {
+    display: flex;
+    gap: 0;
+    padding: 0 48px;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    position: sticky;
+    top: 73px;
+    background: var(--white);
+    z-index: 99;
+  }
+  .nav-item {
+    padding: 16px 24px;
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--light-gray);
+    cursor: pointer;
+    border-bottom: 1.5px solid transparent;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    font-weight: 500;
+  }
+  .nav-item:hover { color: var(--warm-gray); }
+  .nav-item.active {
+    color: var(--off-black);
+    border-bottom-color: var(--off-black);
+  }
+
+  /* ═══ MAIN ═══ */
+  .main { padding: 48px; max-width: 1440px; margin: 0 auto; }
+
+  .layer { display: none; }
+  .layer.active { display: block; }
+
+  .layer-header { margin-bottom: 48px; }
+  .layer-header h2 {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--off-black);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .layer-header p {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--warm-gray);
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ═══ NORTH STAR ═══ */
+  .north-star {
+    background: var(--bg-warm);
+    padding: 48px;
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .north-star .ns-label {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .north-star .ns-value {
+    font-family: var(--serif);
+    font-size: 64px;
+    font-weight: 300;
+    color: var(--off-black);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .north-star .ns-sub {
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .ns-sub-item .ns-sub-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    font-weight: 500;
+  }
+  .ns-sub-item .ns-sub-value {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--off-black);
+    margin-top: 4px;
+  }
+
+  /* ═══ KPI CARDS ═══ */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+  }
+  .kpi-card {
+    background: var(--white);
+    padding: 28px 32px;
+    position: relative;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+  }
+  .kpi-card.s-green::before { background: var(--green); }
+  .kpi-card.s-yellow::before { background: var(--yellow); }
+  .kpi-card.s-red::before { background: var(--red); }
+
+  .kpi-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--light-gray);
+    margin-bottom: 4px;
+  }
+  .kpi-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--off-black);
+    margin-bottom: 2px;
+    line-height: 1.3;
+  }
+  .kpi-why {
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .kpi-value-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .kpi-value {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--off-black);
+    letter-spacing: -0.02em;
+  }
+  .kpi-unit {
+    font-size: 12px;
+    color: var(--warm-gray);
+  }
+  .kpi-delta {
+    font-family: var(--sans);
+    font-size: 11px;
+    padding: 3px 10px;
+    margin-left: auto;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+  .delta-up { color: var(--green); background: var(--green-light); }
+  .delta-down { color: var(--red); background: var(--red-light); }
+  .delta-flat { color: var(--yellow); background: var(--yellow-light); }
+
+  .kpi-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--light-gray);
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    letter-spacing: 0.04em;
+  }
+  .kpi-target { color: var(--warm-gray); font-weight: 500; }
+
+  /* ═══ PROGRESS BAR ═══ */
+  .progress {
+    height: 3px;
+    background: var(--border-light);
+    margin-top: 16px;
+    overflow: hidden;
+  }
+  .progress .fill { height: 100%; transition: width 0.5s ease; }
+  .fill-g { background: var(--green); }
+  .fill-y { background: var(--yellow); }
+  .fill-r { background: var(--red); }
+
+  /* ═══ FUNNEL ═══ */
+  .funnel {
+    display: flex;
+    gap: 0;
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+  }
+  .funnel-stage {
+    flex: 1;
+    padding: 28px 20px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    background: var(--white);
+  }
+  .funnel-stage:last-child { border-right: none; }
+  .stage-num {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--light-gray);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .stage-name {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--off-black);
+    margin-bottom: 16px;
+  }
+  .stage-value {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--off-black);
+  }
+  .stage-sub {
+    font-size: 11px;
+    color: var(--warm-gray);
+    margin-top: 4px;
+  }
+  .stage-cvr {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--accent);
+    margin-top: 12px;
+    letter-spacing: 0.04em;
+    font-weight: 500;
+  }
+
+  /* ═══ TABLE ═══ */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 48px;
+    border: 1px solid var(--border);
+  }
+  .data-table th {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-align: left;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+    background: var(--bg-warm);
+  }
+  .data-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13px;
+    color: var(--off-black);
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: var(--bg-warm); }
+  .data-table .ch-name {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 400;
+  }
+  .data-table .mono {
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .verdict {
+    display: inline-block;
+    padding: 3px 12px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .v-invest { background: var(--green-light); color: var(--green); }
+  .v-maintain { background: var(--yellow-light); color: var(--yellow); }
+  .v-reduce { background: var(--red-light); color: var(--red); }
+
+  /* ═══ SIGNAL CARDS ═══ */
+  .signal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .signal-card {
+    background: var(--white);
+    padding: 28px 32px;
+  }
+  .signal-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .signal-value {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--off-black);
+  }
+  .signal-trend {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  .sparkline {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 28px;
+    margin-top: 16px;
+  }
+  .sparkline .bar {
+    flex: 1;
+    background: var(--border);
+    min-height: 2px;
+  }
+  .sparkline .bar:last-child { background: var(--off-black); }
+
+  /* ═══ SECTION DIVIDER ═══ */
+  .section-title {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    font-weight: 500;
+    margin: 48px 0 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ═══ EDITABLE ═══ */
+  .ed {
+    cursor: text;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 1px;
+    transition: all 0.2s;
+  }
+  .ed:hover { border-color: var(--accent); }
+  .ed:focus { outline: none; border-color: var(--off-black); }
+
+  /* ═══ FLAGS ═══ */
+  .flags-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .flag-card {
+    background: var(--white);
+    padding: 32px;
+  }
+  .flag-card h4 {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .flag-card.fc-green h4 { color: var(--green); }
+  .flag-card.fc-red h4 { color: var(--red); }
+  .flag-card ul { list-style: none; }
+  .flag-card li {
+    padding: 8px 0;
+    font-size: 13px;
+    color: var(--warm-gray);
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+  }
+  .flag-card li:last-child { border-bottom: none; }
+  .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot-g { background: var(--green); }
+  .dot-r { background: var(--red); }
+
+  /* ═══ VALUE STEPS ═══ */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .step {
+    background: var(--white);
+    padding: 32px 28px;
+  }
+  .step-num {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .step-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--off-black);
+    margin-bottom: 10px;
+  }
+  .step-desc {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+  }
+
+  /* ═══ MVP LIST ═══ */
+  .mvp-list { list-style: none; border: 1px solid var(--border); margin-bottom: 48px; }
+  .mvp-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13px;
+  }
+  .mvp-list li:last-child { border-bottom: none; }
+  .mvp-check {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .mvp-check.checked {
+    background: var(--off-black);
+    border-color: var(--off-black);
+  }
+  .mvp-check.checked::after {
+    content: '\2713';
+    font-size: 11px;
+    color: var(--white);
+    font-weight: 700;
+  }
+  .mvp-source {
+    margin-left: auto;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--light-gray);
+    letter-spacing: 0.04em;
+  }
+
+  /* ═══ LOG TABLE ═══ */
+  .log-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+  }
+  .log-table th {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    text-align: left;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 500;
+    background: var(--bg-warm);
+  }
+  .log-table td {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13px;
+    color: var(--warm-gray);
+  }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 680px) {
+    .header { padding: 20px 24px; }
+    .nav { padding: 0 24px; }
+    .main { padding: 32px 24px; }
+    .kpi-grid { grid-template-columns: 1fr; }
+    .signal-grid { grid-template-columns: 1fr; }
+    .funnel { flex-direction: column; }
+    .flags-grid { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .north-star .ns-sub { flex-direction: column; gap: 24px; }
+  }
+  @media (max-width: 640px) {
+    .steps { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .header, .nav { position: static; }
+    .layer { display: block !important; page-break-before: always; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<div class="header">
+  <div class="logo">
+    <div class="logo-mark">HOF</div>
+    <div class="logo-divider"></div>
+    <div class="logo-subtitle">KPI Board</div>
+  </div>
+  <div class="header-right">
+    <select class="collection-select" id="collectionSelect">
+      <option value="all">All Collections</option>
+      <option value="ss26">SS26 Prelude</option>
+      <option value="sir">Sir Class</option>
+      <option value="aw25">AW25 Sir Class 1063</option>
+    </select>
+    <div class="header-date" id="currentDate"></div>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="nav">
+  <div class="nav-item active" data-layer="executive">Executive</div>
+  <div class="nav-item" data-layer="growth">Growth Model</div>
+  <div class="nav-item" data-layer="economics">Unit Economics</div>
+  <div class="nav-item" data-layer="channels">Channels</div>
+  <div class="nav-item" data-layer="brand">Brand Signals</div>
+  <div class="nav-item" data-layer="execution">Execution</div>
+  <div class="nav-item" data-layer="investor">Investor View</div>
+  <div class="nav-item" data-layer="mvp">MVP Week 1</div>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+
+<!-- ─── EXECUTIVE ─── -->
+<div class="layer active" id="layer-executive">
+  <div class="layer-header">
+    <h2>Executive Scoreboard</h2>
+    <p>The ten numbers that tell you if HOF is growing healthy.</p>
+  </div>
+
+  <div class="north-star">
+    <div class="ns-label">North Star</div>
+    <div class="ns-value">&euro;<span class="ed" contenteditable="true">2,340,000</span></div>
+    <div style="font-size:12px; color:var(--warm-gray); margin-top:8px;">Revenue per Collection Drop</div>
+    <div class="ns-sub">
+      <div class="ns-sub-item">
+        <div class="ns-sub-label">Sell-Through</div>
+        <div class="ns-sub-value"><span class="ed" contenteditable="true">80</span>%</div>
+      </div>
+      <div class="ns-sub-item">
+        <div class="ns-sub-label">Days to Sell-Through</div>
+        <div class="ns-sub-value"><span class="ed" contenteditable="true">42</span></div>
+      </div>
+      <div class="ns-sub-item">
+        <div class="ns-sub-label">Collection</div>
+        <div class="ns-sub-value">SS26</div>
+      </div>
+      <div class="ns-sub-item">
+        <div class="ns-sub-label">Units</div>
+        <div class="ns-sub-value"><span class="ed" contenteditable="true">4</span> / 8</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.1</div>
+      <div class="kpi-name">Revenue MTD</div>
+      <div class="kpi-why">Invoiced vehicle sales and configuration revenue.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value">&euro;<span class="ed" contenteditable="true">890K</span></div>
+        <div class="kpi-delta delta-up">+12%</div>
+      </div>
+      <div class="progress"><div class="fill fill-g" style="width:74%"></div></div>
+      <div class="kpi-meta"><span class="kpi-target">Target: &euro;1.2M</span><span>Finance &middot; Weekly</span></div>
+    </div>
+
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.2</div>
+      <div class="kpi-name">Sell-Through Rate</div>
+      <div class="kpi-why">Demand signal in a limited-edition business.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">50</span>%</div>
+        <div class="kpi-unit">4 of 8 units</div>
+      </div>
+      <div class="progress"><div class="fill fill-g" style="width:50%"></div></div>
+      <div class="kpi-meta"><span class="kpi-target">Target: 100%</span><span>Sales &middot; Weekly</span></div>
+    </div>
+
+    <div class="kpi-card s-yellow">
+      <div class="kpi-num">1.3</div>
+      <div class="kpi-name">Days to Sell-Through</div>
+      <div class="kpi-why">Speed is brand heat. Faster means stronger demand.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">42</span></div>
+        <div class="kpi-unit">days</div>
+        <div class="kpi-delta delta-flat">&rarr; vs 38d prior</div>
+      </div>
+      <div class="kpi-meta"><span class="kpi-target">Target: decreasing</span><span>Sales &middot; Per collection</span></div>
+    </div>
+
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.4</div>
+      <div class="kpi-name">Pipeline Value</div>
+      <div class="kpi-why">What revenue is approaching.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value">&euro;<span class="ed" contenteditable="true">3.6M</span></div>
+        <div class="kpi-delta delta-up">3.2&times; coverage</div>
+      </div>
+      <div class="progress"><div class="fill fill-g" style="width:85%"></div></div>
+      <div class="kpi-meta"><span class="kpi-target">Target: &ge;3&times;</span><span>Sales &middot; Weekly</span></div>
+    </div>
+
+    <div class="kpi-card s-yellow">
+      <div class="kpi-num">1.5</div>
+      <div class="kpi-name">Qualified Inquiries</div>
+      <div class="kpi-why">People who can buy, not just browse.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">3</span></div>
+        <div class="kpi-unit">this week</div>
+        <div class="kpi-delta delta-flat">= target</div>
+      </div>
+      <div class="kpi-meta"><span class="kpi-target">Target: 3/week</span><span>Marketing + Sales &middot; Weekly</span></div>
+    </div>
+
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.6</div>
+      <div class="kpi-name">Configuration Value</div>
+      <div class="kpi-why">Depth of engagement, revenue per vehicle.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value">&euro;<span class="ed" contenteditable="true">285K</span></div>
+        <div class="kpi-delta delta-up">+8%</div>
+      </div>
+      <div class="kpi-meta"><span class="kpi-target">Target: increasing</span><span>Sales &middot; Monthly</span></div>
+    </div>
+
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.7</div>
+      <div class="kpi-name">Gross Margin</div>
+      <div class="kpi-why">Revenue without margin is vanity.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">58</span>%</div>
+        <div class="kpi-delta delta-up">+2pp</div>
+      </div>
+      <div class="progress"><div class="fill fill-g" style="width:58%"></div></div>
+      <div class="kpi-meta"><span class="kpi-target">Target: &ge;55%</span><span>Finance &middot; Monthly</span></div>
+    </div>
+
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.8</div>
+      <div class="kpi-name">Brand Demand Index</div>
+      <div class="kpi-why">Is HOF becoming more desired? Baseline = 100.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">124</span></div>
+        <div class="kpi-delta delta-up">+6 MoM</div>
+      </div>
+      <div class="kpi-meta"><span class="kpi-target">Target: upward</span><span>Marketing &middot; Monthly</span></div>
+    </div>
+
+    <div class="kpi-card s-green">
+      <div class="kpi-num">1.9</div>
+      <div class="kpi-name">Client NPS</div>
+      <div class="kpi-why">One delighted client creates three referrals.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">78</span></div>
+        <div class="kpi-delta delta-up">above target</div>
+      </div>
+      <div class="kpi-meta"><span class="kpi-target">Target: &ge;70</span><span>CEO &middot; Per delivery</span></div>
+    </div>
+
+    <div class="kpi-card s-yellow">
+      <div class="kpi-num">1.10</div>
+      <div class="kpi-name">Referral Rate</div>
+      <div class="kpi-why">The ultimate proof of brand health in UHNW.</div>
+      <div class="kpi-value-row">
+        <div class="kpi-value"><span class="ed" contenteditable="true">22</span>%</div>
+        <div class="kpi-delta delta-down">target: 30%</div>
+      </div>
+      <div class="progress"><div class="fill fill-y" style="width:73%"></div></div>
+      <div class="kpi-meta"><span class="kpi-target">Target: &ge;30%</span><span>Sales &middot; Monthly</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── GROWTH MODEL ─── -->
+<div class="layer" id="layer-growth">
+  <div class="layer-header">
+    <h2>Growth Model</h2>
+    <p>The pipeline as a value machine. Where demand originates, how it converts.</p>
+  </div>
+
+  <div class="funnel">
+    <div class="funnel-stage">
+      <div class="stage-num">Stage 1</div>
+      <div class="stage-name">Awareness</div>
+      <div class="stage-value"><span class="ed" contenteditable="true">840K</span></div>
+      <div class="stage-sub">impressions / month</div>
+      <div class="stage-cvr">&rarr; 0.4% to inquiry</div>
+    </div>
+    <div class="funnel-stage">
+      <div class="stage-num">Stage 2</div>
+      <div class="stage-name">Inquiry</div>
+      <div class="stage-value"><span class="ed" contenteditable="true">38</span></div>
+      <div class="stage-sub">total / month</div>
+      <div class="stage-cvr">&rarr; 32% qualified</div>
+    </div>
+    <div class="funnel-stage">
+      <div class="stage-num">Stage 3</div>
+      <div class="stage-name">Consideration</div>
+      <div class="stage-value"><span class="ed" contenteditable="true">12</span></div>
+      <div class="stage-sub">active opportunities</div>
+      <div class="stage-cvr">&rarr; 58% to proposal</div>
+    </div>
+    <div class="funnel-stage">
+      <div class="stage-num">Stage 4</div>
+      <div class="stage-name">Conversion</div>
+      <div class="stage-value"><span class="ed" contenteditable="true">7</span></div>
+      <div class="stage-sub">proposals sent</div>
+      <div class="stage-cvr">&rarr; 57% win rate</div>
+    </div>
+    <div class="funnel-stage">
+      <div class="stage-num">Stage 5</div>
+      <div class="stage-name">Delivery</div>
+      <div class="stage-value"><span class="ed" contenteditable="true">4</span></div>
+      <div class="stage-sub">orders signed</div>
+      <div class="stage-cvr">22% refer</div>
+    </div>
+  </div>
+
+  <div class="section-title">Pipeline Detail</div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-name">Average Deal Cycle</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">34</span></div><div class="kpi-unit">days</div></div><div class="kpi-meta"><span>Target: decreasing</span><span>Sales</span></div></div>
+    <div class="kpi-card"><div class="kpi-name">Private Viewing Rate</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">67</span>%</div></div><div class="kpi-meta"><span>Target: &ge;60%</span><span>Sales</span></div></div>
+    <div class="kpi-card"><div class="kpi-name">Inquiry Source Mix</div><div class="kpi-why" style="margin-bottom:0">Referral 22% &middot; Event 35% &middot; Organic 18% &middot; PR 15% &middot; Paid 10%</div><div class="kpi-meta"><span>Target: Referral &ge;30%</span></div></div>
+    <div class="kpi-card"><div class="kpi-name">Repeat Inquiry Rate</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">15</span>%</div></div><div class="kpi-meta"><span>Target: increasing</span><span>Sales</span></div></div>
+  </div>
+</div>
+
+<!-- ─── UNIT ECONOMICS ─── -->
+<div class="layer" id="layer-economics">
+  <div class="layer-header">
+    <h2>Unit Economics</h2>
+    <p>The investor lens. Is growth valuable, or merely expensive?</p>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi-card s-green"><div class="kpi-num">3.1</div><div class="kpi-name">Client Acquisition Cost</div><div class="kpi-why">Total marketing and sales cost per new client.</div><div class="kpi-value-row"><div class="kpi-value">&euro;<span class="ed" contenteditable="true">12,400</span></div><div class="kpi-delta delta-up">2.8% of rev</div></div><div class="kpi-meta"><span class="kpi-target">Target: &lt;5% of vehicle revenue</span><span>Monthly</span></div></div>
+    <div class="kpi-card s-green"><div class="kpi-num">3.2</div><div class="kpi-name">Revenue per Client</div><div class="kpi-why">First order: base vehicle plus configuration.</div><div class="kpi-value-row"><div class="kpi-value">&euro;<span class="ed" contenteditable="true">445K</span></div></div><div class="kpi-meta"><span>Per sale</span></div></div>
+    <div class="kpi-card s-green"><div class="kpi-num">3.3</div><div class="kpi-name">LTV:CAC</div><div class="kpi-why">Lifetime value including referral attribution.</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">36</span>:1</div><div class="kpi-delta delta-up">exceptional</div></div><div class="kpi-meta"><span class="kpi-target">Target: &ge;10:1</span><span>Quarterly</span></div></div>
+    <div class="kpi-card s-green"><div class="kpi-num">3.4</div><div class="kpi-name">Payback Period</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">Immediate</span></div></div><div class="kpi-meta"><span class="kpi-target">Target: 1st order</span><span>Monthly</span></div></div>
+    <div class="kpi-card s-green"><div class="kpi-num">3.5</div><div class="kpi-name">CM3</div><div class="kpi-why">Contribution margin after marketing and sales.</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">42</span>%</div><div class="kpi-delta delta-up">+3pp QoQ</div></div><div class="kpi-meta"><span class="kpi-target">Target: &ge;35%</span><span>Monthly</span></div></div>
+    <div class="kpi-card s-green"><div class="kpi-num">3.6</div><div class="kpi-name">MER</div><div class="kpi-why">Total revenue divided by total marketing spend.</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">28</span>&times;</div><div class="kpi-delta delta-up">above target</div></div><div class="kpi-meta"><span class="kpi-target">Target: &ge;20&times;</span><span>Monthly</span></div></div>
+    <div class="kpi-card"><div class="kpi-num">3.7</div><div class="kpi-name">Cost per Qualified Inquiry</div><div class="kpi-value-row"><div class="kpi-value">&euro;<span class="ed" contenteditable="true">2,600</span></div></div><div class="kpi-meta"><span>Referral &euro;400 &middot; Event &euro;1.8K &middot; Paid &euro;4.2K</span></div></div>
+  </div>
+</div>
+
+<!-- ─── CHANNELS ─── -->
+<div class="layer" id="layer-channels">
+  <div class="layer-header">
+    <h2>Channel Performance</h2>
+    <p>Where to invest. Where to cut. Decisions, not decoration.</p>
+  </div>
+  <table class="data-table">
+    <thead><tr><th>Channel</th><th>Inquiries</th><th>Qualified</th><th>Conversions</th><th>Revenue</th><th>Cost</th><th>CPI</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td class="ch-name">Referrals</td><td class="mono"><span class="ed" contenteditable="true">8</span></td><td class="mono"><span class="ed" contenteditable="true">7</span></td><td class="mono"><span class="ed" contenteditable="true">2</span></td><td class="mono">&euro;<span class="ed" contenteditable="true">890K</span></td><td class="mono">&euro;<span class="ed" contenteditable="true">3K</span></td><td class="mono">&euro;375</td><td><span class="verdict v-invest">Invest</span></td></tr>
+      <tr><td class="ch-name">Events</td><td class="mono"><span class="ed" contenteditable="true">14</span></td><td class="mono"><span class="ed" contenteditable="true">5</span></td><td class="mono"><span class="ed" contenteditable="true">1</span></td><td class="mono">&euro;<span class="ed" contenteditable="true">445K</span></td><td class="mono">&euro;<span class="ed" contenteditable="true">18K</span></td><td class="mono">&euro;3.6K</td><td><span class="verdict v-invest">Invest</span></td></tr>
+      <tr><td class="ch-name">PR / Earned</td><td class="mono"><span class="ed" contenteditable="true">6</span></td><td class="mono"><span class="ed" contenteditable="true">2</span></td><td class="mono"><span class="ed" contenteditable="true">1</span></td><td class="mono">&euro;<span class="ed" contenteditable="true">445K</span></td><td class="mono">&euro;<span class="ed" contenteditable="true">8K</span></td><td class="mono">&euro;4K</td><td><span class="verdict v-maintain">Maintain</span></td></tr>
+      <tr><td class="ch-name">Organic / Social</td><td class="mono"><span class="ed" contenteditable="true">7</span></td><td class="mono"><span class="ed" contenteditable="true">2</span></td><td class="mono"><span class="ed" contenteditable="true">0</span></td><td class="mono">&euro;0</td><td class="mono">&euro;<span class="ed" contenteditable="true">6K</span></td><td class="mono">&euro;3K</td><td><span class="verdict v-maintain">Maintain</span></td></tr>
+      <tr><td class="ch-name">Paid Media</td><td class="mono"><span class="ed" contenteditable="true">3</span></td><td class="mono"><span class="ed" contenteditable="true">1</span></td><td class="mono"><span class="ed" contenteditable="true">0</span></td><td class="mono">&euro;0</td><td class="mono">&euro;<span class="ed" contenteditable="true">5K</span></td><td class="mono">&euro;5K</td><td><span class="verdict v-reduce">Reduce</span></td></tr>
+      <tr><td class="ch-name">Partnerships</td><td class="mono">0</td><td class="mono">0</td><td class="mono">0</td><td class="mono">&euro;0</td><td class="mono">&euro;0</td><td class="mono">&mdash;</td><td><span class="verdict v-maintain">Build</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ─── BRAND SIGNALS ─── -->
+<div class="layer" id="layer-brand">
+  <div class="layer-header">
+    <h2>Brand &amp; Market Signals</h2>
+    <p>The moat. Is HOF becoming more desired?</p>
+  </div>
+  <div class="signal-grid">
+    <div class="signal-card"><div class="signal-label">Share of Search</div><div class="signal-value"><span class="ed" contenteditable="true">8.4</span>%</div><div class="signal-trend" style="color:var(--green);">&uarr; +1.2pp MoM</div><div style="font-size:11px;color:var(--warm-gray);margin-top:6px">vs Brabus, Mansory, luxury G-Class</div><div class="sparkline"><div class="bar" style="height:40%"></div><div class="bar" style="height:45%"></div><div class="bar" style="height:50%"></div><div class="bar" style="height:48%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:60%"></div><div class="bar" style="height:58%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:68%"></div><div class="bar" style="height:75%"></div><div class="bar" style="height:84%"></div></div></div>
+    <div class="signal-card"><div class="signal-label">Branded Search Volume</div><div class="signal-value"><span class="ed" contenteditable="true">2,400</span></div><div class="signal-trend" style="color:var(--green);">&uarr; +18% MoM</div><div class="sparkline"><div class="bar" style="height:30%"></div><div class="bar" style="height:35%"></div><div class="bar" style="height:40%"></div><div class="bar" style="height:45%"></div><div class="bar" style="height:55%"></div><div class="bar" style="height:50%"></div><div class="bar" style="height:60%"></div><div class="bar" style="height:65%"></div><div class="bar" style="height:70%"></div><div class="bar" style="height:80%"></div><div class="bar" style="height:85%"></div><div class="bar" style="height:100%"></div></div></div>
+    <div class="signal-card"><div class="signal-label">Direct Traffic Share</div><div class="signal-value"><span class="ed" contenteditable="true">34</span>%</div><div class="signal-trend" style="color:var(--green);">&uarr; +3pp QoQ</div><div style="font-size:11px;color:var(--warm-gray);margin-top:6px">People typing your URL. Pure brand recall.</div></div>
+    <div class="signal-card" style="background:var(--bg-warm)"><div class="signal-label">Waitlist Depth</div><div class="signal-value"><span class="ed" contenteditable="true">6</span></div><div style="font-size:12px;color:var(--warm-gray);margin-top:6px">vs 4 remaining units</div><div style="font-size:12px;color:var(--accent);margin-top:8px;font-weight:500">Oversubscribed. Pricing power confirmed.</div></div>
+    <div class="signal-card"><div class="signal-label">Media Quality Index</div><div class="signal-value"><span class="ed" contenteditable="true">72</span></div><div class="signal-trend" style="color:var(--green);">&uarr; +8 MoM</div><div style="font-size:11px;color:var(--warm-gray);margin-top:6px">Tier 1: 3 &middot; Tier 2: 5 &middot; Tier 3: 12</div></div>
+    <div class="signal-card"><div class="signal-label">Save + Share Rate</div><div class="signal-value"><span class="ed" contenteditable="true">4.2</span>%</div><div class="signal-trend" style="color:var(--green);">&uarr; above 3% benchmark</div><div style="font-size:11px;color:var(--warm-gray);margin-top:6px">A save is desire. A share is advocacy.</div></div>
+    <div class="signal-card"><div class="signal-label">Cultural Relevance</div><div style="font-size:13px;color:var(--warm-gray);margin-top:10px;line-height:1.6"><span class="ed" contenteditable="true" style="display:block">Robb Report feature pending. Hypebeast DM inquiry. Dubai Design Week invitation. Positioning as luxury atelier landing well in GCC press.</span></div></div>
+    <div class="signal-card"><div class="signal-label">Competitor Watch</div><div style="font-size:13px;color:var(--warm-gray);margin-top:10px;line-height:1.6"><span class="ed" contenteditable="true" style="display:block">Brabus: Rocket 900 launch. Mansory: expanding to Rolls-Royce. Neither playing the culture angle. HOF positioning remains singular.</span></div></div>
+  </div>
+</div>
+
+<!-- ─── EXECUTION ─── -->
+<div class="layer" id="layer-execution">
+  <div class="layer-header">
+    <h2>Execution</h2>
+    <p>The operating system. Without decisions, the board is decoration.</p>
+  </div>
+  <div class="section-title">Decision Log</div>
+  <table class="log-table">
+    <thead><tr><th>Date</th><th>Decision</th><th>KPI</th><th>Expected Outcome</th><th>Follow-up</th></tr></thead>
+    <tbody>
+      <tr><td class="mono"><span class="ed" contenteditable="true">2026-03-24</span></td><td><span class="ed" contenteditable="true">Launch referral program for existing clients</span></td><td><span class="ed" contenteditable="true">1.10 Referral</span></td><td><span class="ed" contenteditable="true">22% &rarr; 30% within 2 collections</span></td><td class="mono"><span class="ed" contenteditable="true">2026-04-07</span></td></tr>
+      <tr><td class="mono"><span class="ed" contenteditable="true">2026-03-24</span></td><td><span class="ed" contenteditable="true">Redirect paid media budget to events</span></td><td><span class="ed" contenteditable="true">Channel Mix</span></td><td><span class="ed" contenteditable="true">Lower CPI, higher quality inquiries</span></td><td class="mono"><span class="ed" contenteditable="true">2026-04-14</span></td></tr>
+      <tr><td class="mono"><span class="ed" contenteditable="true">&mdash;</span></td><td><span class="ed" contenteditable="true">&mdash;</span></td><td><span class="ed" contenteditable="true">&mdash;</span></td><td><span class="ed" contenteditable="true">&mdash;</span></td><td class="mono"><span class="ed" contenteditable="true">&mdash;</span></td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">Experiment Backlog</div>
+  <table class="log-table">
+    <thead><tr><th>Hypothesis</th><th>Effort</th><th>Impact</th><th>Status</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td><span class="ed" contenteditable="true">Abu Dhabi Art Week viewing converts 3+ orders</span></td><td><span class="ed" contenteditable="true">L</span></td><td><span class="ed" contenteditable="true">Pipeline +&euro;1.5M</span></td><td><span class="ed" contenteditable="true">Planned</span></td><td><span class="ed" contenteditable="true">&mdash;</span></td></tr>
+      <tr><td><span class="ed" contenteditable="true">Post-delivery video gift lifts NPS and referrals</span></td><td><span class="ed" contenteditable="true">S</span></td><td><span class="ed" contenteditable="true">NPS, Referral</span></td><td><span class="ed" contenteditable="true">Running</span></td><td><span class="ed" contenteditable="true">&mdash;</span></td></tr>
+    </tbody>
+  </table>
+  <div class="section-title">Data Quality</div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-name">Source Attribution</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">85</span>%</div></div><div class="progress"><div class="fill fill-y" style="width:85%"></div></div><div class="kpi-meta"><span>Target: 100%</span></div></div>
+    <div class="kpi-card"><div class="kpi-name">Pipeline Updated &lt;48h</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">92</span>%</div></div><div class="progress"><div class="fill fill-g" style="width:92%"></div></div><div class="kpi-meta"><span>Target: 100%</span></div></div>
+    <div class="kpi-card"><div class="kpi-name">GA4 Tracking Health</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">OK</span></div></div><div class="kpi-meta"><span>Last audit: 2026-03-15</span></div></div>
+  </div>
+</div>
+
+<!-- ─── INVESTOR ─── -->
+<div class="layer" id="layer-investor">
+  <div class="layer-header">
+    <h2>Investor Readiness</h2>
+    <p>What a family office sees in fifteen minutes.</p>
+  </div>
+  <div class="section-title">Eight charts that tell the HOF story</div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-num">01</div><div class="kpi-name">Revenue Trajectory</div><div class="kpi-value-row"><div class="kpi-value">&euro;<span class="ed" contenteditable="true">4.8M</span></div><div class="kpi-unit">YTD</div><div class="kpi-delta delta-up">+34% YoY</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">02</div><div class="kpi-name">Sell-Through Speed</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">42</span>d</div><div class="kpi-delta delta-up">&minus;6d vs prior</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">03</div><div class="kpi-name">Gross Margin</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">58</span>%</div><div class="kpi-delta delta-up">+2pp QoQ</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">04</div><div class="kpi-name">Oversubscription</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">1.5</span>&times;</div><div class="kpi-delta delta-up">pricing power</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">05</div><div class="kpi-name">Referral Mix</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">22</span>%</div><div class="kpi-delta delta-down">target: 30%</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">06</div><div class="kpi-name">Brand Demand</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">124</span></div><div class="kpi-delta delta-up">+24% from baseline</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">07</div><div class="kpi-name">Repeat Rate</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">15</span>%</div></div></div>
+    <div class="kpi-card"><div class="kpi-num">08</div><div class="kpi-name">LTV:CAC</div><div class="kpi-value-row"><div class="kpi-value"><span class="ed" contenteditable="true">36</span>:1</div><div class="kpi-delta delta-up">exceptional</div></div></div>
+  </div>
+
+  <div class="flags-grid">
+    <div class="flag-card fc-green">
+      <h4>Green Flags</h4>
+      <ul>
+        <li><div class="dot dot-g"></div>Waitlist exceeds production capacity</li>
+        <li><div class="dot dot-g"></div>Margin expanding. Pricing power proven</li>
+        <li><div class="dot dot-g"></div>Brand search volume growing +18% MoM</li>
+        <li><div class="dot dot-g"></div>NPS at 78, above luxury benchmark</li>
+        <li><div class="dot dot-g"></div>Immediate CAC payback on first order</li>
+        <li><div class="dot dot-g"></div>Cultural collaboration model is unique moat</li>
+      </ul>
+    </div>
+    <div class="flag-card fc-red">
+      <h4>Watch Items</h4>
+      <ul>
+        <li><div class="dot dot-r"></div>Referral rate at 22%, below 30% target</li>
+        <li><div class="dot dot-r"></div>Sell-through speed slightly slower than prior</li>
+        <li><div class="dot dot-r"></div>Paid media ROI weak, needs reallocation</li>
+        <li><div class="dot dot-r"></div>DACH media coverage gap</li>
+        <li><div class="dot dot-r"></div>Partnership channel not yet activated</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Value Creation Plan</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">Step 0</div><div class="step-title">Baseline</div><div class="step-desc">Document current state. This is the entry valuation benchmark.</div></div>
+    <div class="step"><div class="step-num">Step 1</div><div class="step-title">Demand Engine</div><div class="step-desc">Referral engine to 30%. Brand demand baseline. Repeatable event pipeline.</div></div>
+    <div class="step"><div class="step-num">Step 2</div><div class="step-title">Conversion</div><div class="step-desc">Configuration depth up. Sales cycle down. Conversion rates up at each stage.</div></div>
+    <div class="step"><div class="step-num">Step 3</div><div class="step-title">Scale &amp; Moat</div><div class="step-desc">Brand demand independent of spend. Waitlist exceeds production. Premium valuation.</div></div>
+  </div>
+</div>
+
+<!-- ─── MVP ─── -->
+<div class="layer" id="layer-mvp">
+  <div class="layer-header">
+    <h2>MVP Board</h2>
+    <p>Ten numbers to start tracking this week. Even with imperfect data.</p>
+  </div>
+  <ul class="mvp-list">
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Revenue MTD</strong> &mdash; Finance knows this number</span><span class="mvp-source">Finance</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Sell-Through Rate</strong> &mdash; Sales knows this</span><span class="mvp-source">CRM</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Pipeline Value</strong> &mdash; Any CRM provides this</span><span class="mvp-source">CRM</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Qualified Inquiries / Week</strong> &mdash; A manual count works</span><span class="mvp-source">Manual</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Inquiry Source Mix</strong> &mdash; Ask every prospect how they found HOF</span><span class="mvp-source">Sales</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Website Visitors</strong> &mdash; GA4</span><span class="mvp-source">GA4</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Branded Search Volume</strong> &mdash; Search Console, free</span><span class="mvp-source">GSC</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Social Engagement</strong> &mdash; Platform analytics</span><span class="mvp-source">IG / LinkedIn</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Events + Attendees</strong> &mdash; Calendar and manual count</span><span class="mvp-source">Calendar</span></li>
+    <li><div class="mvp-check" onclick="this.classList.toggle('checked')"></div><span><strong>Referral Rate</strong> &mdash; Track from Sales team</span><span class="mvp-source">Sales</span></li>
+  </ul>
+
+  <div class="section-title">Rollout</div>
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-name">Week 1</div><div class="kpi-why">Set up this board with real numbers. Estimates work.</div></div>
+    <div class="kpi-card"><div class="kpi-name">Week 2</div><div class="kpi-why">First Weekly Pulse. Thirty minutes, every Monday.</div></div>
+    <div class="kpi-card"><div class="kpi-name">Week 3</div><div class="kpi-why">Add Unit Economics and Brand Signals layers.</div></div>
+    <div class="kpi-card"><div class="kpi-name">Week 4</div><div class="kpi-why">Full board operational. First Monthly Strategy Review.</div></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const d = new Date();
+document.getElementById('currentDate').textContent = d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.layer').forEach(l => l.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('layer-' + item.dataset.layer).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+const SK = 'hof-kpi-v2';
+function save() {
+  const d = {};
+  document.querySelectorAll('.ed').forEach((e,i) => d['f'+i] = e.textContent);
+  try { localStorage.setItem(SK, JSON.stringify(d)); } catch(e) {}
+}
+function load() {
+  try {
+    const d = JSON.parse(localStorage.getItem(SK));
+    if (!d) return;
+    document.querySelectorAll('.ed').forEach((e,i) => { if (d['f'+i] !== undefined) e.textContent = d['f'+i]; });
+  } catch(e) {}
+}
+document.querySelectorAll('.ed').forEach(e => {
+  e.addEventListener('blur', save);
+  e.addEventListener('keydown', ev => { if (ev.key === 'Enter') { ev.preventDefault(); e.blur(); }});
+});
+load();
+
+document.querySelectorAll('.mvp-check').forEach((e,i) => {
+  const k = 'mvp'+i;
+  if (localStorage.getItem(k)==='true') e.classList.add('checked');
+  e.addEventListener('click', () => localStorage.setItem(k, e.classList.contains('checked')));
+});
+</script>
+</body>
+</html>

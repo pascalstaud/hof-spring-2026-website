@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Press Release: Sir Class 1063</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── Press Release Layout ── */
+.pr-hero {
+  padding: 160px 0 60px;
+  text-align: center;
+}
+.pr-hero-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 24px;
+}
+.pr-hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--dark);
+  max-width: 720px;
+  margin: 0 auto 20px;
+  letter-spacing: 0.01em;
+}
+.pr-hero-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+.pr-hero-meta span + span::before {
+  content: '\2014\00a0';
+  color: var(--gray-200);
+}
+
+.pr-body {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+.pr-body h2 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin: 48px 0 16px;
+}
+.pr-body p {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--gray-600);
+  margin-bottom: 20px;
+}
+.pr-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px;
+}
+.pr-body ul li {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--gray-600);
+  padding-left: 20px;
+  position: relative;
+}
+.pr-body ul li::before {
+  content: '\2022';
+  position: absolute;
+  left: 0;
+  color: var(--gray-300);
+}
+.pr-body .spec-table {
+  width: 100%;
+  margin: 16px 0 32px;
+  border-collapse: collapse;
+}
+.pr-body .spec-table td {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--gray-600);
+  padding: 6px 16px 6px 0;
+  vertical-align: top;
+}
+.pr-body .spec-table td:first-child {
+  font-weight: 500;
+  color: var(--gray-500);
+  white-space: nowrap;
+  width: 140px;
+}
+.pr-body blockquote {
+  margin: 24px 0;
+  padding: 0 0 0 24px;
+  border-left: 2px solid var(--gray-200);
+}
+.pr-body blockquote p {
+  font-style: italic;
+  color: var(--gray-500);
+}
+
+.pr-gallery {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+.pr-gallery-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  text-align: center;
+  margin-bottom: 32px;
+}
+.pr-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.pr-gallery-grid a {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 3 / 2;
+  background: var(--light);
+}
+.pr-gallery-grid img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.pr-gallery-grid a:hover img {
+  transform: scale(1.04);
+}
+.pr-gallery-grid a:last-child:nth-child(3n - 1) {
+  grid-column: span 1;
+}
+
+.pr-download {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  text-align: center;
+  border-top: 1px solid var(--gray-100);
+  padding-top: 48px;
+}
+.pr-download-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 20px;
+}
+.pr-download a {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin: 0 12px 8px;
+}
+.pr-download a:hover {
+  color: var(--gray-600);
+}
+
+.pr-back {
+  text-align: center;
+  padding: 0 24px 80px;
+}
+.pr-back a {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  text-decoration: none;
+  border-bottom: 1px solid var(--gray-200);
+  padding-bottom: 4px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.pr-back a:hover {
+  color: var(--dark);
+  border-color: var(--dark);
+}
+
+.pr-contact {
+  text-align: center;
+  padding: 48px 24px 80px;
+  border-top: 1px solid var(--gray-100);
+}
+.pr-contact-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 16px;
+}
+.pr-contact a {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--gray-500);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.pr-contact a:hover {
+  color: var(--dark);
+}
+
+.pr-about {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 24px 60px;
+  border-top: 1px solid var(--gray-100);
+  padding-top: 48px;
+}
+.pr-about h2 {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dark);
+  margin-bottom: 16px;
+}
+.pr-about p {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--gray-500);
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .pr-hero { padding: 120px 0 40px; }
+  .pr-gallery-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .pr-gallery-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav nav-white" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white">
+    <img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="pr-hero">
+  <div class="container">
+    <p class="pr-hero-label">Press Release</p>
+    <h1 class="pr-hero-title">HOF Launches the Strongest G-Class in the World</h1>
+    <div class="pr-hero-meta">
+      <span>5 December 2024</span>
+      <span>Abu Dhabi, UAE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<div class="pr-body">
+
+  <p>German luxury car tailor HOF launches the most powerful G-Class ever built: the HOF Sir Class. With an impressive 1,063 horsepower, this super-SUV was officially revealed ahead of the Abu Dhabi Grand Prix. The debut of the HOF Sir Class also marks the launch of the HOF brand, which has evolved from legacy car customizer HOFELE.</p>
+
+  <h2>The HOF Sir Class: Redefining the G-Class Experience</h2>
+
+  <p>The HOF Sir Class is the most powerful and fastest G-Class ever produced, an extraordinary fusion of engineering and luxury. As the first G-Class capable of surpassing 300 km/h, the HOF Sir Class is setting new standards for performance and is defining a new superlative based on the Mercedes-Benz G-Model.</p>
+
+  <p>Crafted with meticulous attention to detail, the HOF Sir Class is a true collector's piece, embodying both unparalleled performance and timeless elegance.</p>
+
+  <h2>Performance</h2>
+
+  <p>The HOF Sir Class represents the pinnacle of G-Class development and is the result of an intensive development process spanning over two years, with an investment volume in the seven-figure range. In close collaboration with leading engineers and designers, a vehicle has been created that has the potential to be born as a collector's car. The HOF Sir Class produces the comparable power output as a Mercedes-AMG Petronas Formula 1 car and also a Mercedes AMG ONE (1,063 HP). With its immense power reserves the car develops approx. 1,300 Nm of torque.</p>
+
+  <p>To achieve the enormous output HOF updates the engine with stronger pistons and rods, updated turbochargers, a reinforced transmission, newly designed airbox and a special software update.</p>
+
+  <h2>Inspiration</h2>
+
+  <p>The HOF Sir Class draws its inspiration from a pinnacle moment in motorsport history, encapsulating the essence of Formula 1's legacy within the bold form of a G-Class. Its creation was timed to perfection, aligning with the final season of one of the greatest drivers of all time, Sir Lewis Hamilton. As the 2024 Abu Dhabi Grand Prix marks the end of his extraordinary journey with Mercedes, this car stands as a tribute to a career that has surpassed all expectations.</p>
+
+  <p>The HOF Sir Class pays tribute to a legacy of legends, drawing inspiration from Mercedes' iconic racing heritage. It honors the groundbreaking achievements of Mercedes-Benz in Formula 1 and its street-legal masterpieces like the Mercedes-AMG One &ndash; continuing the tradition of pushing boundaries and redefining possibilities.</p>
+
+  <p>Every detail in its design and engineering celebrates Sir Lewis Hamilton's unparalleled impact on motorsport and his lasting influence on those who dare to dream beyond limits.</p>
+
+  <h2>Debut in Abu Dhabi</h2>
+
+  <p>The HOF Sir Class made its official debut on December 4, 2024, at an exclusive event held at Yas Links, located near the iconic Yas Marina F1 track in Abu Dhabi. This unveiling took place against the dynamic cultural backdrop of the city's renowned Formula 1 festivities.</p>
+
+  <p>The event was graced by the presence of His Highness Sheikh Khalifa bin Sultan bin Hamdan Al Nahyan as guest of honor. Amna Al Qubaisi, the UAE's first female racing driver, made history as she drove the new Sir Class onto the stage. The exclusive gathering included 50 carefully selected VIPs, media representatives, influencers, and prominent members of the UAE car community.</p>
+
+  <p>Following its premiere, the HOF Sir Class was showcased on the Yas Marina track from December 5th to 8th, as part of the Grand Prix activities.</p>
+
+  <h2>Product Details</h2>
+
+  <table class="spec-table">
+    <tr><td>Model</td><td>HOF Sir Class</td></tr>
+    <tr><td>Based on</td><td>Mercedes-AMG G 63</td></tr>
+    <tr><td>Displacement</td><td>3,982 cm&sup3;</td></tr>
+    <tr><td>Power</td><td>1,063 HP / 782 kW</td></tr>
+    <tr><td>Torque</td><td>~1,300 Nm</td></tr>
+    <tr><td>V Max</td><td>300 km/h</td></tr>
+  </table>
+
+  <p>Exterior &amp; technical highlights:</p>
+  <ul>
+    <li>HOF 1063 special fading paint finish</li>
+    <li>HOF Exclusive Body Kit in Carbon Design</li>
+    <li>HOF 23" Collection H1063 Forged Wheel with Carbon Cover</li>
+    <li>HOF Carbon Hood</li>
+    <li>HOF sports brake system with carbon-ceramic</li>
+    <li>Forged aluminum pistons</li>
+    <li>Ceramic Brakes</li>
+    <li>Coilover suspension system</li>
+    <li>HOF Carbon Sideliners</li>
+    <li>HOF 1063 Engine Compartment Cover</li>
+    <li>HOF Electric Running Boards</li>
+    <li>HOF Tailpipe Trims in Exclusive Ceramic Design</li>
+    <li>HOF Carbon Indicator Cover</li>
+    <li>Upgraded turbocharger with modified compressor geometry</li>
+    <li>Upgrade fuel pump</li>
+    <li>Aluminum airbox with conical sports air filters</li>
+  </ul>
+
+  <p>Interior highlights:</p>
+  <ul>
+    <li>F1-Inspired Design Steering Wheel</li>
+    <li>HOF High-Performance Sports Seats</li>
+    <li>HOF High End Alc&aacute;ntara/Nappa Leather Package</li>
+    <li>HOF Starry Sky Ceiling</li>
+    <li>Etienne Salom&eacute; Interior Signature</li>
+    <li>HOF High End 1063 Seat Patterns</li>
+    <li>HOF High End 1063 Safety Belts</li>
+    <li>HOF Gun Metal Interior Package</li>
+    <li>HOF Door Entry Sills Interior in Carbon</li>
+  </ul>
+
+  <h2>HOF: A New Vision for the Future</h2>
+
+  <p>The Sir Class marks the dawn of a new era for HOF being its first model to celebrate the brand's relaunch. Born from Hofele, a German-based car tailor with over 100 years of history and more than 40 years of expertise in crafting bespoke Mercedes-Benz transformations, HOF represents a bold evolution. It goes beyond car tailoring; each vehicle tells a unique and deeply personal story.</p>
+
+  <p>At the forefront of HOF's transformation is Ferdinand Peter, a visionary who deeply understands the luxury market and the desires of its discerning customers. Under his leadership, HOF embarks on a bold journey to redefine bespoke automotive excellence.</p>
+
+</div>
+
+<!-- PRESS IMAGES -->
+<div class="pr-gallery">
+  <p class="pr-gallery-label">Press Images</p>
+  <div class="pr-gallery-grid">
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_Front.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_Front.jpg" alt="HOF Sir Class — Front"></a>
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_3_4_Front.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_3_4_Front.jpg" alt="HOF Sir Class — Three Quarter Front"></a>
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_Side.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_Side.jpg" alt="HOF Sir Class — Side"></a>
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_Back.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_Back.jpg" alt="HOF Sir Class — Back"></a>
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_Cockpit.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_Cockpit.jpg" alt="HOF Sir Class — Cockpit"></a>
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_Seats.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_Seats.jpg" alt="HOF Sir Class — Seats"></a>
+    <a href="press-assets/sir-class-1063/HOF_SIRCLASS_Steering_Wheel.jpg" target="_blank"><img src="press-assets/sir-class-1063/HOF_SIRCLASS_Steering_Wheel.jpg" alt="HOF Sir Class — Steering Wheel"></a>
+  </div>
+</div>
+
+<!-- ABOUT HOF -->
+<div class="pr-about">
+  <h2>About HOF</h2>
+  <p>HOF is an exclusive German car tailor specializing in the individualization of Mercedes-Benz cars in performance and design. With over 40 years of expertise in luxury car customization and a century of craftsmanship heritage, HOF offers an end-to-end Manufaktur experience, delivering bespoke solutions of the highest quality standards. Based in Sindelfingen, Germany, every HOF creation is meticulously handcrafted in collaboration with world-class partners and suppliers, ensuring exceptional German engineering and design.</p>
+  <p>HOF's philosophy is deeply rooted in the belief that every individual deserves a reflection of their personality in the cars they drive. Guided by this principle, HOF adopts a collection-driven approach, drawing inspiration from cultural moments and societal trends. Each year, HOF unveils up to three exclusive collections, each consisting of two to four cars, with every model limited to just ten meticulously crafted pieces.</p>
+</div>
+
+<!-- DOWNLOAD -->
+<div class="pr-download">
+  <p class="pr-download-label">Downloads</p>
+  <a href="press-assets/sir-class-1063/01_HOF_Press_Release_Sir_Class.pdf" target="_blank">Press Release (PDF) &darr;</a>
+</div>
+
+<!-- PRESS CONTACT -->
+<div class="pr-contact">
+  <p class="pr-contact-label">Press Contact</p>
+  <a href="mailto:press@hof-manufaktur.com">press@hof-manufaktur.com</a>
+</div>
+
+<!-- BACK -->
+<div class="pr-back">
+  <a href="press.html">&larr; Back to News</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kins&#333;</a>
+        <a href="sir-class-new.html">Sir Class</a>
+        <a href="sir-class.html">Sir Class 1063</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

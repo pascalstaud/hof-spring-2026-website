@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Kinsō · Option C · Configurator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .back-link {
+    display: inline-block;
+    margin: 100px 0 0 0;
+    padding: 0 24px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--dark); }
+  .option-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    border: 1px solid var(--gray-200);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  /* Configurator layout */
+  .cfg-layout {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 60px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .cfg-layout { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  .cfg-main {}
+  .cfg-header {
+    margin-bottom: 40px;
+  }
+  .cfg-header h1 {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 300;
+    margin: 0 0 4px;
+  }
+  .cfg-header .cfg-live-price {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .cfg-header .cfg-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    font-weight: 300;
+    margin-top: 4px;
+  }
+
+  /* Option groups */
+  .cfg-group {
+    margin-bottom: 36px;
+  }
+  .cfg-group-title {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    margin-bottom: 12px;
+  }
+  .cfg-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .cfg-btn {
+    padding: 12px 20px;
+    border: 1px solid var(--gray-200);
+    background: #fff;
+    font-family: var(--font-sans, 'Inter', sans-serif);
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--dark);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.4;
+    text-align: left;
+  }
+  .cfg-btn:hover {
+    border-color: var(--gray-400);
+  }
+  .cfg-btn.active {
+    border-color: var(--dark);
+    border-width: 2px;
+    padding: 11px 19px;
+    font-weight: 400;
+  }
+  .cfg-btn .cfg-btn-price {
+    display: block;
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+  .cfg-btn.active .cfg-btn-price {
+    color: var(--gray-600);
+  }
+
+  /* Dependency note */
+  .cfg-dep-note {
+    font-size: 11px;
+    color: var(--accent, #8B7355);
+    margin-top: 8px;
+    font-weight: 400;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .cfg-dep-note.visible {
+    opacity: 1;
+    max-height: 40px;
+    margin-top: 8px;
+  }
+
+  /* Summary sidebar */
+  .cfg-summary {
+    border: 1px solid var(--gray-100);
+    padding: 32px 28px;
+    position: sticky;
+    top: 100px;
+  }
+  .cfg-summary h3 {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0 0 20px;
+  }
+  .cfg-summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--gray-600);
+    padding: 6px 0;
+  }
+  .cfg-summary-line.upgrade {
+    color: var(--dark);
+    font-weight: 400;
+  }
+  .cfg-summary-divider {
+    border: none;
+    border-top: 1px solid var(--gray-100);
+    margin: 12px 0;
+  }
+  .cfg-summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+    font-weight: 500;
+    padding: 4px 0;
+  }
+  .cfg-summary-footer {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  /* Car image */
+  .cfg-car-img {
+    max-width: 1100px;
+    margin: 0 auto 40px;
+    padding: 0 24px;
+  }
+  .cfg-car-img img {
+    width: 100%;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav nav-white" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white"><img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- BACK LINK -->
+<div style="height:80px"></div>
+<div style="max-width:1100px; margin:0 auto;">
+  <a href="config-compare.html" class="back-link">&larr; Back to comparison</a>
+</div>
+
+<!-- CAR IMAGE -->
+<div style="height:40px"></div>
+<div class="cfg-car-img">
+  <img src="images/kinso-collection/car-side-profile.jpg" alt="Kinsō — Silk Gold &amp; Aizome Blue">
+</div>
+
+<!-- CONFIGURATOR -->
+<div class="cfg-layout">
+  <div class="cfg-main">
+    <div class="cfg-header">
+      <span class="option-label">Option C &middot; Configurator</span>
+      <h1>Kins&#333;</h1>
+      <p class="cfg-live-price" id="livePrice">&euro;390,000</p>
+      <p class="cfg-note">* Excludes base vehicle</p>
+    </div>
+
+    <!-- Exterior -->
+    <div class="cfg-group">
+      <p class="cfg-group-title">Exterior</p>
+      <div class="cfg-options">
+        <button class="cfg-btn active" data-group="exterior" data-value="aizome" data-price="0" onclick="selectOption(this)">
+          All Aizome Blue<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="exterior" data-value="gold" data-price="0" onclick="selectOption(this)">
+          All Silk Gold<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="exterior" data-value="twotone" data-price="45000" onclick="selectOption(this)">
+          Two-Tone: Silk Gold &amp; Aizome Blue<span class="cfg-btn-price">+&euro;45,000</span>
+        </button>
+      </div>
+      <div class="cfg-dep-note" id="twoToneNote">Two-Tone requires Coach Doors — automatically selected.</div>
+    </div>
+
+    <!-- Doors & Body -->
+    <div class="cfg-group">
+      <p class="cfg-group-title">Doors &amp; Body</p>
+      <div class="cfg-options">
+        <button class="cfg-btn active" data-group="doors" data-value="regular" data-price="0" onclick="selectOption(this)">
+          Regular<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="doors" data-value="coach" data-price="85000" onclick="selectOption(this)">
+          Coach Doors<span class="cfg-btn-price">+&euro;85,000</span>
+        </button>
+        <button class="cfg-btn" data-group="doors" data-value="cleaned" data-price="120000" onclick="selectOption(this)">
+          Cleaned &amp; Coach Doors<span class="cfg-btn-price">+&euro;120,000</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Rear Seating -->
+    <div class="cfg-group">
+      <p class="cfg-group-title">Rear Seating</p>
+      <div class="cfg-options">
+        <button class="cfg-btn active" data-group="seating" data-value="bench" data-price="0" onclick="selectOption(this)">
+          Rear Bench<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="seating" data-value="lounge" data-price="35000" onclick="selectOption(this)">
+          Lounge Seats (Individual)<span class="cfg-btn-price">+&euro;35,000</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Botanical Jacquard -->
+    <div class="cfg-group">
+      <p class="cfg-group-title">Botanical Jacquard</p>
+      <div class="cfg-options">
+        <button class="cfg-btn active" data-group="jacquard" data-value="standard" data-price="0" onclick="selectOption(this)">
+          Standard<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="jacquard" data-value="extended" data-price="25000" onclick="selectOption(this)">
+          Extended (Headliner + Doors)<span class="cfg-btn-price">+&euro;25,000</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Wheels -->
+    <div class="cfg-group">
+      <p class="cfg-group-title">Wheels</p>
+      <div class="cfg-options">
+        <button class="cfg-btn active" data-group="wheels" data-value="disc" data-price="0" onclick="selectOption(this)">
+          24" HOF Disc Wheels<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="wheels" data-value="gold" data-price="8000" onclick="selectOption(this)">
+          24" HOF Gold Disc Wheels<span class="cfg-btn-price">+&euro;8,000</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Spare Wheel -->
+    <div class="cfg-group">
+      <p class="cfg-group-title">Spare Wheel</p>
+      <div class="cfg-options">
+        <button class="cfg-btn active" data-group="spare" data-value="with" data-price="0" onclick="selectOption(this)">
+          With Spare Wheel<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+        <button class="cfg-btn" data-group="spare" data-value="without" data-price="0" onclick="selectOption(this)">
+          Without (Cleaned Rear)<span class="cfg-btn-price">+&euro;0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY SIDEBAR -->
+  <div class="cfg-summary" id="summary">
+    <h3>Your Kins&#333;</h3>
+    <div class="cfg-summary-line">
+      <span>Base composition</span>
+      <span>&euro;390,000</span>
+    </div>
+    <div id="summaryUpgrades"></div>
+    <hr class="cfg-summary-divider">
+    <div class="cfg-summary-total">
+      <span>Total</span>
+      <span id="summaryTotal">&euro;390,000</span>
+    </div>
+    <p class="cfg-summary-footer">Excludes base vehicle. Each composition is completed by hand at Atelier HOF, Sindelfingen.</p>
+  </div>
+</div>
+
+<script>
+var BASE = 390000;
+var state = {
+  exterior: { value: 'aizome', price: 0, label: '' },
+  doors: { value: 'regular', price: 0, label: '' },
+  seating: { value: 'bench', price: 0, label: '' },
+  jacquard: { value: 'standard', price: 0, label: '' },
+  wheels: { value: 'disc', price: 0, label: '' },
+  spare: { value: 'with', price: 0, label: '' }
+};
+
+function formatPrice(n) {
+  return '\u20AC' + n.toLocaleString('de-DE');
+}
+
+function selectOption(btn) {
+  var group = btn.getAttribute('data-group');
+  var value = btn.getAttribute('data-value');
+  var price = parseInt(btn.getAttribute('data-price'), 10);
+
+  // Select button in group
+  var siblings = document.querySelectorAll('.cfg-btn[data-group="' + group + '"]');
+  siblings.forEach(function(s) { s.classList.remove('active'); });
+  btn.classList.add('active');
+
+  // Update state
+  var labelText = btn.textContent.replace(/\+.*/, '').trim();
+  state[group] = { value: value, price: price, label: price > 0 ? labelText : '' };
+
+  // Dependency: Two-Tone requires Coach Doors
+  var note = document.getElementById('twoToneNote');
+  if (group === 'exterior' && value === 'twotone') {
+    var doorsVal = state.doors.value;
+    if (doorsVal === 'regular') {
+      // Auto-switch to Coach Doors
+      var coachBtn = document.querySelector('.cfg-btn[data-group="doors"][data-value="coach"]');
+      if (coachBtn) {
+        document.querySelectorAll('.cfg-btn[data-group="doors"]').forEach(function(s) { s.classList.remove('active'); });
+        coachBtn.classList.add('active');
+        state.doors = { value: 'coach', price: 85000, label: 'Coach Doors' };
+      }
+      note.classList.add('visible');
+    } else {
+      note.classList.remove('visible');
+    }
+  } else if (group === 'doors' && value === 'regular') {
+    // If Two-Tone is selected and user tries Regular, keep Two-Tone note
+    if (state.exterior.value === 'twotone') {
+      // Auto-switch back to Coach Doors
+      var coachBtn2 = document.querySelector('.cfg-btn[data-group="doors"][data-value="coach"]');
+      if (coachBtn2) {
+        document.querySelectorAll('.cfg-btn[data-group="doors"]').forEach(function(s) { s.classList.remove('active'); });
+        coachBtn2.classList.add('active');
+        state.doors = { value: 'coach', price: 85000, label: 'Coach Doors' };
+      }
+      note.classList.add('visible');
+      return; // Don't recalculate with wrong state
+    } else {
+      note.classList.remove('visible');
+    }
+  } else {
+    note.classList.remove('visible');
+  }
+
+  updateSummary();
+}
+
+function updateSummary() {
+  var total = BASE;
+  var upgradeHTML = '';
+  var groups = ['exterior', 'doors', 'seating', 'jacquard', 'wheels', 'spare'];
+  var labels = {
+    exterior: 'Exterior',
+    doors: 'Doors & Body',
+    seating: 'Rear Seating',
+    jacquard: 'Botanical Jacquard',
+    wheels: 'Wheels',
+    spare: 'Spare Wheel'
+  };
+
+  groups.forEach(function(g) {
+    var s = state[g];
+    total += s.price;
+    if (s.price > 0) {
+      upgradeHTML += '<div class="cfg-summary-line upgrade"><span>' + s.label + '</span><span>+' + formatPrice(s.price) + '</span></div>';
+    }
+  });
+
+  document.getElementById('summaryUpgrades').innerHTML = upgradeHTML;
+  document.getElementById('summaryTotal').textContent = formatPrice(total);
+  document.getElementById('livePrice').innerHTML = formatPrice(total);
+}
+</script>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kinsō</a>
+        <a href="sir-class.html">Sir Class</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Kinsō · Option B · Progressive Packages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .back-link {
+    display: inline-block;
+    margin: 100px 0 0 0;
+    padding: 0 24px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--dark); }
+  .option-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    border: 1px solid var(--gray-200);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+
+  /* Package cards */
+  .pkg-section {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+  .pkg-section-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .pkg-section-header h1 {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+  .pkg-section-header p {
+    font-size: 13px;
+    color: var(--gray-500);
+    font-weight: 300;
+  }
+  .pkg-card {
+    border: 1px solid var(--gray-100);
+    padding: 36px 32px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .pkg-card:hover {
+    border-color: var(--gray-300);
+  }
+  .pkg-card.active {
+    border-color: var(--dark);
+    border-width: 2px;
+    padding: 35px 31px;
+  }
+  .pkg-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .pkg-card h3 {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0;
+  }
+  .pkg-card .pkg-price {
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+  .pkg-card .pkg-tagline {
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gray-500);
+    font-weight: 300;
+    margin: 0 0 20px;
+  }
+  .pkg-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  .pkg-card ul li {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--gray-600);
+    line-height: 2;
+    padding-left: 16px;
+    position: relative;
+  }
+  .pkg-card ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gray-200);
+  }
+  .pkg-card .pkg-upgrade {
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--accent, #8B7355);
+    padding-top: 12px;
+    border-top: 1px solid var(--gray-100);
+    line-height: 1.6;
+  }
+  .pkg-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--dark);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .pkg-card.active .pkg-badge {
+    opacity: 1;
+  }
+  .pkg-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 24px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* Car image above cards */
+  .pkg-car-img {
+    max-width: 640px;
+    margin: 0 auto 40px;
+    padding: 0 24px;
+  }
+  .pkg-car-img img {
+    width: 100%;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav nav-white" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white"><img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- BACK LINK -->
+<div style="height:80px"></div>
+<div style="max-width:640px; margin:0 auto;">
+  <a href="config-compare.html" class="back-link">&larr; Back to comparison</a>
+</div>
+
+<!-- CAR IMAGE -->
+<div style="height:40px"></div>
+<div class="pkg-car-img">
+  <img src="images/kinso-collection/car-side-profile.jpg" alt="Kinsō — Silk Gold &amp; Aizome Blue">
+</div>
+
+<!-- PACKAGE CARDS -->
+<div class="pkg-section">
+  <div class="pkg-section-header">
+    <span class="option-label">Option B &middot; Progressive Packages</span>
+    <h1>Kins&#333;</h1>
+    <p>Select your composition. Each tier builds upon the last.</p>
+  </div>
+
+  <div class="pkg-card active" onclick="selectPkg(this)">
+    <span class="pkg-badge">Selected</span>
+    <div class="pkg-card-header">
+      <h3>Package I &mdash; Kins&#333;</h3>
+      <span class="pkg-price">&euro;390,000</span>
+    </div>
+    <p class="pkg-tagline">The composition in its purest form.</p>
+    <ul>
+      <li>Single exterior colour: All Aizome Blue or All Silk Gold</li>
+      <li>Standard doors &middot; Regular body</li>
+      <li>Rear bench seating</li>
+      <li>Botanical jacquard inserts (seats &amp; centre console)</li>
+      <li>24" HOF Disc Wheels</li>
+    </ul>
+  </div>
+
+  <div class="pkg-card" onclick="selectPkg(this)">
+    <span class="pkg-badge">Selected</span>
+    <div class="pkg-card-header">
+      <h3>Package II &mdash; Kins&#333; Couture</h3>
+      <span class="pkg-price">&euro;498,000</span>
+    </div>
+    <p class="pkg-tagline">Coach Doors. Two-tone. The full silhouette.</p>
+    <ul>
+      <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
+      <li>Coach Doors (reverse-opening, centre-hinged)</li>
+      <li>Rear bench seating</li>
+      <li>Botanical jacquard &mdash; standard</li>
+      <li>24" HOF Gold Disc Wheels</li>
+    </ul>
+    <div class="pkg-upgrade">+ Two-Tone &middot; + Coach Doors &middot; + Gold Wheels</div>
+  </div>
+
+  <div class="pkg-card" onclick="selectPkg(this)">
+    <span class="pkg-badge">Selected</span>
+    <div class="pkg-card-header">
+      <h3>Package III &mdash; Kins&#333; Couture Lounge</h3>
+      <span class="pkg-price">&euro;558,000</span>
+    </div>
+    <p class="pkg-tagline">Individual seating. Extended textile. A room you enter.</p>
+    <ul>
+      <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
+      <li>Coach Doors</li>
+      <li>Lounge Seats &mdash; two individual rear seats</li>
+      <li>Extended botanical jacquard (headliner, door panels, ceiling)</li>
+      <li>24" HOF Gold Disc Wheels</li>
+    </ul>
+    <div class="pkg-upgrade">+ Lounge Seats &middot; + Extended Jacquard</div>
+  </div>
+
+  <div class="pkg-card" onclick="selectPkg(this)">
+    <span class="pkg-badge">Selected</span>
+    <div class="pkg-card-header">
+      <h3>Package IV &mdash; Kins&#333; Showcar Spec</h3>
+      <span class="pkg-price">&euro;650,000</span>
+    </div>
+    <p class="pkg-tagline">The complete vision. As shown. As intended.</p>
+    <ul>
+      <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
+      <li>Cleaned &amp; Coach Doors (bumpers removed)</li>
+      <li>Lounge Seats &mdash; two individual rear seats</li>
+      <li>Full botanical jacquard everywhere</li>
+      <li>24" HOF Gold Disc Wheels</li>
+      <li>Cleaned rear (spare wheel removed)</li>
+    </ul>
+    <div class="pkg-upgrade">The definitive Kins&#333;. The car on the cover.</div>
+  </div>
+
+  <p class="pkg-note">Prices exclude base vehicle. Each composition is completed by hand at Atelier HOF, Sindelfingen.</p>
+</div>
+
+<script>
+function selectPkg(el) {
+  document.querySelectorAll('.pkg-card').forEach(function(c) {
+    c.classList.remove('active');
+  });
+  el.classList.add('active');
+}
+</script>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kinsō</a>
+        <a href="sir-class.html">Sir Class</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HOF — Kinsō · Option A · Hermès</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .back-link {
+    display: inline-block;
+    margin: 100px 0 0 0;
+    padding: 0 24px;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--gray-500);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .back-link:hover { color: var(--dark); }
+  .option-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-400);
+    border: 1px solid var(--gray-200);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 24px;
+  }
+  .comp-item { padding:20px 0; border-bottom:1px solid var(--gray-100); cursor:pointer; transition:all 0.3s; }
+  .comp-item:first-child { border-top:1px solid var(--gray-100); }
+  .comp-item:hover .comp-name { color:var(--accent); }
+  .comp-row { display:flex; justify-content:space-between; align-items:baseline; }
+  .comp-name { font-family:var(--font-serif); font-size:17px; font-weight:300; transition:color 0.3s; }
+  .comp-price { font-size:15px; font-weight:400; letter-spacing:0.02em; }
+  .comp-sub { font-size:12px; color:var(--gray-400); margin-top:4px; font-weight:300; line-height:1.6; }
+  .comp-detail { max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+  .comp-detail-inner { padding:16px 0 4px; font-size:12px; color:var(--gray-500); line-height:1.9; }
+  .comp-item.open .comp-detail { max-height:300px; }
+  .comp-item.open .comp-name { color:var(--dark); }
+  .comp-chevron { font-size:18px; color:var(--gray-300); transition:transform 0.3s; display:inline-block; margin-left:12px; }
+  .comp-item.open .comp-chevron { transform:rotate(180deg); }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="nav nav-white" id="nav">
+  <div class="nav-left">
+    <a href="collection.html">Collections</a>
+    <a href="about.html">About</a>
+  </div>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo/hof-mark-white-40.png" alt="HOF" class="nav-logo-img white"><img src="images/logo/hof-mark-dark-40.png" alt="HOF" class="nav-logo-img dark">
+  </a>
+  <div class="nav-right">
+    <a href="press.html" class="nav-link">Press</a>
+    <a href="contact.html" class="btn btn-contact">Contact us</a>
+  </div>
+  <button class="nav-menu" id="navToggle" aria-label="Menu"><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="collection.html">Collections</a>
+  <a href="about.html">About</a>
+  <a href="press.html">Press</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<!-- BACK LINK -->
+<div style="height:80px"></div>
+<div style="max-width:1200px; margin:0 auto;">
+  <a href="config-compare.html" class="back-link">&larr; Back to comparison</a>
+</div>
+
+<!-- PRODUCT LAYOUT -->
+<section class="product-layout">
+  <div class="product-gallery">
+    <div class="product-gallery-main">
+      <img src="images/kinso-collection/car-side-profile.jpg" alt="Kinsō — Silk Gold &amp; Aizome Blue" id="mainImage">
+    </div>
+  </div>
+
+  <div class="product-info">
+    <span class="option-label">Option A &middot; Herm&egrave;s</span>
+    <p class="product-label">Collector Model &middot; SS26</p>
+    <p class="product-platform">HOF G &middot; V</p>
+    <h1 class="product-name">Kins&#333;</h1>
+
+    <p class="product-description">Kins&#333; names both the season and its defining composition. Where Japanese textile tradition meets Parisian composition. Botanical jacquard, Silk Gold, Aizome Blue.</p>
+
+    <p class="product-price" style="font-size:24px; font-weight:500; margin:24px 0 4px;">From &euro;390,000*</p>
+    <p style="font-size:11px; font-weight:300; color:var(--gray-400); margin-bottom:24px;">* Excludes base vehicle</p>
+
+    <!-- COMPOSITION SELECTOR (Hermès-style) -->
+    <div style="margin-bottom:32px;">
+
+      <div class="comp-item open" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333;<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;390,000</span>
+        </div>
+        <div class="comp-sub">Single colour &middot; Standard doors</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Aizome Blue or Silk Gold &middot; Regular doors &middot; Rear bench &middot; Botanical jacquard inserts &middot; 24" HOF Disc Wheels
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-item" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333; Couture<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;498,000</span>
+        </div>
+        <div class="comp-sub">Two-tone &middot; Coach Doors</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Silk Gold &amp; Aizome Blue two-tone &middot; Coach Doors &middot; Rear bench &middot; Botanical jacquard &middot; 24" HOF Gold Disc Wheels
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-item" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333; Couture Lounge<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;558,000</span>
+        </div>
+        <div class="comp-sub">Individual seating &middot; Extended textile</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Two-tone exterior &middot; Coach Doors &middot; Lounge Seats (individual rear) &middot; Extended botanical jacquard throughout headliner and doors &middot; 24" HOF Gold Disc Wheels
+          </div>
+        </div>
+      </div>
+
+      <div class="comp-item" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333; Showcar<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;650,000</span>
+        </div>
+        <div class="comp-sub">As shown. As intended.</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Two-tone exterior &middot; Cleaned &amp; Coach Doors &middot; Lounge Seats &middot; Full botanical jacquard &middot; 24" HOF Gold Disc Wheels &middot; Cleaned rear &middot; The complete vision
+          </div>
+        </div>
+      </div>
+
+      <p style="font-size:11px; color:var(--gray-400); margin-top:20px; line-height:1.6;">Prices exclude base vehicle. Each composition is completed by hand at Atelier HOF, Sindelfingen. Individual specifications available upon consultation.</p>
+    </div>
+
+    <script>
+    function toggleComp(el){
+      el.classList.toggle('open');
+    }
+    </script>
+
+    <div class="product-ctas">
+      <a href="contact.html" class="btn btn-dark">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-monogram"><img src="images/logo/hof-mark-white-40.png" alt="HOF"></div>
+      <h2 class="footer-headline">WRITE<br>YOUR<br>OWN<br>STORY.</h2>
+      <p class="footer-tagline-sm">Curated, Not Made.</p>
+    </div>
+    <div class="footer-subscribe">
+      <input type="email" placeholder="Enter email address">
+      <button type="button">Subscribe</button>
+    </div>
+    <div class="footer-columns">
+      <div class="footer-col">
+        <p class="footer-col-title">Cars</p>
+        <a href="product-kinso.html">Kinsō</a>
+        <a href="sir-class.html">Sir Class</a>
+        <a href="product-notan.html">Notan</a>
+        <a href="product-tokyo.html">Tokyo</a>
+        <a href="product-ma.html">Ma</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">HOF</p>
+        <a href="collection.html">Collections</a>
+        <a href="about.html">About Us</a>
+        <a href="about.html#atelier">Our Craft</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Follow Us</p>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright 2026 HOF. All rights reserved.</p>
+      <a href="#">Terms &amp; Conditions &middot; Legal Notice</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

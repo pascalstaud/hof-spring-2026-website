@@ -57,262 +57,86 @@
 
     <p class="product-description">Kinsō names both the season and its defining composition. Where Japanese textile tradition meets Parisian composition. Botanical jacquard, Silk Gold, Aizome Blue.</p>
 
-    <p class="product-price" id="configPrice" style="font-size:24px; font-weight:500; margin:24px 0 4px;">From &euro;390,000*</p>
-    <p style="font-size:12px; font-weight:300; color:var(--gray-400); margin-bottom:24px;">* Price excludes base vehicle (Mercedes-AMG G63 W465).</p>
+    <p class="product-price" style="font-size:24px; font-weight:500; margin:24px 0 4px;">From &euro;390,000*</p>
+    <p style="font-size:11px; font-weight:300; color:var(--gray-400); margin-bottom:24px;">* Excludes base vehicle</p>
 
-    <!-- VIEW TOGGLE -->
-    <div style="display:flex; gap:0; margin-bottom:24px; border-bottom:1px solid var(--gray-200);">
-      <button id="tabPackages" onclick="showView('packages')" style="padding:10px 20px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; border:none; background:none; color:var(--dark); cursor:pointer; border-bottom:2px solid var(--dark);">Collections</button>
-      <button id="tabConfig" onclick="showView('config')" style="padding:10px 20px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; border:none; background:none; color:var(--gray-400); cursor:pointer; border-bottom:2px solid transparent;">Configure</button>
-    </div>
-    <script>
-    function showView(v){
-      document.getElementById('kinsoPackages').style.display = v==='packages' ? 'block' : 'none';
-      document.getElementById('kinsoConfig').style.display = v==='config' ? 'block' : 'none';
-      document.getElementById('tabPackages').style.borderBottomColor = v==='packages' ? 'var(--dark)' : 'transparent';
-      document.getElementById('tabPackages').style.color = v==='packages' ? 'var(--dark)' : 'var(--gray-400)';
-      document.getElementById('tabConfig').style.borderBottomColor = v==='config' ? 'var(--dark)' : 'transparent';
-      document.getElementById('tabConfig').style.color = v==='config' ? 'var(--dark)' : 'var(--gray-400)';
-    }
-    </script>
-
-    <!-- PACKAGES VIEW (Rolex-style) -->
-    <div id="kinsoPackages" style="margin-bottom:28px;">
+    <!-- COMPOSITION SELECTOR (Hermès-style) -->
+    <div style="margin-bottom:32px;">
       <style>
-        .pkg-card { border:1px solid var(--gray-200); padding:24px; margin-bottom:12px; cursor:pointer; transition:all 0.3s; position:relative; }
-        .pkg-card:hover { border-color:var(--dark); }
-        .pkg-card.pkg-active { border-color:var(--dark); border-width:2px; }
-        .pkg-card.pkg-active::after { content:'Selected'; position:absolute; top:12px; right:16px; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); }
-        .pkg-name { font-family:var(--font-serif); font-size:20px; font-weight:300; margin-bottom:2px; }
-        .pkg-price { font-size:18px; font-weight:500; margin-bottom:12px; }
-        .pkg-tagline { font-size:13px; font-style:italic; color:var(--gray-500); margin-bottom:16px; }
-        .pkg-features { list-style:none; padding:0; margin:0; }
-        .pkg-features li { font-size:12px; line-height:1.8; color:var(--gray-600); padding-left:16px; position:relative; }
-        .pkg-features li::before { content:''; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--gray-300); }
-        .pkg-card.pkg-active .pkg-features li::before { background:var(--accent); }
-        .pkg-upgrade { font-size:11px; color:var(--accent); font-weight:500; letter-spacing:0.06em; margin-top:12px; padding-top:12px; border-top:1px solid var(--gray-100); }
+        .comp-item { padding:20px 0; border-bottom:1px solid var(--gray-100); cursor:pointer; transition:all 0.3s; }
+        .comp-item:first-child { border-top:1px solid var(--gray-100); }
+        .comp-item:hover .comp-name { color:var(--accent); }
+        .comp-row { display:flex; justify-content:space-between; align-items:baseline; }
+        .comp-name { font-family:var(--font-serif); font-size:17px; font-weight:300; transition:color 0.3s; }
+        .comp-price { font-size:15px; font-weight:400; letter-spacing:0.02em; }
+        .comp-sub { font-size:12px; color:var(--gray-400); margin-top:4px; font-weight:300; line-height:1.6; }
+        .comp-detail { max-height:0; overflow:hidden; transition:max-height 0.4s ease; }
+        .comp-detail-inner { padding:16px 0 4px; font-size:12px; color:var(--gray-500); line-height:1.9; }
+        .comp-item.open .comp-detail { max-height:300px; }
+        .comp-item.open .comp-name { color:var(--dark); }
+        .comp-chevron { font-size:18px; color:var(--gray-300); transition:transform 0.3s; display:inline-block; margin-left:12px; }
+        .comp-item.open .comp-chevron { transform:rotate(180deg); }
       </style>
 
-      <!-- PACKAGE I — Kinsō -->
-      <div class="pkg-card pkg-active" onclick="selectPkg(this, 390000, 'Kins&#333;')">
-        <div class="pkg-name">Kins&#333;</div>
-        <div class="pkg-price">&euro;390,000*</div>
-        <div class="pkg-tagline">The composition in its purest form.</div>
-        <ul class="pkg-features">
-          <li>Single exterior colour: All Aizome Blue or All Silk Gold</li>
-          <li>Standard doors &middot; Regular body</li>
-          <li>Rear bench seating</li>
-          <li>Botanical jacquard inserts (seats &amp; centre console)</li>
-          <li>24" HOF Disc Wheels</li>
-          <li>Standard AMG steering wheel</li>
-        </ul>
+      <div class="comp-item open" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333;<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;390,000</span>
+        </div>
+        <div class="comp-sub">Single colour &middot; Standard doors</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Aizome Blue or Silk Gold &middot; Regular doors &middot; Rear bench &middot; Botanical jacquard inserts &middot; 24" HOF Disc Wheels
+          </div>
+        </div>
       </div>
 
-      <!-- PACKAGE II — Kinsō Couture -->
-      <div class="pkg-card" onclick="selectPkg(this, 498000, 'Kins&#333; Couture')">
-        <div class="pkg-name">Kins&#333; Couture</div>
-        <div class="pkg-price">&euro;498,000*</div>
-        <div class="pkg-tagline">Coach Doors. Two-tone. The full silhouette.</div>
-        <ul class="pkg-features">
-          <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
-          <li>Coach Doors (reverse-opening, centre-hinged)</li>
-          <li>Rear bench seating</li>
-          <li>Botanical jacquard &mdash; standard application</li>
-          <li>24" HOF Gold Disc Wheels</li>
-          <li>Standard AMG steering wheel</li>
-        </ul>
-        <div class="pkg-upgrade">+ Two-Tone &middot; + Coach Doors &middot; + Gold Wheels</div>
+      <div class="comp-item" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333; Couture<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;498,000</span>
+        </div>
+        <div class="comp-sub">Two-tone &middot; Coach Doors</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Silk Gold &amp; Aizome Blue two-tone &middot; Coach Doors &middot; Rear bench &middot; Botanical jacquard &middot; 24" HOF Gold Disc Wheels
+          </div>
+        </div>
       </div>
 
-      <!-- PACKAGE III — Kinsō Couture Lounge -->
-      <div class="pkg-card" onclick="selectPkg(this, 558000, 'Kins&#333; Couture Lounge')">
-        <div class="pkg-name">Kins&#333; Couture Lounge</div>
-        <div class="pkg-price">&euro;558,000*</div>
-        <div class="pkg-tagline">Individual seating. Extended textile. A room you enter.</div>
-        <ul class="pkg-features">
-          <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
-          <li>Coach Doors (reverse-opening, centre-hinged)</li>
-          <li>Lounge Seats &mdash; two individual rear seats</li>
-          <li>Extended botanical jacquard (headliner, door panels, ceiling)</li>
-          <li>24" HOF Gold Disc Wheels</li>
-          <li>Standard AMG steering wheel</li>
-        </ul>
-        <div class="pkg-upgrade">+ Lounge Seats &middot; + Extended Jacquard</div>
+      <div class="comp-item" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333; Couture Lounge<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;558,000</span>
+        </div>
+        <div class="comp-sub">Individual seating &middot; Extended textile</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Two-tone exterior &middot; Coach Doors &middot; Lounge Seats (individual rear) &middot; Extended botanical jacquard throughout headliner and doors &middot; 24" HOF Gold Disc Wheels
+          </div>
+        </div>
       </div>
 
-      <!-- PACKAGE IV — Kinsō Showcar Spec -->
-      <div class="pkg-card" onclick="selectPkg(this, 650000, 'Kins&#333; Showcar Spec')">
-        <div class="pkg-name">Kins&#333; Showcar Spec</div>
-        <div class="pkg-price">&euro;650,000*</div>
-        <div class="pkg-tagline">The complete vision. As shown. As intended.</div>
-        <ul class="pkg-features">
-          <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
-          <li>Cleaned &amp; Coach Doors (bumpers removed, cleaned surfaces)</li>
-          <li>Lounge Seats &mdash; two individual rear seats</li>
-          <li>Full botanical jacquard (headliner, doors, ceiling, trunk)</li>
-          <li>24" HOF Gold Disc Wheels</li>
-          <li>Cleaned rear (spare wheel removed)</li>
-          <li>Every detail as the atelier intended</li>
-        </ul>
-        <div class="pkg-upgrade">The definitive Kins&#333;. The car on the cover.</div>
+      <div class="comp-item" onclick="toggleComp(this)">
+        <div class="comp-row">
+          <span class="comp-name">Kins&#333; Showcar<span class="comp-chevron">&#8964;</span></span>
+          <span class="comp-price">&euro;650,000</span>
+        </div>
+        <div class="comp-sub">As shown. As intended.</div>
+        <div class="comp-detail">
+          <div class="comp-detail-inner">
+            Two-tone exterior &middot; Cleaned &amp; Coach Doors &middot; Lounge Seats &middot; Full botanical jacquard &middot; 24" HOF Gold Disc Wheels &middot; Cleaned rear &middot; The complete vision
+          </div>
+        </div>
       </div>
 
-      <p style="font-size:11px; color:var(--gray-400); margin-top:16px;">* Price excludes base vehicle (Mercedes-AMG G63 W465). Individual specifications available on request.</p>
+      <p style="font-size:11px; color:var(--gray-400); margin-top:20px; line-height:1.6;">Prices exclude base vehicle. Each composition is completed by hand at Atelier HOF, Sindelfingen. Individual specifications available upon consultation.</p>
     </div>
 
     <script>
-    function selectPkg(el, price, name){
-      document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('pkg-active'));
-      el.classList.add('pkg-active');
-      document.getElementById('configPrice').textContent = '€' + price.toLocaleString('de-DE') + '*';
+    function toggleComp(el){
+      el.classList.toggle('open');
     }
-    </script>
-
-    <!-- CONFIGURATOR (hidden by default) -->
-    <div id="kinsoConfig" style="margin-bottom:28px; display:none;">
-      <style>
-        .cfg-group { margin-bottom:20px; }
-        .cfg-label { font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray-400); margin-bottom:8px; }
-        .cfg-options { display:flex; flex-wrap:wrap; gap:6px; }
-        .cfg-btn { padding:8px 16px; font-size:12px; font-weight:400; letter-spacing:0.04em; border:1px solid var(--gray-200); background:var(--white); color:var(--dark); cursor:pointer; transition:all 0.2s; border-radius:1px; }
-        .cfg-btn:hover { border-color:var(--dark); }
-        .cfg-btn.active { background:var(--dark); color:var(--white); border-color:var(--dark); }
-        .cfg-btn.disabled { opacity:0.35; pointer-events:none; text-decoration:line-through; }
-        .cfg-note { font-size:11px; color:var(--accent); margin-top:6px; font-style:italic; display:none; }
-        .cfg-note.visible { display:block; }
-        .cfg-summary { margin-top:20px; padding:16px; background:#FAFAF8; border:1px solid var(--gray-100); font-size:12px; line-height:1.8; }
-        .cfg-summary-title { font-size:10px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--gray-400); margin-bottom:8px; }
-        .cfg-summary-row { display:flex; justify-content:space-between; }
-        .cfg-summary-row span:last-child { font-weight:500; }
-      </style>
-
-      <!-- EXTERIOR -->
-      <div class="cfg-group">
-        <div class="cfg-label">Exterior</div>
-        <div class="cfg-options" id="cfgExterior">
-          <button class="cfg-btn active" data-val="mono-blue" data-price="0">All Aizome Blue</button>
-          <button class="cfg-btn" data-val="mono-gold" data-price="0">All Silk Gold</button>
-          <button class="cfg-btn" data-val="twotone" data-price="45000" data-requires="coachDoors">Two-Tone: Silk Gold &amp; Aizome Blue</button>
-        </div>
-        <div class="cfg-note" id="twotoneNote">Two-Tone requires Coach Doors (Cleaned &amp; Coach Doors).</div>
-      </div>
-
-      <!-- DOORS / BODY -->
-      <div class="cfg-group">
-        <div class="cfg-label">Doors &amp; Body</div>
-        <div class="cfg-options" id="cfgDoors">
-          <button class="cfg-btn active" data-val="regular" data-price="0">Regular</button>
-          <button class="cfg-btn" data-val="coachDoors" data-price="85000">Coach Doors</button>
-          <button class="cfg-btn" data-val="cleanedCoach" data-price="120000">Cleaned &amp; Coach Doors</button>
-        </div>
-      </div>
-
-      <!-- REAR SEATING -->
-      <div class="cfg-group">
-        <div class="cfg-label">Rear Seating</div>
-        <div class="cfg-options" id="cfgSeats">
-          <button class="cfg-btn active" data-val="bench" data-price="0">Rear Bench</button>
-          <button class="cfg-btn" data-val="lounge" data-price="35000">Lounge Seats (Individual)</button>
-        </div>
-      </div>
-
-      <!-- INTERIOR -->
-      <div class="cfg-group">
-        <div class="cfg-label">Botanical Jacquard</div>
-        <div class="cfg-options" id="cfgJacquard">
-          <button class="cfg-btn active" data-val="standard" data-price="0">Standard</button>
-          <button class="cfg-btn" data-val="extended" data-price="25000">Extended (Headliner + Doors)</button>
-        </div>
-      </div>
-
-      <!-- WHEELS -->
-      <div class="cfg-group">
-        <div class="cfg-label">Wheels</div>
-        <div class="cfg-options" id="cfgWheels">
-          <button class="cfg-btn active" data-val="disc" data-price="0">24" HOF Disc Wheels</button>
-          <button class="cfg-btn" data-val="discGold" data-price="8000">24" HOF Gold Disc Wheels</button>
-        </div>
-      </div>
-
-      <!-- SPARE WHEEL -->
-      <div class="cfg-group">
-        <div class="cfg-label">Spare Wheel</div>
-        <div class="cfg-options" id="cfgSpare">
-          <button class="cfg-btn active" data-val="with" data-price="0">With Spare Wheel</button>
-          <button class="cfg-btn" data-val="without" data-price="0">Without (Cleaned Rear)</button>
-        </div>
-      </div>
-
-      <!-- SUMMARY -->
-      <div class="cfg-summary" id="cfgSummary">
-        <div class="cfg-summary-title">Your Composition</div>
-        <div class="cfg-summary-row"><span>Base Kinsō</span><span>&euro;390,000</span></div>
-        <div id="cfgSummaryItems"></div>
-        <div class="cfg-summary-row" style="margin-top:8px; padding-top:8px; border-top:1px solid var(--gray-200); font-weight:600;">
-          <span>Total</span><span id="cfgTotal">&euro;390,000</span>
-        </div>
-      </div>
-    </div>
-
-    <script>
-    (function(){
-      const BASE = 390000;
-      const groups = ['cfgExterior','cfgDoors','cfgSeats','cfgJacquard','cfgWheels','cfgSpare'];
-      const state = {};
-
-      function init(){
-        groups.forEach(g => {
-          const el = document.getElementById(g);
-          const btns = el.querySelectorAll('.cfg-btn');
-          btns.forEach(b => {
-            state[g] = state[g] || {val: b.dataset.val, price: parseInt(b.dataset.price||0)};
-            if(b.classList.contains('active')) state[g] = {val: b.dataset.val, price: parseInt(b.dataset.price||0)};
-            b.addEventListener('click', () => select(g, b, btns));
-          });
-        });
-        update();
-      }
-
-      function select(group, btn, btns){
-        // Two-tone requires coach doors
-        if(btn.dataset.requires === 'coachDoors'){
-          const doorState = state['cfgDoors'];
-          if(doorState.val === 'regular'){
-            // Auto-select Coach Doors
-            const doorBtns = document.getElementById('cfgDoors').querySelectorAll('.cfg-btn');
-            doorBtns.forEach(db => db.classList.remove('active'));
-            doorBtns[1].classList.add('active');
-            state['cfgDoors'] = {val:'coachDoors', price:85000};
-          }
-          document.getElementById('twotoneNote').classList.add('visible');
-          setTimeout(() => document.getElementById('twotoneNote').classList.remove('visible'), 3000);
-        }
-        btns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        state[group] = {val: btn.dataset.val, price: parseInt(btn.dataset.price||0)};
-        update();
-      }
-
-      function update(){
-        let total = BASE;
-        let items = '';
-        const labels = {cfgExterior:'Exterior',cfgDoors:'Doors & Body',cfgSeats:'Rear Seating',cfgJacquard:'Botanical Jacquard',cfgWheels:'Wheels',cfgSpare:'Spare Wheel'};
-        groups.forEach(g => {
-          const s = state[g];
-          if(s && s.price > 0){
-            total += s.price;
-            const btn = document.getElementById(g).querySelector('.cfg-btn.active');
-            items += '<div class="cfg-summary-row"><span>+ '+labels[g]+': '+(btn?btn.textContent:'')+'</span><span>€'+s.price.toLocaleString('de-DE')+'</span></div>';
-          }
-        });
-        document.getElementById('cfgSummaryItems').innerHTML = items;
-        document.getElementById('cfgTotal').textContent = '€'+total.toLocaleString('de-DE');
-        document.getElementById('configPrice').textContent = 'From €'+total.toLocaleString('de-DE')+'*';
-      }
-
-      if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-      else init();
-    })();
     </script>
 
     <!-- Craft Sheet — Accordion -->

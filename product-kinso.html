@@ -60,8 +60,116 @@
     <p class="product-price" id="configPrice" style="font-size:24px; font-weight:500; margin:24px 0 4px;">From &euro;390,000*</p>
     <p style="font-size:12px; font-weight:300; color:var(--gray-400); margin-bottom:24px;">* Price excludes base vehicle (Mercedes-AMG G63 W465).</p>
 
-    <!-- CONFIGURATOR -->
-    <div id="kinsoConfig" style="margin-bottom:28px;">
+    <!-- VIEW TOGGLE -->
+    <div style="display:flex; gap:0; margin-bottom:24px; border-bottom:1px solid var(--gray-200);">
+      <button id="tabPackages" onclick="showView('packages')" style="padding:10px 20px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; border:none; background:none; color:var(--dark); cursor:pointer; border-bottom:2px solid var(--dark);">Collections</button>
+      <button id="tabConfig" onclick="showView('config')" style="padding:10px 20px; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; border:none; background:none; color:var(--gray-400); cursor:pointer; border-bottom:2px solid transparent;">Configure</button>
+    </div>
+    <script>
+    function showView(v){
+      document.getElementById('kinsoPackages').style.display = v==='packages' ? 'block' : 'none';
+      document.getElementById('kinsoConfig').style.display = v==='config' ? 'block' : 'none';
+      document.getElementById('tabPackages').style.borderBottomColor = v==='packages' ? 'var(--dark)' : 'transparent';
+      document.getElementById('tabPackages').style.color = v==='packages' ? 'var(--dark)' : 'var(--gray-400)';
+      document.getElementById('tabConfig').style.borderBottomColor = v==='config' ? 'var(--dark)' : 'transparent';
+      document.getElementById('tabConfig').style.color = v==='config' ? 'var(--dark)' : 'var(--gray-400)';
+    }
+    </script>
+
+    <!-- PACKAGES VIEW (Rolex-style) -->
+    <div id="kinsoPackages" style="margin-bottom:28px;">
+      <style>
+        .pkg-card { border:1px solid var(--gray-200); padding:24px; margin-bottom:12px; cursor:pointer; transition:all 0.3s; position:relative; }
+        .pkg-card:hover { border-color:var(--dark); }
+        .pkg-card.pkg-active { border-color:var(--dark); border-width:2px; }
+        .pkg-card.pkg-active::after { content:'Selected'; position:absolute; top:12px; right:16px; font-size:9px; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); }
+        .pkg-name { font-family:var(--font-serif); font-size:20px; font-weight:300; margin-bottom:2px; }
+        .pkg-price { font-size:18px; font-weight:500; margin-bottom:12px; }
+        .pkg-tagline { font-size:13px; font-style:italic; color:var(--gray-500); margin-bottom:16px; }
+        .pkg-features { list-style:none; padding:0; margin:0; }
+        .pkg-features li { font-size:12px; line-height:1.8; color:var(--gray-600); padding-left:16px; position:relative; }
+        .pkg-features li::before { content:''; position:absolute; left:0; top:9px; width:6px; height:6px; border-radius:50%; background:var(--gray-300); }
+        .pkg-card.pkg-active .pkg-features li::before { background:var(--accent); }
+        .pkg-upgrade { font-size:11px; color:var(--accent); font-weight:500; letter-spacing:0.06em; margin-top:12px; padding-top:12px; border-top:1px solid var(--gray-100); }
+      </style>
+
+      <!-- PACKAGE I — Kinsō -->
+      <div class="pkg-card pkg-active" onclick="selectPkg(this, 390000, 'Kins&#333;')">
+        <div class="pkg-name">Kins&#333;</div>
+        <div class="pkg-price">&euro;390,000*</div>
+        <div class="pkg-tagline">The composition in its purest form.</div>
+        <ul class="pkg-features">
+          <li>Single exterior colour: All Aizome Blue or All Silk Gold</li>
+          <li>Standard doors &middot; Regular body</li>
+          <li>Rear bench seating</li>
+          <li>Botanical jacquard inserts (seats &amp; centre console)</li>
+          <li>24" HOF Disc Wheels</li>
+          <li>Standard AMG steering wheel</li>
+        </ul>
+      </div>
+
+      <!-- PACKAGE II — Kinsō Couture -->
+      <div class="pkg-card" onclick="selectPkg(this, 498000, 'Kins&#333; Couture')">
+        <div class="pkg-name">Kins&#333; Couture</div>
+        <div class="pkg-price">&euro;498,000*</div>
+        <div class="pkg-tagline">Coach Doors. Two-tone. The full silhouette.</div>
+        <ul class="pkg-features">
+          <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
+          <li>Coach Doors (reverse-opening, centre-hinged)</li>
+          <li>Rear bench seating</li>
+          <li>Botanical jacquard &mdash; standard application</li>
+          <li>24" HOF Gold Disc Wheels</li>
+          <li>Standard AMG steering wheel</li>
+        </ul>
+        <div class="pkg-upgrade">+ Two-Tone &middot; + Coach Doors &middot; + Gold Wheels</div>
+      </div>
+
+      <!-- PACKAGE III — Kinsō Couture Lounge -->
+      <div class="pkg-card" onclick="selectPkg(this, 558000, 'Kins&#333; Couture Lounge')">
+        <div class="pkg-name">Kins&#333; Couture Lounge</div>
+        <div class="pkg-price">&euro;558,000*</div>
+        <div class="pkg-tagline">Individual seating. Extended textile. A room you enter.</div>
+        <ul class="pkg-features">
+          <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
+          <li>Coach Doors (reverse-opening, centre-hinged)</li>
+          <li>Lounge Seats &mdash; two individual rear seats</li>
+          <li>Extended botanical jacquard (headliner, door panels, ceiling)</li>
+          <li>24" HOF Gold Disc Wheels</li>
+          <li>Standard AMG steering wheel</li>
+        </ul>
+        <div class="pkg-upgrade">+ Lounge Seats &middot; + Extended Jacquard</div>
+      </div>
+
+      <!-- PACKAGE IV — Kinsō Showcar Spec -->
+      <div class="pkg-card" onclick="selectPkg(this, 650000, 'Kins&#333; Showcar Spec')">
+        <div class="pkg-name">Kins&#333; Showcar Spec</div>
+        <div class="pkg-price">&euro;650,000*</div>
+        <div class="pkg-tagline">The complete vision. As shown. As intended.</div>
+        <ul class="pkg-features">
+          <li>Two-Tone exterior: Silk Gold &amp; Aizome Blue</li>
+          <li>Cleaned &amp; Coach Doors (bumpers removed, cleaned surfaces)</li>
+          <li>Lounge Seats &mdash; two individual rear seats</li>
+          <li>Full botanical jacquard (headliner, doors, ceiling, trunk)</li>
+          <li>24" HOF Gold Disc Wheels</li>
+          <li>Cleaned rear (spare wheel removed)</li>
+          <li>Every detail as the atelier intended</li>
+        </ul>
+        <div class="pkg-upgrade">The definitive Kins&#333;. The car on the cover.</div>
+      </div>
+
+      <p style="font-size:11px; color:var(--gray-400); margin-top:16px;">* Price excludes base vehicle (Mercedes-AMG G63 W465). Individual specifications available on request.</p>
+    </div>
+
+    <script>
+    function selectPkg(el, price, name){
+      document.querySelectorAll('.pkg-card').forEach(c => c.classList.remove('pkg-active'));
+      el.classList.add('pkg-active');
+      document.getElementById('configPrice').textContent = '€' + price.toLocaleString('de-DE') + '*';
+    }
+    </script>
+
+    <!-- CONFIGURATOR (hidden by default) -->
+    <div id="kinsoConfig" style="margin-bottom:28px; display:none;">
       <style>
         .cfg-group { margin-bottom:20px; }
         .cfg-label { font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray-400); margin-bottom:8px; }

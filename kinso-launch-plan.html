@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KINSŌ Launch Plan — HOF SS26</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+  :root {
+    --white: #FFFFFF;
+    --off-black: #1A1918;
+    --accent: #C8A96E;
+    --accent-dim: #C8A96E33;
+    --light-gray: #F5F5F5;
+    --mid-gray: #9A9A9A;
+    --dark-card: #222222;
+    --font-sans: 'Helvetica Neue', 'Arial', sans-serif;
+    --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { font-size: 16px; scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--white);
+    color: var(--off-black);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--off-black);
+    border-bottom: 1px solid #333;
+    padding: 0 3rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.5em;
+    color: var(--mid-gray);
+    font-weight: 600;
+  }
+  nav .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  nav .nav-links a {
+    color: var(--mid-gray); text-decoration: none;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  nav .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--off-black);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 8rem 6rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+  .hero .tag {
+    font-size: 0.7rem; letter-spacing: 0.5em;
+    color: var(--mid-gray); margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: var(--font-sans);
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .hero .subtitle {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .hero .date {
+    font-size: 0.8rem; letter-spacing: 0.3em;
+    color: var(--mid-gray);
+  }
+  .hero .confidential {
+    position: absolute; bottom: 2rem; left: 6rem;
+    font-size: 0.6rem; letter-spacing: 0.3em;
+    color: #555; text-transform: uppercase;
+    border-top: 1px solid #333;
+    padding-top: 0.75rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem; position: relative; }
+  section.dark { background: var(--off-black); color: var(--white); }
+  section.light { background: var(--white); color: var(--off-black); }
+  section.alt { background: var(--light-gray); color: var(--off-black); }
+
+  .section-tag {
+    font-size: 0.65rem; letter-spacing: 0.5em;
+    text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  .dark .section-tag { color: var(--mid-gray); }
+  .light .section-tag, .alt .section-tag { color: var(--accent); }
+
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .section-divider {
+    width: 60px; height: 1px;
+    background: var(--accent);
+    margin: 1.5rem 0;
+  }
+
+  .section-intro {
+    font-size: 0.95rem;
+    color: var(--mid-gray);
+    max-width: 680px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  /* ── STAT CARDS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .stat-card {
+    background: var(--light-gray);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--off-black);
+    margin-bottom: 0.25rem;
+  }
+  .stat-card .label {
+    font-size: 0.75rem; color: var(--mid-gray);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CAR CARDS ── */
+  .cars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .car-card {
+    background: var(--dark-card);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .car-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .car-card.kinso::before { background: var(--accent); }
+  .car-card.tokyo::before { background: #D4764E; }
+  .car-card.ma::before { background: #A0A0A0; }
+
+  .car-card h3 {
+    font-family: var(--font-sans);
+    font-size: 1.3rem; font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+  .car-card .car-tag {
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  .car-card.kinso .car-tag { color: var(--accent); }
+  .car-card.tokyo .car-tag { color: #D4764E; }
+  .car-card.ma .car-tag { color: #A0A0A0; }
+
+  .car-card .divider {
+    width: 40px; height: 1px;
+    background: #444;
+    margin-bottom: 1rem;
+  }
+  .car-card p {
+    font-size: 0.85rem; color: var(--mid-gray);
+    line-height: 1.6;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { margin-top: 1rem; }
+  .timeline-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    align-items: start;
+  }
+  .dark .timeline-row { border-bottom-color: #333; }
+  .timeline-row .t-date {
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  .timeline-row .t-title {
+    font-size: 0.9rem; font-weight: 600;
+  }
+  .timeline-row .t-desc {
+    font-size: 0.8rem; color: var(--mid-gray);
+  }
+  .timeline-note {
+    font-size: 0.75rem; color: var(--mid-gray);
+    font-style: italic;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+  }
+  .dark .timeline-note { border-top-color: #333; }
+
+  /* ── GANTT ── */
+  .gantt {
+    margin-top: 2rem;
+    overflow-x: auto;
+  }
+  .gantt-table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+  }
+  .gantt-table th {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    font-weight: 400;
+    padding: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    white-space: nowrap;
+  }
+  .gantt-table th:first-child { text-align: right; padding-right: 1rem; }
+  .gantt-table td {
+    padding: 0.35rem 0.25rem;
+    position: relative;
+    height: 32px;
+    vertical-align: middle;
+  }
+  .gantt-table td:first-child {
+    font-size: 0.75rem;
+    color: var(--white);
+    text-align: right;
+    padding-right: 1rem;
+    white-space: nowrap;
+    width: 180px;
+  }
+  .gantt-bar {
+    height: 20px;
+    border-radius: 2px;
+    display: block;
+  }
+
+  /* ── PRODUCTION CARDS ── */
+  .prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .prod-card {
+    background: var(--dark-card);
+    padding: 2rem;
+    position: relative;
+  }
+  .prod-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .prod-card:nth-child(1)::before { background: #9B7EC8; }
+  .prod-card:nth-child(2)::before { background: #C87E7E; }
+  .prod-card:nth-child(3)::before { background: #7EC8A0; }
+
+  .prod-card h3 {
+    font-size: 1rem; font-weight: 600; color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+  .prod-card .when {
+    font-size: 0.75rem; margin-bottom: 1rem;
+  }
+  .prod-card:nth-child(1) .when { color: #9B7EC8; }
+  .prod-card:nth-child(2) .when { color: #C87E7E; }
+  .prod-card:nth-child(3) .when { color: #7EC8A0; }
+
+  .prod-card .divider { width: 40px; height: 1px; background: #444; margin-bottom: 1rem; }
+  .prod-card p { font-size: 0.85rem; color: var(--mid-gray); line-height: 1.6; }
+
+  /* ── TWO COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .col-title {
+    font-size: 1rem; font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  .dark .col-title { color: var(--accent); }
+
+  /* ── LISTS ── */
+  .styled-list {
+    list-style: none;
+    padding: 0;
+  }
+  .styled-list li {
+    font-size: 0.85rem;
+    padding: 0.4rem 0 0.4rem 1rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .styled-list li::before {
+    content: '';
+    position: absolute; left: 0; top: 0.75rem;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .dark .styled-list li { color: #bbb; }
+  .light .styled-list li, .alt .styled-list li { color: #555; }
+
+  /* ── PILLARS ── */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .pillar-card {
+    background: var(--light-gray);
+    padding: 2rem;
+    position: relative;
+  }
+  .pillar-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+  }
+  .pillar-card h3 {
+    font-size: 0.95rem; font-weight: 600;
+    margin-bottom: 1rem; color: var(--off-black);
+  }
+  .pillar-card li { color: #555; }
+
+  /* ── PANELS ── */
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .panel {
+    background: var(--light-gray);
+    padding: 2rem;
+  }
+  .panel h3 {
+    font-size: 1rem; font-weight: 600;
+    color: var(--off-black); margin-bottom: 0.25rem;
+  }
+  .panel .panel-date {
+    font-size: 0.8rem; color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  /* ── BUDGET ── */
+  .budget-total {
+    font-family: var(--font-sans);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .budget-sub {
+    font-size: 0.8rem; color: var(--mid-gray);
+    margin-bottom: 2rem;
+  }
+  .budget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .budget-items { display: flex; flex-direction: column; gap: 0.75rem; }
+  .budget-item {
+    background: var(--dark-card);
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--accent);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.25rem;
+  }
+  .budget-item .b-amount {
+    font-size: 0.95rem; font-weight: 600; color: var(--white);
+  }
+  .budget-item .b-label {
+    font-size: 0.7rem; color: var(--accent);
+    text-align: right; align-self: center;
+  }
+  .budget-item .b-desc {
+    font-size: 0.7rem; color: var(--mid-gray);
+    grid-column: 1 / -1;
+  }
+  .budget-refs {
+    margin-top: 2rem;
+  }
+  .budget-ref {
+    font-size: 0.8rem; color: var(--mid-gray);
+    margin-bottom: 0.5rem;
+  }
+  .budget-ref strong { color: var(--accent); }
+
+  /* ── TODO COLS ── */
+  .todo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .todo-col h3 {
+    font-size: 1rem; font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  /* ── FOOTER/CLOSING ── */
+  .closing {
+    background: var(--off-black);
+    text-align: center;
+    padding: 8rem 2rem;
+    position: relative;
+  }
+  .closing::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+  }
+  .closing .logo-text {
+    font-size: 0.8rem; letter-spacing: 0.5em;
+    color: var(--mid-gray); font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  .closing .tagline {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .closing .closing-divider {
+    width: 40px; height: 1px;
+    background: var(--accent);
+    margin: 0 auto 1.5rem;
+  }
+  .closing .closing-info {
+    font-size: 0.75rem; letter-spacing: 0.2em;
+    color: var(--mid-gray);
+    margin-bottom: 0.5rem;
+  }
+  .closing .url {
+    font-size: 0.7rem; color: #555;
+    margin-top: 3rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    section { padding: 3rem 1.5rem; }
+    .hero { padding: 6rem 1.5rem 4rem; }
+    .hero .confidential { left: 1.5rem; }
+    nav { padding: 0 1.5rem; }
+    .two-col, .budget-grid, .todo-grid, .panels { grid-template-columns: 1fr; }
+    .timeline-row { grid-template-columns: 80px 1fr; }
+    .timeline-row .t-desc { grid-column: 1 / -1; }
+    nav .nav-links { display: none; }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    nav { display: none; }
+    section { padding: 2rem; break-inside: avoid; }
+    .hero { min-height: auto; padding: 3rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo">HOF</span>
+  <ul class="nav-links">
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#kollektion">Kollektion</a></li>
+    <li><a href="#timing">Timing</a></li>
+    <li><a href="#content">Content</a></li>
+    <li><a href="#event">Event</a></li>
+    <li><a href="#medien">Medien</a></li>
+    <li><a href="#budget">Budget</a></li>
+    <li><a href="#next">Next Steps</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="tag">House of Futures</div>
+  <h1>KINS&#332;</h1>
+  <div class="subtitle">Launch Plan</div>
+  <div class="date">Spring / Summer 2026</div>
+  <div class="confidential">Confidential</div>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section class="light" id="summary">
+  <div class="section-tag">Executive Summary</div>
+  <h2 class="section-title">Der Kins&#333; Launch</h2>
+  <div class="section-divider"></div>
+  <p class="section-intro">
+    Das Kins&#333; &mdash; Hauptfahrzeug der SS26 Car-Couture-Kollektion &mdash; wird am <strong>2.&nbsp;April&nbsp;2026</strong> fertiggestellt. Der Launch kombiniert Content-Produktion, eine gestaffelte KOL/Presse-Kampagne, drei gezielte Content-Produktionen und digitale Kommunikation &uuml;ber drei S&auml;ulen: klassische Medien, Influencer und KI/Maschinen.
+  </p>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="num">~83.500&nbsp;&euro;</div>
+      <div class="label">Gesamtbudget</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">20&ndash;25</div>
+      <div class="label">KOLs &amp; Medien</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">30&ndash;50&nbsp;Mio.</div>
+      <div class="label">Reach-Ziel</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">3 S&auml;ulen</div>
+      <div class="label">Presse &middot; KOLs &middot; KI</div>
+    </div>
+  </div>
+</section>
+
+<!-- KOLLEKTION -->
+<section class="dark" id="kollektion">
+  <div class="section-tag">SS26 Kollektion</div>
+  <h2 class="section-title">Car Couture &mdash; Japan meets Paris</h2>
+  <div class="section-divider"></div>
+  <p class="section-intro">
+    Drei Fahrzeuge. Japanische Handwerkskunst trifft Pariser Stil. Jede Kollektion umfasst Accessories als Teil des Lifestyles.
+  </p>
+  <div class="cars-grid">
+    <div class="car-card kinso">
+      <h3>KINS&#332;</h3>
+      <div class="car-tag">Collector Model</div>
+      <div class="divider"></div>
+      <p>Nishijin-ori Jacquard-Inspiration. 800&nbsp;PS, Vollkarbon Bodykit in Satin Gold, zweifarbiges Interieur (Creme/Dunkelblau), Coach Doors. Das Hauptfahrzeug der Kollektion.</p>
+    </div>
+    <div class="car-card tokyo">
+      <h3>TOKYO</h3>
+      <div class="car-tag">Seasonal</div>
+      <div class="divider"></div>
+      <p>Japanische Kristall- und Glaskunst. Orange Au&szlig;en, Diamant-&auml;hnliches Epoxidharz-Material im Interieur. Hinterleuchtbare Elemente.</p>
+    </div>
+    <div class="car-card ma">
+      <h3>MA</h3>
+      <div class="car-tag">Seasonal</div>
+      <div class="divider"></div>
+      <p>&bdquo;The luxury of nothing.&ldquo; Puristisches Auto mit Boucl&eacute;-Stoff und Metall-Look-Leder. Reduktion als h&ouml;chste Form.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMING CHART -->
+<section class="dark" id="timing">
+  <div class="section-tag">Timing-Chart</div>
+  <h2 class="section-title">Detaillierter Wochenplan</h2>
+  <div class="section-divider"></div>
+  <p class="section-intro">April &ndash; Mai 2026. Alle Phasen und Produktionen auf einen Blick.</p>
+
+  <div class="gantt">
+    <table class="gantt-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>KW14<br><span style="font-size:0.6rem;opacity:0.6">31.3&ndash;04.4</span></th>
+          <th>KW15<br><span style="font-size:0.6rem;opacity:0.6">07&ndash;11.4</span></th>
+          <th>KW16<br><span style="font-size:0.6rem;opacity:0.6">14&ndash;18.4</span></th>
+          <th>KW17<br><span style="font-size:0.6rem;opacity:0.6">21&ndash;25.4</span></th>
+          <th>KW18<br><span style="font-size:0.6rem;opacity:0.6">28.4&ndash;02.5</span></th>
+          <th>KW19<br><span style="font-size:0.6rem;opacity:0.6">05&ndash;09.5</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Fahrzeug fertig</td>
+          <td><span class="gantt-bar" style="background:#C8A96E;width:30%"></span></td>
+          <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Content-Produktion</td>
+          <td><span class="gantt-bar" style="background:#8B7355;width:70%;margin-left:30%"></span></td>
+          <td></td><td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td style="color:#888">Osterwoche</td>
+          <td></td>
+          <td><span class="gantt-bar" style="background:#555;width:100%"></span></td>
+          <td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>Teasing-Kampagne</td>
+          <td></td>
+          <td><span class="gantt-bar" style="background:#7B8BA3;width:50%;margin-left:50%"></span></td>
+          <td><span class="gantt-bar" style="background:#7B8BA3;width:100%"></span></td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td>KOL/Presse-Slots</td>
+          <td></td><td></td>
+          <td><span class="gantt-bar" style="background:#6B8E6B;width:100%"></span></td>
+          <td><span class="gantt-bar" style="background:#6B8E6B;width:100%"></span></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td style="color:#9B7EC8">Dennis Heyn &mdash; Paris</td>
+          <td></td>
+          <td><span class="gantt-bar" style="background:#9B7EC8;width:100%"></span></td>
+          <td></td><td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td style="color:#C87E7E">Studio Goico</td>
+          <td></td><td></td>
+          <td><span class="gantt-bar" style="background:#C87E7E;width:70%"></span></td>
+          <td></td><td></td><td></td>
+        </tr>
+        <tr>
+          <td style="color:#7EC8A0">Max Podcast Stuttgart</td>
+          <td></td><td></td><td></td>
+          <td><span class="gantt-bar" style="background:#7EC8A0;width:70%"></span></td>
+          <td></td><td></td>
+        </tr>
+        <tr>
+          <td>Vor-Komm. &amp; Full Launch</td>
+          <td></td><td></td><td></td>
+          <td><span class="gantt-bar" style="background:#A3847B;width:100%"></span></td>
+          <td><span class="gantt-bar" style="background:#A3847B;width:100%"></span></td>
+          <td><span class="gantt-bar" style="background:#A3847B;width:100%"></span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="timeline-note">
+    Achtung: Ab 20.&nbsp;April sind alle Journalisten in China &mdash; Top Gear belegt 13./14.&nbsp;Apr &mdash; Goodwood Juli zu sp&auml;t.
+  </div>
+</section>
+
+<!-- CONTENT-PRODUKTION -->
+<section class="light" id="content">
+  <div class="section-tag">Content</div>
+  <h2 class="section-title">Content-Produktion</h2>
+  <div class="section-divider"></div>
+  <p class="section-intro">3.&nbsp;&ndash;&nbsp;7.&nbsp;April 2026 &nbsp;|&nbsp; Budget: 23.000&nbsp;&euro; (3D + Content)</p>
+
+  <div class="two-col">
+    <div>
+      <ul class="styled-list">
+        <li><strong>3D-Modell Aufbereitung</strong><br>Alle Grundbilder erstellen, OEM-Qualit&auml;t. Budget: 8.000&nbsp;&euro;</li>
+        <li><strong>Foto &amp; Video &mdash; Kins&#333; physisch</strong><br>Professionelle Aufnahmen in Hohlkehle/Studio. Tokyo und Ma nur als digitale Assets.</li>
+        <li><strong>Mood Board &amp; Story</strong><br>Auto-Bilder + Kins&#333;-Bildwelt. Car-Couture-Geschichte visuell erz&auml;hlen.</li>
+        <li><strong>Accessories &amp; Lifestyle</strong><br>Jacken, Schals, Luggage-Set als Teil der Kollektion mitinszenieren.</li>
+      </ul>
+    </div>
+    <div>
+      <div style="background:var(--light-gray);padding:2rem;text-align:center">
+        <div style="font-size:0.65rem;letter-spacing:0.3em;color:var(--mid-gray);margin-bottom:1rem">CONTENT BUDGET</div>
+        <div style="font-size:2rem;font-weight:700;color:var(--off-black)">8.000&nbsp;&euro;</div>
+        <div style="font-size:0.8rem;color:var(--mid-gray);margin-bottom:1.5rem">3D-Modell &amp; Rendering</div>
+        <div style="width:60%;height:1px;background:#ddd;margin:0 auto 1.5rem"></div>
+        <div style="font-size:1.5rem;font-weight:700;color:var(--off-black)">15.000&nbsp;&euro;</div>
+        <div style="font-size:0.8rem;color:var(--mid-gray)">Content gesamt inkl. Prompting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DREI PRODUKTIONEN -->
+<section class="dark">
+  <div class="section-tag">Produktionen</div>
+  <h2 class="section-title">Drei Content-Produktionen</h2>
+  <div class="section-divider"></div>
+  <p class="section-intro">Zus&auml;tzlich zur Studio-Fotografie: drei gezielte Produktionen f&uuml;r Storytelling und Tiefe.</p>
+
+  <div class="prod-grid">
+    <div class="prod-card">
+      <h3>Dennis Heyn &mdash; Paris Story</h3>
+      <div class="when">KW15 (Osterwoche)</div>
+      <div class="divider"></div>
+      <p>Kins&#333; nach Paris transportieren. Ferdinand erz&auml;hlt die Car-Couture-Geschichte. Moderator Dennis Heyn f&uuml;hrt durch die Story: Was bedeutet Car Couture?</p>
+    </div>
+    <div class="prod-card">
+      <h3>Studio Goico &mdash; Materialit&auml;t</h3>
+      <div class="when">KW16</div>
+      <div class="divider"></div>
+      <p>Studio-Shooting aller Materialien. Perfektion, Details, Handwerkskunst. Vollkarbon, Nishijin-ori Jacquard, Leder &mdash; jedes Material einzeln fotografieren und inszenieren.</p>
+    </div>
+    <div class="prod-card">
+      <h3>Max &mdash; Podcast Stuttgart</h3>
+      <div class="when">KW17</div>
+      <div class="divider"></div>
+      <p>Hintergrund-Produktion in Podcast-Natur. Die Geschichte aus allen Richtungen erz&auml;hlen. Tiefe und Kontext f&uuml;r die Marke und die Kollektion.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EVENT-KONZEPT -->
+<section class="dark" id="event">
+  <div class="section-tag">Event-Konzept</div>
+  <h2 class="section-title">Gestaffelte Slots, nicht Massen-Event</h2>
+  <div class="section-divider"></div>
+  <p class="section-intro">&bdquo;Bespoke Product &rarr; Bespoke Experience.&ldquo; Individuelle 2&ndash;3h Slots pro KOL/Medium. 10 Tage Location.</p>
+
+  <div class="two-col">
+    <div>
+      <div class="col-title">Format</div>
+      <ul class="styled-list">
+        <li>Kins&#333; physisch in neutraler Hohlkehle/Studio</li>
+        <li>Tokyo &amp; Ma digital/virtuell pr&auml;sentieren</li>
+        <li>Materialit&auml;t &amp; Accessories zum Anfassen</li>
+        <li>Experten erkl&auml;ren Handwerkskunst</li>
+        <li>Embargo f&uuml;r kontrollierten Launch</li>
+        <li>Raum auch als Podcast-Studio nutzbar</li>
+      </ul>
+    </div>
+    <div>
+      <div class="col-title">Slot-Logik</div>
+      <ul class="styled-list">
+        <li>Morgens: Deutsche Presse (keine &Uuml;bernachtung)</li>
+        <li>Mittags: Europ&auml;er (Morgenflieger, keine &Uuml;N)</li>
+        <li>Nachmittags: Internationale KOLs</li>
+        <li>4&ndash;5 Tage KOLs/Medien + 3 Tage H&auml;ndler</li>
+        <li>Design: thematisch japanisch/Kimono</li>
+      </ul>
+    </div>
+  </div>
+  <div class="timeline-note">
+    Location-Optionen: London (int. Presse vor Ort) vs. Stuttgart/Leonberg (g&uuml;nstiger, kein Transport). &Agrave; 4.000&nbsp;&euro;/Tag.
+  </div>
+</section>
+
+<!-- KOL & MEDIEN -->
+<section class="alt" id="medien">
+  <div class="section-tag">KOL &amp; Medien</div>
+  <h2 class="section-title">Drei-S&auml;ulen-Kommunikation</h2>
+  <div class="section-divider"></div>
+
+  <div class="pillars-grid">
+    <div class="pillar-card">
+      <h3>Klassische Medien</h3>
+      <ul class="styled-list">
+        <li>Wall Street Journal, FT, Economist</li>
+        <li>Top Gear (Entertainment)</li>
+        <li>Robb Report, Ramp</li>
+        <li>Geiger &amp; Grundhofer (DPA, Autobild)</li>
+        <li>Gautam Sharma (Emirate, Saudi)</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <h3>Influencer / KOLs</h3>
+      <ul class="styled-list">
+        <li>Luxus- &amp; Auto-Influencer (int.)</li>
+        <li>Mr. Benz / Mr. Automotive</li>
+        <li>Dennis Heyn (Moderator)</li>
+        <li>Mercedes-Benz King</li>
+        <li>Produktionskosten-Zuschuss f&uuml;r Videografen</li>
+      </ul>
+    </div>
+    <div class="pillar-card">
+      <h3>KI / Maschinen</h3>
+      <ul class="styled-list">
+        <li>ChatGPT, Gemini, Claude</li>
+        <li>Andere Art der Kommunikation</li>
+        <li>Sichtbarkeit bei UHNW-Recherche</li>
+        <li>Craftsmanship-Seite f&uuml;r SEO/AI</li>
+        <li>Laufende Optimierung</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITALE KOMMUNIKATION -->
+<section class="light">
+  <div class="section-tag">Digital</div>
+  <h2 class="section-title">Digitale Kommunikation</h2>
+  <div class="section-divider"></div>
+
+  <div class="panels">
+    <div class="panel">
+      <h3>Teasing-Kampagne</h3>
+      <div class="panel-date">Ab 12. April</div>
+      <ul class="styled-list">
+        <li>Detail-Fotos kontrolliert ver&ouml;ffentlichen</li>
+        <li>Gro&szlig;e, bewusste Bilder &mdash; Spannung aufbauen</li>
+        <li>Parallel KOLs pitchen und Storys anbieten</li>
+        <li>Bilder kontrollieren, Momentum erzeugen</li>
+        <li>Zeit gewinnen f&uuml;r hochwertige KOL-Slots</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Full Launch</h3>
+      <div class="panel-date">Ab 23. April</div>
+      <ul class="styled-list">
+        <li>Social Media Vor-Kommunikation starten</li>
+        <li>Mood Board: Auto + Kins&#333;-Bildwelt</li>
+        <li>Story-Seite zum Fahrzeug auf Webseite</li>
+        <li>Teaser-Webseite live stellen</li>
+        <li>Craftsmanship-Seite: Materialien &amp; Details</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section class="dark" id="budget">
+  <div class="section-tag">Budget</div>
+  <h2 class="section-title">Kosten&uuml;bersicht</h2>
+  <div class="section-divider"></div>
+
+  <div class="budget-grid">
+    <div>
+      <div class="budget-total">~83.500&nbsp;&euro;</div>
+      <div class="budget-sub">Gesch&auml;tztes Gesamtbudget (Launch + PR + Location + SSRs)</div>
+
+      <div class="budget-refs">
+        <div class="budget-ref">Ref: <strong>Donkervoort</strong> &mdash; 100 Mio. Reach mit &lt;20k&nbsp;&euro; Budget</div>
+        <div class="budget-ref">Ref: <strong>Bugatti Tourbillon</strong> &mdash; 1,3 Mrd. Reach (erfolgreichster Launch)</div>
+      </div>
+    </div>
+    <div class="budget-items">
+      <div class="budget-item">
+        <div class="b-amount">8.000&nbsp;&euro;</div>
+        <div class="b-label">3D-Modell &amp; Rendering</div>
+        <div class="b-desc">Aufbereitung f&uuml;r alle Grundbilder</div>
+      </div>
+      <div class="budget-item">
+        <div class="b-amount">15.000&nbsp;&euro;</div>
+        <div class="b-label">Content-Produktion</div>
+        <div class="b-desc">Foto, Video, Prompting, Social Assets</div>
+      </div>
+      <div class="budget-item">
+        <div class="b-amount">5.000&ndash;6.000&nbsp;&euro;</div>
+        <div class="b-label">PR-Agentur (3 Mon.)</div>
+        <div class="b-desc">40&ndash;60h &agrave; 100&ndash;108&nbsp;&euro;, Kuratierung</div>
+      </div>
+      <div class="budget-item">
+        <div class="b-amount">10.000&ndash;12.000&nbsp;&euro;</div>
+        <div class="b-label">Reisekosten Presse</div>
+        <div class="b-desc">~400&nbsp;&euro;/Person, 20&ndash;25 KOLs</div>
+      </div>
+      <div class="budget-item">
+        <div class="b-amount">5.000&ndash;7.500&nbsp;&euro;</div>
+        <div class="b-label">Prod.-Zusch&uuml;sse</div>
+        <div class="b-desc">Videografen f&uuml;r Influencer</div>
+      </div>
+      <div class="budget-item">
+        <div class="b-amount">~40.000&nbsp;&euro;</div>
+        <div class="b-label">Location (10 Tage)</div>
+        <div class="b-desc">&agrave; 4.000&nbsp;&euro;/Tag inkl. Design &amp; Aufbau</div>
+      </div>
+      <div class="budget-item">
+        <div class="b-amount">TBD</div>
+        <div class="b-label">Accessories/SSRs</div>
+        <div class="b-desc">Jacken, Schals, Luggage f&uuml;r Kins&#333;-Kollektion</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TO-DOs -->
+<section class="light" id="todos">
+  <div class="section-tag">To-Dos</div>
+  <h2 class="section-title">Kollektion fertigstellen</h2>
+  <div class="section-divider"></div>
+
+  <div class="todo-grid">
+    <div class="todo-col">
+      <h3>Produkt &amp; Design</h3>
+      <ul class="styled-list">
+        <li>Kins&#333;: Konfiguration finalisieren (Farben, Sitze, Coach Doors, Pricing)</li>
+        <li>Tokyo: Design fertigstellen, Material-Lieferanten kl&auml;ren</li>
+        <li>Ma: Boucl&eacute;-Stoff und Metall-Look-Leder sourcing</li>
+        <li>Nota: Bicolor-Konzept fertigstellen</li>
+        <li>Accessories: Jacken, Schals &mdash; finale Designs und Lieferanten</li>
+        <li>Musterbeispiele f&uuml;r alle Materialien bereitstellen</li>
+        <li>Craftsmanship-Seite: alle Materialdetails dokumentieren</li>
+      </ul>
+    </div>
+    <div class="todo-col">
+      <h3>Showcar &amp; Event</h3>
+      <ul class="styled-list">
+        <li>Materialerfahrung im Studio: Stoffe, Carbon, Leder zum Anfassen</li>
+        <li>Bento-Box-System: Konfigurationsoptionen definieren</li>
+        <li>Webseite: Kins&#333; + Surclass live, Rest &bdquo;Coming Soon&ldquo;</li>
+        <li>Location fixieren: London vs. Stuttgart/Leonberg</li>
+        <li>Transport Kins&#333; nach Paris (Dennis-Heyn-Produktion)</li>
+        <li>Studio Goico: Detail-Shooting buchen</li>
+        <li>Podcast-Produktion mit Max in Stuttgart organisieren</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<section class="alt" id="next">
+  <div class="section-tag">Next Steps</div>
+  <h2 class="section-title">Offene Punkte &amp; Action Items</h2>
+  <div class="section-divider"></div>
+
+  <div class="todo-grid">
+    <div class="todo-col">
+      <h3>Zu kl&auml;ren</h3>
+      <ul class="styled-list">
+        <li>Location: London vs. Leonberg/Stuttgart</li>
+        <li>Gro&szlig;es Event (10 Wo.) oder gestaffelte Slots?</li>
+        <li>KOL-Shortlist kuratieren &amp; Verf&uuml;gbarkeit</li>
+        <li>Embargo-Datum festlegen</li>
+        <li>Budget-Freigabe intern</li>
+        <li>Top Gear: Vorlauf 4&ndash;6 Wo., belegt 13./14.</li>
+        <li>Location-Design: Japanisch-thematisch</li>
+      </ul>
+    </div>
+    <div class="todo-col">
+      <h3>Action Items</h3>
+      <ul class="styled-list">
+        <li>Dominik: Kalkulation &amp; PR-Vorschlag bis Mo/Di</li>
+        <li>Dominik: Timing &amp; KOL-Kuratierung starten</li>
+        <li>N&auml;chstes Gespr&auml;ch: Montag oder Dienstag</li>
+        <li>Dennis Heyn: Paris-Story koordinieren</li>
+        <li>Studio Goico: Material-Shooting buchen</li>
+        <li>3D-Modell Beauftragung starten</li>
+        <li>Teaser-Webseite n&auml;chste Woche live</li>
+        <li>Konfigurationen finalisieren (mit Ferdi)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+  <div class="logo-text">HOF</div>
+  <div class="tagline">Crafted, Not Made.</div>
+  <div class="closing-divider"></div>
+  <div class="closing-info">KINS&#332; Launch &middot; Spring/Summer 2026</div>
+  <div class="url">house-of-futures.com</div>
+</section>
+
+</body>
+</html>
